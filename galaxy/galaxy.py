@@ -11,7 +11,6 @@ class Galaxy(commands.Cog):
     async def faq(self, ctx):
         """Posts answers to frequently asked questions."""
 
-    @commands.guild_only()
     @faq.command(name="test")
     @checks.admin()
     async def faq_test(self, ctx, member: discord.Member = None):
@@ -24,7 +23,6 @@ class Galaxy(commands.Cog):
             await ctx.channel.send(embed=embed)
         await ctx.message.delete()
 
-    @commands.guild_only()
     @faq.command(name="dps")
     async def faq_dps(self, ctx, member: discord.Member = None):
         """DPS Calculations/Inaccuracy"""
@@ -47,7 +45,6 @@ class Galaxy(commands.Cog):
             await ctx.channel.send(embed=embed)
         await ctx.message.delete()
 
-    @commands.guild_only()
     @faq.command(name="ropro")
     async def faq_ropro(self, ctx, member: discord.Member = None):
         """Posts a link to RoPro"""
@@ -58,7 +55,6 @@ class Galaxy(commands.Cog):
             await ctx.channel.send(embed=embed)
         await ctx.message.delete()
 
-    @commands.guild_only()
     @faq.command(name="polaris_ranks")
     async def faq_polaris_ranks(self, ctx, member: discord.Member = None):
         """Lists required levels for certain roles."""
@@ -73,7 +69,6 @@ class Galaxy(commands.Cog):
             await ctx.channel.send(embed=embed)
         await ctx.message.delete()
 
-    @commands.guild_only()
     @faq.command(name="polaris_switch")
     @checks.admin()
     async def faq_polaris_switch(self, ctx, member: discord.Member = None):
@@ -88,7 +83,6 @@ class Galaxy(commands.Cog):
             await ctx.channel.send(embed=embed)
         await ctx.message.delete()
 
-    @commands.guild_only()
     @faq.command(name="npc_intervals")
     async def faq_npc_intervals(self, ctx, member: discord.Member = None):
         """Posts an embed containing NPC spawn intervals."""
@@ -109,7 +103,6 @@ class Galaxy(commands.Cog):
         await ctx.message.delete()
 
     @faq.command(name="linked_role")
-    @commands.guild_only()
     async def faq_linked_role(self, ctx, member: discord.Member = None):
         """Posts an embed containing FAQ about Linked Role. (WIP)"""
         embed=discord.Embed(title="WIP")
