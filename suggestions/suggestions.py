@@ -10,7 +10,7 @@ from redbot.core.bot import Red
 
 class Suggestions(commands.Cog):
     """
-    Per guild, as well as global, suggestion box voting system.
+    Adds a suggestions system.
     """
 
     __version__ = "1.7.1"
@@ -231,13 +231,15 @@ class Suggestions(commands.Cog):
     ):
         """Set the channel for approved suggestions.
 
-        If the channel is not provided, approved suggestions will not be reposted."""
+        If the channel is not provided, approved suggestions will not be reposted.
+        
+        This cannot be the same channel as denied suggestions."""
         old_channel = ctx.guild.get_channel(await self.config.guild(ctx.guild).approve_id())
         if channel:
             await self.config.guild(ctx.guild).approve_id.set(channel.id)
             if ctx.guild.get_channel(await self.config.guild(ctx.guild).approve_id()) == \
                     ctx.guild.get_channel(await self.config.guild(ctx.guild).denied_id()):
-                await ctx.send("Cannot make approved and denied the same channel!hjo8")
+                await ctx.send("Cannot make approved and denied the same channel!")
                 try:
                     await self.config.guild(ctx.guild).approve_id.set(old_channel.id)
                 except AttributeError:
@@ -253,7 +255,9 @@ class Suggestions(commands.Cog):
     ):
         """Set the channel for denied suggestions.
 
-        If the channel is not provided, denied suggestions will not be reposted."""
+        If the channel is not provided, denied suggestions will not be reposted.
+        
+        This cannot be the same channel as approved suggestions."""
         old_channel = ctx.guild.get_channel(await self.config.guild(ctx.guild).denied_id())
         if channel:
             await self.config.guild(ctx.guild).denied_id.set(channel.id)
@@ -279,7 +283,7 @@ class Suggestions(commands.Cog):
         )
         await self.config.guild(ctx.guild).same.set(same)
 
-    @suggestset.command(name="upemoji")
+    @suggestset.command(name="upvote")
     async def suggestset_upemoji(
             self, ctx: commands.Context, up_emoji: typing.Optional[discord.Emoji]
     ):
@@ -294,7 +298,7 @@ class Suggestions(commands.Cog):
             await self.config.guild(ctx.guild).up_emoji.set(up_emoji.id)
         await ctx.tick()
 
-    @suggestset.command(name="downemoji")
+    @suggestset.command(name="downvote")
     async def suggestset_downemoji(
             self, ctx: commands.Context, down_emoji: typing.Optional[discord.Emoji]
     ):
@@ -369,11 +373,11 @@ class Suggestions(commands.Cog):
 
         embed.set_footer(text="*required to function properly")
         embed.add_field(name="Same channel*:", value=str(data["same"]), inline=False)
-        embed.add_field(name="Suggest channel*:", value=suggest_channel)
+        embed.add_field(name="Suggestions channel*:", value=suggest_channel)
         embed.add_field(name="Approved channel:", value=approve_channel)
         embed.add_field(name="Denied channel:", value=reject_channel)
-        embed.add_field(name="Up emoji:", value=up_emoji)
-        embed.add_field(name="Down emoji:", value=down_emoji)
+        embed.add_field(name="Upvote:", value=up_emoji)
+        embed.add_field(name="Downvote:", value=down_emoji)
         embed.add_field(
             name=f"Delete `{ctx.clean_prefix}suggest` upon use:",
             value=data["delete_suggest"],
