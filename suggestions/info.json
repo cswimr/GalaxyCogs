@@ -1,6 +1,6 @@
 {
     "author" : ["Galaxy Development Team"],
-    "install_msg" : "Thank you for installing Suggestions!\nYou can find the source code of this cog here: https://github.com/SeaswimmerTheFsh/GalaxyCogs.\nYou can find the original source code from SauriCogs here: <https://github.com/elijabesu/SauriCogs>.",
+    "install_msg" : "Thank you for installing Suggestions!\nYou can find the source code of this cog here: https://github.com/SeaswimmerTheFsh/GalaxyCogs\nYou can find the original source code from SauriCogs here: <https://github.com/elijabesu/SauriCogs>",
     "name" : "Suggestions",
     "short" : "Simple suggestions system.",
     "description" : "Per guild suggestions system.",
