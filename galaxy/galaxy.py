@@ -4,8 +4,6 @@ import discord
 class Galaxy(commands.Cog):
     """Custom cog intended for use on the Galaxy discord server."""
 
-    __version__ = "1.0.0"
-
     def __init__(self, bot):
         self.bot = bot
 

@@ -13,8 +13,6 @@ class Suggestions(commands.Cog):
     Adds a suggestions system.
     """
 
-    __version__ = "1.0.1"
-
     def __init__(self, bot: Red):
         self.bot = bot
         self.config = Config.get_conf(
@@ -60,7 +58,7 @@ class Suggestions(commands.Cog):
 
     def format_help_for_context(self, ctx: commands.Context) -> str:
         context = super().format_help_for_context(ctx)
-        return f"{context}\n\nVersion: {self.__version__}"
+        return f"{context}"
 
     @commands.command()
     @commands.guild_only()
