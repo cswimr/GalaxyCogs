@@ -30,9 +30,9 @@ class Galaxy(commands.Cog):
         """DPS Calculations/Inaccuracy"""
         embed=discord.Embed(title="DPS Calculations", color=await self.bot.get_embed_color(None), description="The ``/info`` command (and by extention ``/shipinfo`` from Odin) misreports DPS, due to it calculating DPS disregarding the turret's type (kinetic, laser), causing it to assume the target ship is both hulled and has shield simultaneously. It also ignores turret overrides, custom reloads, and custom damage values. If you'd like to check ship stats accurately, you can either use the ``/ship`` command in this channel or you can use the [Galaxy Info Website](https://galaxy.wingysam.xyz/ships). Alternatively, to check turret stats, you can use the [Galaxy Info Turrets Page](https://galaxy.wingysam.xyz/turrets).")
         if member:
-            await ctx.send(embed=embed, content=member.mention)
+            await ctx.channel.send(embed=embed, content=member.mention)
         else:
-            await ctx.send(embed=embed)
+            await ctx.channel.send(embed=embed)
         await ctx.message.delete()
 
     @faq.command(name="links")
@@ -42,9 +42,9 @@ class Galaxy(commands.Cog):
         embed.add_field(name="Galaxy", value="[Galaxy Discord](https://discord.com/invite/robloxgalaxy)\n[Galaxy Support](https://discord.com/invite/ShWshkhYhZ)")
         embed.add_field(name="Galaxypedia", value="[Galaxypedia Website](https://robloxgalaxy.wiki/wiki/Main_Page)\n[Galaxypedia Discord](https://discord.robloxgalaxy.wiki/)")
         if member:
-            await ctx.send(embed=embed, content=member.mention)
+            await ctx.channel.send(embed=embed, content=member.mention)
         else:
-            await ctx.send(embed=embed)
+            await ctx.channel.send(embed=embed)
         await ctx.message.delete()
 
     @commands.guild_only()
@@ -53,9 +53,9 @@ class Galaxy(commands.Cog):
         """Posts a link to RoPro"""
         embed=discord.Embed(title="RoPro", url="https://ropro.io", color=await self.bot.get_embed_color(None), description="""[RoPro](https://ropro.io) is a browser extension that tracks ROBLOX playtime, enhances your profile, and provides other useful utilities. **Please keep in mind that RoPro only tracks playtime from AFTER you install the extension.**""")
         if member:
-            await ctx.send(embed=embed, content=member.mention)
+            await ctx.channel.send(embed=embed, content=member.mention)
         else:
-            await ctx.send(embed=embed)
+            await ctx.channel.send(embed=embed)
         await ctx.message.delete()
 
     @commands.guild_only()
@@ -68,9 +68,9 @@ class Galaxy(commands.Cog):
         embed.add_field(name="DJ", value="Level 11", inline=False)
         embed.add_field(name="Reaction Perms", value="Level 30", inline=False)
         if member:
-            await ctx.send(embed=embed, content=member.mention)
+            await ctx.channel.send(embed=embed, content=member.mention)
         else:
-            await ctx.send(embed=embed)
+            await ctx.channel.send(embed=embed)
         await ctx.message.delete()
 
     @commands.guild_only()
@@ -83,9 +83,9 @@ class Galaxy(commands.Cog):
         embed.add_field(name="Polaris' Features", value="1: Polaris allows you to customize the level curve of your server, and provides presets to make the transition easier.\n\n2: Polaris has XP management commands.\n\n3: Polaris has way more configuration in terms of Reward Roles.\n\n4: Polaris allows you to customize the level-up message shown whenever people achieve the next level.\n\n5: Polaris has both role and channel modifiers.\n\n6: Polaris' leaderboard is excellent, showing the top 1,000 ranked users on the same webpage, and allowing you to see your own stats, progress towards your next reward role, and all 350 levels and your progress towards them.\n\n7: Polaris is **just** a leveling bot. You don't have to deal with any of the bloat of multi-purpose bots like Tatsu or MEE6, you only get what you actually need.", inline=False)
         embed.add_field(name="Conclusion",value="With all of that said, you're probably wondering why we're putting so much effort into transferring peoples' data to the new bot.\n\nWell, Tatsu has been going since 2020, and I don't particularly favor the idea of clearing everyone's XP, especially when people have built up reward roles from Tatsu already, like Picture Perms, Suggestions access, and DJ.\n\nWith all this in mind, I hope this isn't too much of an inconvenience for you all, as I tried to make the process as seamless as possible without having to update all 10,000 people in the server.", inline=False)
         if member:
-            await ctx.send(embed=embed, content=member.mention)
+            await ctx.channel.send(embed=embed, content=member.mention)
         else:
-            await ctx.send(embed=embed)
+            await ctx.channel.send(embed=embed)
         await ctx.message.delete()
 
     @commands.guild_only()
@@ -103,9 +103,9 @@ class Galaxy(commands.Cog):
         embed.add_field(name="Every 70 Minutes", value="[Galleon](https://robloxgalaxy.wiki/wiki/Galleon)")
         embed.add_field(name="Every 120 Minutes", value="[Kodiak](https://robloxgalaxy.wiki/wiki/Kodiak)")
         if member:
-            await ctx.send(embed=embed, content=member.mention)
+            await ctx.channel.send(embed=embed, content=member.mention)
         else:
-            await ctx.send(embed=embed)
+            await ctx.channel.send(embed=embed)
         await ctx.message.delete()
 
     @faq.command(name="linked_role")
@@ -114,9 +114,9 @@ class Galaxy(commands.Cog):
         """Posts an embed containing FAQ about Linked Role. (WIP)"""
         embed=discord.Embed(title="WIP")
         if member:
-            await ctx.send(embed=embed, content=member.mention)
+            await ctx.channel.send(embed=embed, content=member.mention)
         else:
-            await ctx.send(embed=embed)
+            await ctx.channel.send(embed=embed)
         await ctx.message.delete()
 
 
