@@ -2,7 +2,7 @@
     "author": [
         "Galaxy Development Team"
     ],
-    "install_msg": "Thanks for installing my repo!\n\nIf you have any issues with any of the cogs, feel free to join my support server (https://discord.gg/rrJVJddnVv), or open an issue on GitHub (https://github.com/elijabesu/SauriCogs/issues).",
+    "install_msg": "Thanks for installing my repo!\n\nIf you have any issues with any of the cogs, please create an issue here: https://github.com/SeaswimmerTheFsh/GalaxyCogs/issues.",
     "name": "Galaxy",
     "short": "Cogs intended for use on the Galaxy discord server.",
     "description": "Custom cogs/cog modifications intended for the Galaxy discord server."
