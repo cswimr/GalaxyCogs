@@ -120,7 +120,7 @@ class Galaxy(commands.Cog):
         await ctx.message.delete()
 
 
-
+    @faq_test.error
     @faq_linked_role.error
     @faq_npc_intervals.error
     @faq_links.error
@@ -130,5 +130,5 @@ class Galaxy(commands.Cog):
     @faq_polaris_switch.error
     async def faq_handler(self, ctx, error):
         """Error Handler for FAQ."""
-        if isinstance(error, commands.CommandInvokeError):
+        if isinstance(error, discord.NotFound):
             return
