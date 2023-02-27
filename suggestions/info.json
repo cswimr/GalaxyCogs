@@ -5,5 +5,5 @@
     "short" : "Simple suggestions system.",
     "description" : "Per guild suggestions system.",
     "tags" : ["suggestions, suggestion, voting"],
-    "end_user_data_statement": "This cog stores user names, discriminators, and IDs upon sending a suggestion. This data is used solely to display and contact the user about any change to their suggestion."
+    "end_user_data_statement": "This cog stores user names, discriminators, and IDs upon sending a suggestion. This data is used solely to display user information in suggestions."
 }
