@@ -369,12 +369,11 @@ class Suggestions(commands.Cog):
         embed.set_author(name=ctx.guild.name, icon_url=ctx.guild.icon_url)
         embed.title = "**Suggestion settings:**"
 
-        embed.set_footer(text="*required to function properly")
-        embed.add_field(name="Suggestions channel*:", value=suggest_channel)
+        embed.add_field(name="Suggestions channel:", value=suggest_channel)
         embed.add_field(name="Approved channel:", value=approve_channel)
         embed.add_field(name="Denied channel:", value=reject_channel)
         embed.add_field(name="Upvote:", value=up_emoji)
-        embed.add_field(name="Same channel*:", value=str(data["same"]))
+        embed.add_field(name="Same channel:", value=str(data["same"]))
         embed.add_field(name="Downvote:", value=down_emoji)
         embed.add_field(
             name=f"Delete `{ctx.clean_prefix}suggest` upon use:",
