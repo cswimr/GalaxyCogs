@@ -19,7 +19,7 @@ class Galaxy(commands.Cog):
         embed=discord.Embed(title="Test Embed", color=await self.bot.get_embed_color(None), description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer in faucibus odio, at mollis metus.")
         embed.set_footer(text=ctx.author, icon_url=ctx.author.avatar_url_as(format="png", size=512))
         if member:
-            await ctx.send(embed=embed, content=member.mention)
+            await ctx.channel.send(embed=embed, content=member.mention)
         else:
             await ctx.channel.send(embed=embed)
         await ctx.message.delete()
