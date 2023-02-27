@@ -21,7 +21,7 @@ class Galaxy(commands.Cog):
         if member:
             await ctx.send(embed=embed, content=member.mention)
         else:
-            await ctx.send(embed=embed)
+            await ctx.channel.send(embed=embed)
         await ctx.message.delete()
 
     @commands.guild_only()
