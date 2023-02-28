@@ -9,6 +9,13 @@ class Galaxy(commands.Cog):
         self.bot = bot
 
     @commands.command()
+    async def roleinfo(self, ctx, role: discord.Role):
+        """Gives information on a specific role."""
+        hexcolor = str(role.color)
+        await ctx.send(content=f"{hexcolor}")
+
+
+    @commands.command()
     async def unix(self, ctx):
         """Posts the current Unix timestamp."""
         timestamp = int(datetime.timestamp(datetime.now()))
