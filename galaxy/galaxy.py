@@ -11,6 +11,13 @@ class Galaxy(commands.Cog):
 
     @commands.command()
     @commands.guild_only()
+    @checks.admin()
+    async def roleinfo_test(self, ctx, role: discord.Role):
+        """Testing"""
+        await ctx.send(role.members)
+
+    @commands.command()
+    @commands.guild_only()
     async def roleinfo(self, ctx, role: discord.Role):
         """Gives information on a specific role."""
         permissions = role.permissions
