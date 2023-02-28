@@ -17,8 +17,9 @@ class Galaxy(commands.Cog):
             colorint = 10070709
         else:
             colorint = member.color.value
-        roles_slice = slice(0, -1, 2)
-        roles = member.roles[roles_slice]
+        roles_split = {member.roles}.split()
+        roles_slice = slice(1, -1, 2)
+        roles = roles_split[roles_slice]
         avatarurl = str(member.avatar_url)
         timestamp_create = int(datetime.timestamp(member.created_at))
         timestamp_join = int(datetime.timestamp(member.joined_at))
@@ -26,7 +27,7 @@ class Galaxy(commands.Cog):
         embed.add_field(name="Joined At", value=f"<t:{timestamp_join}>")
         embed.add_field(name="Created At", value=f"<t:{timestamp_create}>")
         embed.add_field(name="Avatar", value=f"[Click Here]({avatarurl})")
-        embed.add_field(name="Roles", value=f"{member.roles}")
+        embed.add_field(name="Roles", value=f"{roles}")
         embed.set_thumbnail(url=f"{avatarurl}")
         embed.set_footer(text=f"ID: {member.id}")
         await ctx.send(embed=embed)
