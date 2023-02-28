@@ -12,7 +12,8 @@ class Galaxy(commands.Cog):
     async def unix(self, ctx):
         """Posts the current Unix timestamp."""
         timestamp = int(datetime.timestamp(datetime.now()))
-        await ctx.send(timestamp)
+        embed=discord.Embed(title="Current Time", color=await self.bot.get_embed_color(None), description=f"<t:{timestamp}>", footer=f"{timestamp}")
+        await ctx.send(embed=embed)
 
 
     @commands.command()
