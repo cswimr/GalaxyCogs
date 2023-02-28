@@ -20,14 +20,15 @@ class Galaxy(commands.Cog):
             colorint = member.color.value
             color = re.sub('#',"",str(member.color))
         colorcodelink = f"https://www.color-hex.com/color/{color}"
+        avatarurl = str({member.avatar_url_as(format="png")})
         timestamp_create = int(datetime.timestamp(member.created_at))
         timestamp_join = int(datetime.timestamp(member.joined_at))
         embed = discord.Embed(title=f"{member.name}#{member.discriminator}", color=colorint)
         embed.add_field(name="Joined At", value=f"<t:{timestamp_join}>")
         embed.add_field(name="Created At", value=f"<t:{timestamp_create}>")
-        embed.add_field(name="Avatar", value=f"[Click Here]({member.avatar_url})")
+        embed.add_field(name="Avatar", value=f"[Click Here]({avatarurl})")
         embed.add_field(name="Roles", value=f"{member.roles}")
-        embed.set_thumbnail(url={member.avatar_url})
+        embed.set_thumbnail(url=f"{avatarurl}")
         embed.set_footer(text=f"ID: {member.id}")
         await ctx.send(embed=embed)
 
