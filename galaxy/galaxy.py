@@ -117,7 +117,7 @@ class Galaxy(commands.Cog):
             await ctx.channel.send(embed=embed_desktop)
             await ctx.channel.send(embed=embed_mobile)
         else:
-            if test(False):
+            if bool(test):
                 await ctx.channel.send(embed=embed)
                 await ctx.channel.send(embed=embed_desktop)
                 await ctx.channel.send(embed=embed_mobile)
