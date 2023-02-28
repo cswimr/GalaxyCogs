@@ -18,7 +18,6 @@ class Galaxy(commands.Cog):
         await ctx.send(embed=embed)
         await ctx.message.delete()
 
-
     @commands.command()
     async def warehouse(self, ctx:  commands.Context,  lvlfrom: int = 1, lvlto: int = 38):
         """Calculates the total cost to upgrade your warehouse from a level to a level."""
@@ -155,8 +154,8 @@ class Galaxy(commands.Cog):
         await ctx.channel.send(embed=embed_mobile)
         await ctx.message.delete()
 
-
     @warehouse.error
+    @unix.error
     @faq_test.error
     @faq_linked_role.error
     @faq_npc_intervals.error
