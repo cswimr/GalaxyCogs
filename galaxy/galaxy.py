@@ -1,6 +1,7 @@
 from redbot.core import commands, checks
 import discord
-from datetime import datetime, timezone
+from datetime import datetime
+import re
 
 class Galaxy(commands.Cog):
     """Custom cog intended for use on the Galaxy discord server."""
@@ -12,7 +13,8 @@ class Galaxy(commands.Cog):
     async def roleinfo(self, ctx, role: discord.Role):
         """Gives information on a specific role."""
         hexcolor = str(role.color)
-        await ctx.send(content=f"{hexcolor}")
+        color = re.sub('#',"",str(role.color))
+        await ctx.send(content=f"{color}")
 
 
     @commands.command()
