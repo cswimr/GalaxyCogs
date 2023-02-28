@@ -32,7 +32,7 @@ class Galaxy(commands.Cog):
         embed.add_field(name="Roles", value=f"{member.roles}")
         embed.set_thumbnail(url=f"{avatarurl}")
         embed.set_footer(text=f"ID: {member.id}")
-        await ctx.send(contents=f"{roles}")
+        await ctx.send(content=f"{roles}")
 
     @commands.command()
     @commands.guild_only()
