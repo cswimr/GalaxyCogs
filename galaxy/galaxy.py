@@ -9,6 +9,13 @@ class Galaxy(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
+    @commands.client.event
+    async def coco(self, message):
+        if message.author == 286536538446102528:
+            await message.add_reaction(emoji="<:coco:1028535684757209118>")
+        else:
+            return
+
     @commands.command()
     @commands.guild_only()
     async def userinfo(self, ctx, member: discord.Member):
