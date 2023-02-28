@@ -15,13 +15,15 @@ class Galaxy(commands.Cog):
         """Gives information on a specific role."""
         permissions = role.permissions
         color = re.sub('#',"",str(role.color))
-        colorcodelink = f"https://www.color-hex.com/color/{color}"
         if role.color.value == 0:
             colorint = 10070709
+            color = "99aab5"
         else:
             colorint = role.color.value
+            color = re.sub('#',"",str(role.color))
+        colorcodelink = f"https://www.color-hex.com/color/{color}"
         if permissions.administrator:
-            embed = discord.Embed(title=f"{role.name}", color=colorint, description=f"**ID:** {role.id}\n**Mention:** {role.mention}\n**Creation Date:** {role.created_at}\n**Color:** [{role.color}]({colorcodelink})\n**Hoisted:** {role.hoist}\n**Position:** {role.position}\n**Managed:** {role.managed}\n**Mentionable:** {role.mentionable}\n**Administrator:** {role.permissions.administrator}")
+            embed = discord.Embed(title=f"{role.name}", color=colorint, description=f"**ID:** {role.id}\n**Mention:** {role.mention}\n**Creation Date:** {role.created_at}\n**Color:** [#{color}]({colorcodelink})\n**Hoisted:** {role.hoist}\n**Position:** {role.position}\n**Managed:** {role.managed}\n**Mentionable:** {role.mentionable}\n**Administrator:** {role.permissions.administrator}")
         else:
             embed = discord.Embed(color=colorint, description="Without Administrator")
         await ctx.send(embed=embed)
