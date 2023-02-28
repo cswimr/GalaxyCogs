@@ -11,7 +11,7 @@ class Galaxy(commands.Cog):
     @commands.command()
     async def unix(self, ctx):
         """Posts the current Unix timestamp."""
-        timestamp = datetime.timestamp(datetime.now())
+        timestamp = int(datetime.timestamp(datetime.now()))
         await ctx.send(timestamp)
 
 
