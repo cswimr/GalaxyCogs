@@ -15,11 +15,8 @@ class Galaxy(commands.Cog):
         """Gives information on a specific person."""
         if member.color.value == 0:
             colorint = 10070709
-            color = "99aab5"
         else:
             colorint = member.color.value
-            color = re.sub('#',"",str(member.color))
-        colorcodelink = f"https://www.color-hex.com/color/{color}"
         roles_slice = slice(0, -1, 2)
         roles = member.roles[roles_slice]
         avatarurl = str(member.avatar_url)
@@ -32,7 +29,7 @@ class Galaxy(commands.Cog):
         embed.add_field(name="Roles", value=f"{member.roles}")
         embed.set_thumbnail(url=f"{avatarurl}")
         embed.set_footer(text=f"ID: {member.id}")
-        await ctx.send(content=f"{member.roles}")
+        await ctx.send(embed=embed)
 
     @commands.command()
     @commands.guild_only()
