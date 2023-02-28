@@ -12,10 +12,14 @@ class Galaxy(commands.Cog):
     @commands.command()
     async def roleinfo(self, ctx, role: discord.Role):
         """Gives information on a specific role."""
+        permissions = role.permissions
         color = re.sub('#',"",str(role.color))
         colorcodelink = f"https://www.color-hex.com/color/{color}"
-        await ctx.send(content=f"{color}")
-        await ctx.send(content=f"{colorcodelink}")
+        if permissions.administrator:
+            embed = discord.Embed(color={color}, content="With Administrator")
+        else:
+            embed = discord.Embed(color={color}, content="Without Administrator")
+        await ctx.send(embed=embed)
 
 
     @commands.command()
