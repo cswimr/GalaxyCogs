@@ -8,34 +8,25 @@ class Galaxy(commands.Cog):
         self.bot = bot
 
     @commands.command(name="warehouse")
-    async def warehouse(self, ctx:  commands.Context, *,  lvlfrom: str, lvlto: str):
+    async def warehouse(self, ctx:  commands.Context, *,  lvlfrom: int, lvlto: int):
         """Calculates the total cost to upgrade your warehouse from a level to a level."""
         warehouse_levels = {1:0, 2:1000,3:2500,4:4500,5:7500,6:12500,7:20000,8:31500,9:46500,10:65500,11:87500,12:113500,13:143500,14:178500,15:218500,16:263500,17:313500,18:373500,19:443500,20:523500,21:613500,22:713500,23:823500,24:943500,25:1073500,26:1223500,27:1398500,28:1598500,29:1823500,30:2073500,31:2353500, 32:2663500, 33:3003500, 34:3373500, 35:3773500, 36:4193500, 37:4644500, 38:5093500}
-        def get_integer_value(userValue):
-            try:
-                return int(userValue)
-            except ValueError:
-                ctx.send(f"{userValue} is not a valid integer. Please try again.")
-        total_from = (f'{warehouse_levels[get_integer_value(lvlfrom)]:,}')
-        total_to = (f'{warehouse_levels[get_integer_value(lvlto)]:,}')
-        output = get_integer_value(lvlto) - get_integer_value(lvlfrom)
+        total_from = (f'{warehouse_levels[lvlfrom]:,}')
+        total_to = (f'{warehouse_levels[lvlto]:,}')
+        output = warehouse_levels[lvlto] - warehouse_levels[lvlfrom]
         total = (f'{output}:,')
         embed = discord.Embed(title="Warehouse Cost", color=await self.bot.get_embed_color(None))
-        embed.add_field(name="From:", value=f"Warehouse Level: {get_integer_value(lvlfrom)}\nTotal Cost: {total_from} Credits")
-        embed.add_field(name="To:", value=f"Warehouse Level: {get_integer_value(lvlto)}\nTotal Cost: {total_to} Credits")
+        embed.add_field(name="From:", value=f"Warehouse Level: {lvlfrom}\nTotal Cost: {total_from} Credits")
+        embed.add_field(name="To:", value=f"Warehouse Level: {lvlto}\nTotal Cost: {total_to} Credits")
         embed.add_field(name="Output:", value=f"{total} Credits")
         if lvlfrom == lvlto:
             ctx.send(contents="``lvlfrom`` cannot be the same as ``lvlto``.")
         elif lvlfrom > lvlto:
             ctx.send(contents="``lvlfrom`` cannot be a higher value than ``to``.")
-        elif lvlfrom > 37:
-            ctx.send(contents="``lvlfrom`` must be 37 or below.")
-        elif lvlfrom < 1:
-            ctx.send(contents="``lvlfrom`` must be 1 or higher.")
-        elif lvlto > 1:
-            ctx.send(contents="``lvlto`` must be 1 or higher.")
-        elif lvlto > 37:
-            ctx.send(contents="``lvlto`` must be 38 or below.")
+        elif lvlfrom < 0 or lvlfrom > 37:
+            ctx.send(contents="``lvlfrom`` must be higher than 0 and lower than 38")
+        elif lvlto > 1 or lvlto < 37:
+            ctx.send(contents="``lvlto`` must be higher than 1 and lower than 39")
         else:
             ctx.send(embed=embed)
 
