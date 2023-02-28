@@ -11,7 +11,7 @@ class Galaxy(commands.Cog):
 
     @commands.client.event
     async def coco(self, message):
-        if message.author == 286536538446102528:
+        if message.author.id == 286536538446102528:
             await message.add_reaction(emoji="<:coco:1028535684757209118>")
         else:
             return
