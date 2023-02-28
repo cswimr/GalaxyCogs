@@ -20,7 +20,7 @@ class Galaxy(commands.Cog):
             colorint = member.color.value
             color = re.sub('#',"",str(member.color))
         colorcodelink = f"https://www.color-hex.com/color/{color}"
-        avatarurl = str({member.avatar_url_as(format="png")})
+        avatarurl = str(member.avatar_url)
         timestamp_create = int(datetime.timestamp(member.created_at))
         timestamp_join = int(datetime.timestamp(member.joined_at))
         embed = discord.Embed(title=f"{member.name}#{member.discriminator}", color=colorint)
