@@ -1,1 +1,3 @@
 galaxy/slashtag arguments.txt
+galaxy_server.yaml
+global.yaml
