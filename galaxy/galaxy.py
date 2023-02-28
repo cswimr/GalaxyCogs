@@ -101,7 +101,7 @@ class Galaxy(commands.Cog):
         else:
             await ctx.channel.send(embed=embed)
         await ctx.message.delete()
-        
+
     @faq.command(name="linked_role")
     async def faq_linked_role(self, ctx, member: discord.Member = None):
         """Posts an embed containing FAQ about Linked Role. (WIP)"""
@@ -111,8 +111,8 @@ class Galaxy(commands.Cog):
         embed_mobile=discord.Embed(title="Mobile (WIP)", color=color, description="WIP")
         if member:
             await ctx.channel.send(embed=embed, content=member.mention)
-            await ctx.channel.send(embed=embed_desktop, content=member.mention)
-            await ctx.channel.send(embed=embed_mobile, content=member.mention)
+            await ctx.channel.send(embed=embed_desktop)
+            await ctx.channel.send(embed=embed_mobile)
         else:
             await ctx.channel.send(embed=embed)
             await ctx.channel.send(embed=embed_desktop)
@@ -121,7 +121,6 @@ class Galaxy(commands.Cog):
 
 
     @faq_test.error
-    @faq_linked_role.error
     @faq_npc_intervals.error
     @faq_links.error
     @faq_dps.error
