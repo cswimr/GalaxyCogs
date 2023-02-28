@@ -22,7 +22,7 @@ class Galaxy(commands.Cog):
         colorcodelink = f"https://www.color-hex.com/color/{color}"
         timestamp_create = int(datetime.timestamp(member.created_at))
         timestamp_join = int(datetime.timestamp(member.joined_at))
-        embed = discord.Embed(title=f"{member.name}#{member.discriminator}", color=color)
+        embed = discord.Embed(title=f"{member.name}#{member.discriminator}", color=colorint)
         embed.add_field(name="Joined At", value=f"<t:{timestamp_join}>")
         embed.add_field(name="Created At", value=f"<t:{timestamp_create}>")
         embed.add_field(name="Avatar", value=f"[Click Here]({member.avatar_url})")
