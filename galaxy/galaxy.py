@@ -1,6 +1,6 @@
 from redbot.core import commands, checks
 import discord
-import requests
+from datetime import datetime
 
 class Galaxy(commands.Cog):
     """Custom cog intended for use on the Galaxy discord server."""
@@ -11,10 +11,7 @@ class Galaxy(commands.Cog):
     @commands.command()
     async def unix(self, ctx):
         """Posts the current Unix timestamp."""
-        URL = "http://worldtimeapi.org/api/timezone/Etc/UTC"
-        r = requests.get(url = URL)
-        data = r.json()
-        await ctx.send(data)
+        await ctx.send(datetime.utcnow())
 
 
     @commands.command()
