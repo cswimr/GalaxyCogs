@@ -103,7 +103,7 @@ class Galaxy(commands.Cog):
         await ctx.message.delete()
 
     @faq.command(name="linked_role")
-    async def faq_linked_role(self, ctx,  ver: int = None, member: discord.Member = None):
+    async def faq_linked_role(self, ctx,  test: bool, member: discord.Member = None):
         """Posts an embed containing FAQ about Linked Role. (WIP)"""
         color=await self.bot.get_embed_color(None)
         embed=discord.Embed(title="Linked Role", color=color, description="**Before reading this, please make sure your Discord client is updated! On Mobile, you can do this by going to your app store of choice and updating Discord manually. On PC/MacOS/Linux you can do this by clicking the green update button in the top right.**")
@@ -117,7 +117,7 @@ class Galaxy(commands.Cog):
             await ctx.channel.send(embed=embed_desktop)
             await ctx.channel.send(embed=embed_mobile)
         else:
-            if ver(1):
+            if test(False):
                 await ctx.channel.send(embed=embed)
                 await ctx.channel.send(embed=embed_desktop)
                 await ctx.channel.send(embed=embed_mobile)
