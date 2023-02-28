@@ -8,7 +8,7 @@ class Galaxy(commands.Cog):
         self.bot = bot
 
     @commands.command()
-    async def warehouset(self, ctx: commands.Context, *, lvlfrom: str, lvlto: str):
+    async def warehouset(self, ctx: commands.Context, *, lvlfrom: str = None, lvlto: str = None):
         print(lvlfrom)
         print(lvlto)
         temp = isinstance(lvlfrom,int)
