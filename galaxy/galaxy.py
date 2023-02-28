@@ -21,7 +21,7 @@ class Galaxy(commands.Cog):
             embed = discord.Embed(color=colorint, description="With Administrator")
         else:
             embed = discord.Embed(color=colorint, description="Without Administrator")
-        await ctx.send(embed=embed)
+        await ctx.send(embed=embed, content=f"{colorint}")
 
 
     @commands.command()
