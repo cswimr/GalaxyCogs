@@ -10,6 +10,12 @@ class Galaxy(commands.Cog):
         self.bot = bot
 
     @commands.command()
+    @checks.admin()
+    @commands.guild_only()
+    async def testcmd(self, ctx, role: discord.Role):
+        await ctx.send(content=f"{role}")
+
+    @commands.command()
     @commands.guild_only()
     async def userinfo(self, ctx, member: discord.Member):
         """Gives information on a specific person."""
