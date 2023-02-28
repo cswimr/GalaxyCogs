@@ -103,30 +103,25 @@ class Galaxy(commands.Cog):
         await ctx.message.delete()
 
     @faq.command(name="linked_role")
-    async def faq_linked_role(self, ctx,  test: bool, member: discord.Member = None):
+    async def faq_linked_role(self, ctx, member: discord.Member = None):
         """Posts an embed containing FAQ about Linked Role. (WIP)"""
         color=await self.bot.get_embed_color(None)
         embed=discord.Embed(title="Linked Role", color=color, description="**Before reading this, please make sure your Discord client is updated! On Mobile, you can do this by going to your app store of choice and updating Discord manually. On PC/MacOS/Linux you can do this by clicking the green update button in the top right.**")
-        embed_desktop=discord.Embed(title="PC / MacOS / Linux (WIP)", color=color, description="WIP")
-        embed_mobile=discord.Embed(title="Mobile (WIP)", color=color, description="WIP")
-        embed2=discord.Embed(title="Linked Role", color=color, description="**Before reading this, please make sure your Discord client is updated! On Mobile, you can do this by going to your app store of choice and updating Discord manually. On PC/MacOS/Linux you can do this by clicking the green update button in the top right.**")
-        embed2.add_field(name="PC / MacOS / Linux (WIP)", value="WIP")
-        embed2.add_field(name="Mobile (WIP)", value="WIP")
+        embed_desktop=discord.Embed(title="PC / MacOS / Linux", color=color, description="**Step 1:** Open the Server Dropdown menu in the top-left by clicking on the server's name.\n\n**Step 2:** Click the \"*Linked Roles*\" button.\n\n**Step 3:** Click on \"*Linked*.\"\n\n**Step 4:** Click Finish. You're done!\n*Note: You should already be Verified on Bloxlink. If you are not, go to the verification channel to verify.*")
+        embed_desktop.set_thumbnail(url="https://cdn.discordapp.com/attachments/1070838419212738621/1079927564421836930/image.png")
+        embed_mobile=discord.Embed(title="Mobile", color=color, description="**Step 1:** Open the Server menu on the top of the channel list by tapping the server's name.\n\n**Step 2:** Scroll down and tap the \"*Linked Roles*\" button.\n\n**Step 3:** Tap on \"*Linked*.\"\n\n**Step 4:** Tap Finish. You're done!\n*Note: You should already be Verified on Bloxlink. If you are not, go to the verification channel to verify.*")
+        embed_mobile.set_thumbnail(url="https://cdn.discordapp.com/attachments/1047347377348030494/1079930169562771576/Screenshot_20230227_195338_Discord.jpg")
         if member:
             await ctx.channel.send(embed=embed, content=member.mention)
-            await ctx.channel.send(embed=embed_desktop)
-            await ctx.channel.send(embed=embed_mobile)
         else:
-            if bool(test):
-                await ctx.channel.send(embed=embed)
-                await ctx.channel.send(embed=embed_desktop)
-                await ctx.channel.send(embed=embed_mobile)
-            else:
-                await ctx.channel.send(embed=embed2)
+            await ctx.channel.send(embed=embed)
+        await ctx.channel.send(embed=embed_desktop)
+        await ctx.channel.send(embed=embed_mobile)
         await ctx.message.delete()
 
 
     @faq_test.error
+    @faq_linked_role.error
     @faq_npc_intervals.error
     @faq_links.error
     @faq_dps.error
