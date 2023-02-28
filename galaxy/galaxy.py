@@ -29,6 +29,7 @@ class Galaxy(commands.Cog):
             await ctx.send(contents="``lvlto`` must be higher than 1 and lower than 39")
         else:
             await ctx.send(embed=embed)
+        await ctx.message.delete()
 
     @commands.group(autohelp=True)
     async def faq(self, ctx):
@@ -143,6 +144,7 @@ class Galaxy(commands.Cog):
         await ctx.message.delete()
 
 
+    @warehouse.error
     @faq_test.error
     @faq_linked_role.error
     @faq_npc_intervals.error
@@ -152,6 +154,6 @@ class Galaxy(commands.Cog):
     @faq_polaris_ranks.error
     @faq_polaris_switch.error
     async def faq_handler(self, ctx, error):
-        """Error Handler for FAQ."""
+        """Error Handler for Galaxy."""
         if isinstance(error, discord.NotFound):
             return
