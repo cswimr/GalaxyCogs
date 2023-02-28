@@ -27,7 +27,7 @@ class Galaxy(commands.Cog):
         embed.add_field(name="Joined At", value=f"<t:{timestamp_join}>")
         embed.add_field(name="Created At", value=f"<t:{timestamp_create}>")
         embed.add_field(name="Avatar", value=f"[Click Here]({avatarurl})")
-        embed.add_field(name="Roles", value=f"{member.roles}")
+        embed.add_field(name="Roles", value=f"{member.roles.mention}")
         embed.set_thumbnail(url=f"{avatarurl}")
         embed.set_footer(text=f"ID: {member.id}")
         await ctx.send(embed=embed)
