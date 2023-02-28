@@ -25,7 +25,7 @@ class Galaxy(commands.Cog):
             ctx.send(contents="``lvlfrom`` cannot be a higher value than ``to``.")
         elif lvlfrom < 0 or lvlfrom > 37:
             ctx.send(contents="``lvlfrom`` must be higher than 0 and lower than 38")
-        elif lvlto > 1 or lvlto < 37:
+        elif lvlto > 1 or lvlto < 38:
             ctx.send(contents="``lvlto`` must be higher than 1 and lower than 39")
         else:
             ctx.send(embed=embed)
