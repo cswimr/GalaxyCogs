@@ -11,18 +11,31 @@ class Galaxy(commands.Cog):
 
     @commands.command()
     @commands.guild_only()
-    @checks.admin()
-    async def roleinfo_test(self, ctx, role: discord.Role):
-        """Testing"""
-        list = role.members
-        await ctx.send(list.name)
+    async def userinfo(self, ctx, member: discord.Member):
+        """Gives information on a specific person."""
+        if member.color.value == 0:
+            colorint = 10070709
+            color = "99aab5"
+        else:
+            colorint = member.color.value
+            color = re.sub('#',"",str(member.color))
+        colorcodelink = f"https://www.color-hex.com/color/{color}"
+        timestamp_create = int(datetime.timestamp(member.created_at))
+        timestamp_join = int(datetime.timestamp(member.joined_at))
+        embed = discord.Embed(title=f"{member.name}#{member.disriminator}", color=color)
+        embed.add_field(name="Joined At", value=f"<t:{timestamp_join}>")
+        embed.add_field(name="Created At", value=f"<t:{timestamp_create}>")
+        embed.add_field(name="Avatar", value=f"[Click Here]({member.avatar_url})")
+        embed.add_field(name="Roles", value=f"{member.roles}")
+        embed.set_thumbnail(url={member.avatar_url})
+        embed.set_footer(text=f"ID: {member.id}")
+        await ctx.send(embed=embed)
 
     @commands.command()
     @commands.guild_only()
     async def roleinfo(self, ctx, role: discord.Role):
         """Gives information on a specific role."""
         permissions = role.permissions
-        color = re.sub('#',"",str(role.color))
         if role.color.value == 0:
             colorint = 10070709
             color = "99aab5"
