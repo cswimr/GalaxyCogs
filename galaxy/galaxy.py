@@ -10,12 +10,13 @@ class Galaxy(commands.Cog):
         self.bot = bot
 
     @commands.command()
+    @commands.guild_only()
     async def roleinfo(self, ctx, role: discord.Role):
         """Gives information on a specific role."""
         permissions = role.permissions
         color = re.sub('#',"",str(role.color))
         colorcodelink = f"https://www.color-hex.com/color/{color}"
-        colorint = int(color)
+        colorint = role.color.value
         if permissions.administrator:
             embed = discord.Embed(color={colorint}, description="With Administrator")
         else:
