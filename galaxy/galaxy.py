@@ -1,11 +1,21 @@
 from redbot.core import commands, checks
 import discord
+import requests
 
 class Galaxy(commands.Cog):
     """Custom cog intended for use on the Galaxy discord server."""
 
     def __init__(self, bot):
         self.bot = bot
+
+    @commands.command()
+    async def unix(self, ctx):
+        """Posts the current Unix timestamp."""
+        URL = "http://worldtimeapi.org/api/timezone/Etc/UTC"
+        r = requests.get(url = URL)
+        data = r.json()
+        await ctx.send(data)
+
 
     @commands.command()
     async def warehouse(self, ctx:  commands.Context,  lvlfrom: int = 1, lvlto: int = 38):
