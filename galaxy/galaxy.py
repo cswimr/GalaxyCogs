@@ -15,10 +15,11 @@ class Galaxy(commands.Cog):
         permissions = role.permissions
         color = re.sub('#',"",str(role.color))
         colorcodelink = f"https://www.color-hex.com/color/{color}"
+        colorint = int(color)
         if permissions.administrator:
-            embed = discord.Embed(color={color}, content="With Administrator")
+            embed = discord.Embed(color={colorint}, description="With Administrator")
         else:
-            embed = discord.Embed(color={color}, content="Without Administrator")
+            embed = discord.Embed(color={colorint}, description="Without Administrator")
         await ctx.send(embed=embed)
 
 
