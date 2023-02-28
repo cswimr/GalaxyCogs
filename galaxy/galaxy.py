@@ -26,7 +26,8 @@ class Galaxy(commands.Cog):
         if permissions.administrator:
             embed = discord.Embed(title=f"{role.name}", color=colorint, description=f"**ID:** {role.id}\n**Mention:** {role.mention}\n**Creation Date:** <t:{timestamp}>\n**Color:** [#{color}]({colorcodelink})\n**Hoisted:** {role.hoist}\n**Position:** {role.position}\n**Managed:** {role.managed}\n**Mentionable:** {role.mentionable}\n**Administrator:** {role.permissions.administrator}")
         else:
-            embed = discord.Embed(color=colorint, description="Without Administrator")
+            embed = discord.Embed(title=f"{role.name}", color=colorint, description=f"**ID:** {role.id}\n**Mention:** {role.mention}\n**Creation Date:** <t:{timestamp}>\n**Color:** [#{color}]({colorcodelink})\n**Hoisted:** {role.hoist}\n**Position:** {role.position}\n**Managed:** {role.managed}\n**Mentionable:** {role.mentionable}\n**Administrator:** {role.permissions.administrator}")
+            embed.add_field(name="Permissions", value=f"**Manage Server:** {permissions.manage_guild}\n**Manage Webhooks:** {permissions.manage_webhooks}\n**Manage Channels:** {permissions.manage_channels}\n**Manage Roles:** {permissions.manage_roles}\n**Manage Emojis:** {permissions.manage_emojis}\n**Manage Messages:** {permissions.manage_messages}\n**Manage Nicknames:** {permissions.manage_nicknames}\n**Mention @everyone**: {permissions.mention_everyone}\n**Ban Members:** {permissions.ban_members}\n**Kick Members:** {permissions.kick_members}")
         await ctx.send(embed=embed)
 
 
