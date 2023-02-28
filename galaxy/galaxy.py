@@ -14,10 +14,10 @@ class Galaxy(commands.Cog):
         total_from = (f'{warehouse_levels[lvlfrom]:,}')
         total_to = (f'{warehouse_levels[lvlto]:,}')
         output = warehouse_levels[lvlto] - warehouse_levels[lvlfrom]
-        total = (f'{output}:,')
+        total = (f'{output:,}')
         embed = discord.Embed(title="Warehouse Cost", color=await self.bot.get_embed_color(None))
-        embed.add_field(name="From:", value=f"Warehouse Level: {lvlfrom}\nTotal Cost: {total_from} Credits")
-        embed.add_field(name="To:", value=f"Warehouse Level: {lvlto}\nTotal Cost: {total_to} Credits")
+        embed.add_field(name="From:", value=f"Warehouse Level: {lvlfrom}\nTotal Cost: {total_from} Credits", inline=False)
+        embed.add_field(name="To:", value=f"Warehouse Level: {lvlto}\nTotal Cost: {total_to} Credits", inline=False)
         embed.add_field(name="Output:", value=f"{total} Credits")
         if lvlfrom == lvlto:
             await ctx.send(contents="``lvlfrom`` cannot be the same as ``lvlto``.")
