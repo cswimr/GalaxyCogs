@@ -110,8 +110,8 @@ class Galaxy(commands.Cog):
         embed_desktop=discord.Embed(title="PC / MacOS / Linux (WIP)", color=color, description="WIP")
         embed_mobile=discord.Embed(title="Mobile (WIP)", color=color, description="WIP")
         embed2=discord.Embed(title="Linked Role", color=color, description="**Before reading this, please make sure your Discord client is updated! On Mobile, you can do this by going to your app store of choice and updating Discord manually. On PC/MacOS/Linux you can do this by clicking the green update button in the top right.**")
-        embed2.add_field(title="PC / MacOS / Linux (WIP)", value="WIP")
-        embed2.add_field(title="Mobile (WIP)", value="WIP")
+        embed2.add_field(name="PC / MacOS / Linux (WIP)", value="WIP")
+        embed2.add_field(name="Mobile (WIP)", value="WIP")
         if member:
             await ctx.channel.send(embed=embed, content=member.mention)
             await ctx.channel.send(embed=embed_desktop)
