@@ -20,6 +20,8 @@ class Galaxy(commands.Cog):
             colorint = member.color.value
             color = re.sub('#',"",str(member.color))
         colorcodelink = f"https://www.color-hex.com/color/{color}"
+        roles_slice = slice(0, -1, 2)
+        roles = member.roles[roles_slice]
         avatarurl = str(member.avatar_url)
         timestamp_create = int(datetime.timestamp(member.created_at))
         timestamp_join = int(datetime.timestamp(member.joined_at))
@@ -30,7 +32,7 @@ class Galaxy(commands.Cog):
         embed.add_field(name="Roles", value=f"{member.roles.mention}")
         embed.set_thumbnail(url=f"{avatarurl}")
         embed.set_footer(text=f"ID: {member.id}")
-        await ctx.send(embed=embed)
+        await ctx.send(contents=f"{roles}")
 
     @commands.command()
     @commands.guild_only()
