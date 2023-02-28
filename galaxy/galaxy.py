@@ -10,44 +10,29 @@ class Galaxy(commands.Cog):
     @commands.command()
     async def warehouse(self, ctx,  lvlfrom: int, lvlto: int):
         """Calculates the total cost to upgrade your warehouse from a level to a level."""
-        ctx.send("dict is bugging out")
         warehouse_levels = {1:0, 2:1000,3:2500,4:4500,5:7500,6:12500,7:20000,8:31500,9:46500,10:65500,11:87500,12:113500,13:143500,14:178500,15:218500,16:263500,17:313500,18:373500,19:443500,20:523500,21:613500,22:713500,23:823500,24:943500,25:1073500,26:1223500,27:1398500,28:1598500,29:1823500,30:2073500,31:2353500, 32:2663500, 33:3003500, 34:3373500, 35:3773500, 36:4193500, 37:4644500, 38:5093500}
-        ctx.send("line 13")
         total_from = (f'{warehouse_levels[lvlfrom]:,}')
-        ctx.send("line 15")
         total_to = (f'{warehouse_levels[lvlto]:,}')
-        ctx.send("line 17")
         output = warehouse_levels[lvlto] - warehouse_levels[lvlfrom]
-        ctx.send("line 19")
         total = (f'{output}:,')
-        ctx.send("line 21")
         embed = discord.Embed(title="Warehouse Cost", color=await self.bot.get_embed_color(None))
-        ctx.send("line 23")
         embed.add_field(name="From:", value=f"Warehouse Level: {lvlfrom}\nTotal Cost: {total_from} Credits")
-        ctx.send("line 25")
         embed.add_field(name="To:", value=f"Warehouse Level: {lvlto}\nTotal Cost: {total_to} Credits")
-        ctx.send("line 27")
         embed.add_field(name="Output:", value=f"{total} Credits")
-        ctx.send("line 29")
         if lvlfrom == lvlto:
             ctx.send(contents="``lvlfrom`` cannot be the same as ``lvlto``.")
+        elif lvlfrom > lvlto:
+            ctx.send(contents="``lvlfrom`` cannot be a higher value than ``to``.")
+        elif lvlfrom > 37:
+            ctx.send(contents="``lvlfrom`` must be 37 or below.")
+        elif lvlfrom < 1:
+            ctx.send(contents="``lvlfrom`` must be 1 or higher.")
+        elif lvlto > 1:
+            ctx.send(contents="``lvlto`` must be 1 or higher.")
+        elif lvlto > 37:
+            ctx.send(contents="``lvlto`` must be 38 or below.")
         else:
-            if lvlfrom > lvlto:
-                ctx.send(contents="``lvlfrom`` cannot be a higher value than ``to``.")
-            else:
-                if lvlfrom > 37:
-                    ctx.send(contents="``lvlfrom`` must be 37 or below.")
-                else:
-                    if lvlfrom < 1:
-                        ctx.send(contents="``lvlfrom`` must be 1 or higher.")
-                    else:
-                        if lvlto < 1:
-                            ctx.send(contents="``lvlto`` must be 1 or higher.")
-                        else:
-                            if lvlto > 38:
-                                ctx.send(contents="``lvlto`` must be 38 or below.")
-                            else:
-                                ctx.send(embed=embed)
+            ctx.send(embed=embed)
 
     @commands.group(autohelp=True)
     async def faq(self, ctx):
