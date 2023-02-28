@@ -21,7 +21,7 @@ class Galaxy(commands.Cog):
         else:
             colorint = role.color.value
         if permissions.administrator:
-            embed = discord.Embed(color=colorint, description="With Administrator")
+            embed = discord.Embed(color=colorint, description=f"**ID:** {role.id}\n**Mention:** {role.mention}\n**Creation Date:** {role.created_at}\n**Color:** [str({role.color})]({colorcodelink})\n**Hoisted:** {role.hoist}\n**Position:** {role.position}\n**Managed:** {role.managed}\n**Mentionable:** {role.mentionable}\n**Administrator:** {role.permissions.administrator}")
         else:
             embed = discord.Embed(color=colorint, description="Without Administrator")
         await ctx.send(embed=embed)
