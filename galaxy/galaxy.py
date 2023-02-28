@@ -121,6 +121,7 @@ class Galaxy(commands.Cog):
 
 
     @faq_test.error
+    @faq_linked_role.error
     @faq_npc_intervals.error
     @faq_links.error
     @faq_dps.error
