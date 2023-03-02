@@ -1,4 +1,4 @@
-from redbot.core import commands, checks
+from redbot.core import commands, checks, config
 import discord
 from datetime import datetime
 import re
@@ -8,13 +8,39 @@ class Galaxy(commands.Cog):
 
     def __init__(self, bot):
         self.bot = bot
+        self.config = config.get_conf(self, identifier=6621962)
+        guild_default = {
+            "cocotarget = 0"
+        }
+        self.config.register_guild(**guild_default)
 
-    # @commands.Cog.listener('on_message')
-    # async def coco(self, message):
-        # if message.author.id == 286536538446102528:
-           #  await message.add_reaction(emoji="<:coco:1028535684757209118>")
-        # else:
-           #  return
+    @commands.Cog.listener('on_message')
+    async def cocoreact(self, ctx, message):
+        cocotarget = await self.config.guild(ctx.guild).cocotarget()
+        if cocotarget == 0: 
+            return
+        elif message.author.id == cocotarget:
+            await message.add_reaction(emoji="<:coco:1028535684757209118>")
+        else:
+           return
+        
+    @commands.group
+    async def coco(self, ctx):
+        """Checks who Coco is currently set to."""
+        cocotarget = await self.config.guild(ctx.guild).cocotarget()
+        embed=discord.Embed(color=await self.bot.get_embed_color(None), description=f"Coco is currently set to <@{cocotarget}> (cocotarget)")
+        ctx.send(embed=embed)
+    
+    @coco.command(name=set)
+    @checks.is_owner()
+    async def coco_set(self, ctx, member = discord.Member):
+        """Sets Coco's target."""
+        if member:
+            await self.config.cocotarget.set(member.id)
+            embed=discord.Embed(color=await self.bot.get_embed_color(None), description=f"Coco has been set to {member.mention} ({member.id})")
+            ctx.send(embed=embed)
+        else:
+            ctx.send(content="That is not a valid argument!")
 
     @commands.command()
     @commands.guild_only()
