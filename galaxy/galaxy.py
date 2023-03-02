@@ -46,7 +46,7 @@ class Galaxy(commands.Cog):
     @checks.is_owner()
     async def coco_reset(self, ctx):
         """Resets Coco's target."""
-        await self.config.cocotarget.set(0)
+        await self.config.guild(ctx.guild).cocotarget.set(0)
         embed=discord.Embed(color=await self.bot.get_embed_color(None), description=f"Coco has been reset.")
         await ctx.send(embed=embed)
 
