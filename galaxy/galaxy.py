@@ -38,11 +38,11 @@ class Galaxy(commands.Cog):
     async def coco_emoji_set(self, ctx, emoji: discord.Emoji = None):
         """Sets Coco's emoji."""
         if emoji:
-            await self.config.guild(ctx.guild).cocotarget.set(emoji.id)
+            await self.config.guild(ctx.guild).cocoemoji.set(emoji.id)
             embed=discord.Embed(color=await self.bot.get_embed_color(None), description=f"Coco's emoji has been set to {emoji} ({emoji.id}).")
             await ctx.send(embed=embed)
         else:
-            await self.config.guild(ctx.guild).cocotarget.set(1028535684757209118)
+            await self.config.guild(ctx.guild).cocoemoji.set(1028535684757209118)
             emoji = self.bot.get_emoji(1028535684757209118)
             embed=discord.Embed(color=await self.bot.get_embed_color(None), description=f"Coco's emoji has been set to {emoji} (1028535684757209118).")
             await ctx.send(embed=embed)
