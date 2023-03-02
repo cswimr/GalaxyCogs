@@ -12,6 +12,10 @@ class Galaxy(commands.Cog):
         guild_default = {
             "cocotarget":  0
         }
+        global_default = {
+            "cocotarget":  0
+        }
+        self.config.register_guild(**global_default)
         self.config.register_guild(**guild_default)
 
     @commands.Cog.listener('on_message')
@@ -28,7 +32,7 @@ class Galaxy(commands.Cog):
     async def coco(self, ctx):
         """Checks who Coco is currently set to."""
         cocotarget = await self.config.guild(ctx.guild).cocotarget()
-        embed=discord.Embed(color=await self.bot.get_embed_color(None), description=f"Coco is currently set to <@{cocotarget}> (cocotarget)")
+        embed=discord.Embed(color=await self.bot.get_embed_color(None), description=f"Coco is currently set to <@{cocotarget}> (cocotarget).")
         ctx.send(embed=embed)
     
     @coco.command(name="set")
@@ -37,10 +41,18 @@ class Galaxy(commands.Cog):
         """Sets Coco's target."""
         if member:
             await self.config.cocotarget.set(member.id)
-            embed=discord.Embed(color=await self.bot.get_embed_color(None), description=f"Coco has been set to {member.mention} ({member.id})")
+            embed=discord.Embed(color=await self.bot.get_embed_color(None), description=f"Coco has been set to {member.mention} ({member.id}).")
             ctx.send(embed=embed)
         else:
             ctx.send(content="That is not a valid argument!")
+
+    @coco.command(name="reset")
+    @checks.is_owner()
+    async def coco_reset(self, ctx):
+        """Resets Coco's target."""
+        await self.config.cocotarget.set(0)
+        embed=discord.Embed(color=await self.bot.get_embed_color(None), description=f"Coco has been reset.")
+        ctx.send(embed=embed)
 
     @commands.command()
     @commands.guild_only()
