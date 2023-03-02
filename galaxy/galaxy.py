@@ -10,7 +10,7 @@ class Galaxy(commands.Cog):
         self.bot = bot
         self.config = Config.get_conf(self, identifier=6621962)
         guild_default = {
-            "cocotarget = 0"
+            "cocotarget":  0
         }
         self.config.register_guild(**guild_default)
 
