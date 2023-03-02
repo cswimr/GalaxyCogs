@@ -33,7 +33,7 @@ class Galaxy(commands.Cog):
     
     @coco.command(name="set")
     @checks.is_owner()
-    async def coco_set(self, ctx, member = discord.Member):
+    async def coco_set(self, ctx, member: discord.Member):
         """Sets Coco's target."""
         if member:
             await self.config.cocotarget.set(member.id)
