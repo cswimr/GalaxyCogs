@@ -42,7 +42,9 @@ class Galaxy(commands.Cog):
             embed=discord.Embed(color=await self.bot.get_embed_color(None), description=f"Coco's emoji has been set to {emoji} ({emoji.id}).")
             await ctx.send(embed=embed)
         else:
-            await ctx.send(content="That is not a valid argument!")
+            await self.config.guild(ctx.guild).cocotarget.set(1028535684757209118)
+            embed=discord.Embed(color=await self.bot.get_embed_color(None), description=f"Coco's emoji has been set to {emoji} (1028535684757209118).")
+            await ctx.send(embed=embed)
 
     @coco.command(name="set")
     @checks.is_owner()
