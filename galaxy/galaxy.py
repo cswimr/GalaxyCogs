@@ -28,8 +28,9 @@ class Galaxy(commands.Cog):
     @commands.guild_only()
     async def coco(self, ctx):
         """Checks who Coco is currently set to."""
+        emoji = self.bot.get_emoji(await self.config.guild(ctx.guild).cocoemoji())
         cocotarget = await self.config.guild(ctx.guild).cocotarget()
-        embed=discord.Embed(color=await self.bot.get_embed_color(None), description=f"Coco is currently set to <@{cocotarget}> ({cocotarget}).\nCoco's emoji is currently set to ")
+        embed=discord.Embed(color=await self.bot.get_embed_color(None), description=f"Coco is currently set to <@{cocotarget}> ({cocotarget}).\nCoco's emoji is currently set to {emoji} ({await self.config.guild(ctx.guild).cocoemoji()}).")
         await ctx.send(embed=embed)
     
     @coco.command(name="emoji")
