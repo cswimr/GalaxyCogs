@@ -4,7 +4,8 @@ from datetime import datetime
 import re
 
 class Galaxy(commands.Cog):
-    """Custom cog intended for use on the Galaxy discord server."""
+    """Custom cog intended for use on the Galaxy discord server.
+    Developed by SeaswimmerTheFsh."""
 
     def __init__(self, bot):
         self.bot = bot
@@ -30,7 +31,7 @@ class Galaxy(commands.Cog):
         """Checks who Coco is currently set to."""
         emoji = self.bot.get_emoji(await self.config.guild(ctx.guild).cocoemoji())
         cocotarget = await self.config.guild(ctx.guild).cocotarget()
-        embed=discord.Embed(color=await self.bot.get_embed_color(None), description=f"Coco is currently set to <@{cocotarget}> ({cocotarget}).\nCoco's emoji is currently set to {emoji} ({await self.config.guild(ctx.guild).cocoemoji()}).")
+        embed = discord.Embed(color=await self.bot.get_embed_color(None), description=f"Coco is currently set to <@{cocotarget}> ({cocotarget}).\nCoco's emoji is currently set to {emoji} ({await self.config.guild(ctx.guild).cocoemoji()}).")
         await ctx.send(embed=embed)
     
     @coco.command(name="emoji")
@@ -74,9 +75,6 @@ class Galaxy(commands.Cog):
             colorint = 10070709
         else:
             colorint = member.color.value
-        roles_split = {member.roles}.split()
-        roles_slice = slice(1, -1, 2)
-        roles = roles_split[roles_slice]
         avatarurl = str(member.avatar_url)
         timestamp_create = int(datetime.timestamp(member.created_at))
         timestamp_join = int(datetime.timestamp(member.joined_at))
@@ -84,7 +82,7 @@ class Galaxy(commands.Cog):
         embed.add_field(name="Joined At", value=f"<t:{timestamp_join}>")
         embed.add_field(name="Created At", value=f"<t:{timestamp_create}>")
         embed.add_field(name="Avatar", value=f"[Click Here]({avatarurl})")
-        embed.add_field(name="Roles", value=f"{roles}")
+        embed.add_field(name="Roles", value=f"{member.roles}")
         embed.set_thumbnail(url=f"{avatarurl}")
         embed.set_footer(text=f"ID: {member.id}")
         await ctx.send(embed=embed)
