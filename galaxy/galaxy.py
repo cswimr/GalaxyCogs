@@ -10,12 +10,13 @@ class Galaxy(commands.Cog):
         self.bot = bot
         self.config = Config.get_conf(self, identifier=6621962)
         self.config.register_guild(
-            cocotarget = 0
+            cocotarget = 0,
+            cocoemoji = 1028535684757209118
         )
 
     @commands.Cog.listener('on_message')
     async def cocoreact(self, message):
-        emoji = self.bot.get_emoji(1028535684757209118)
+        emoji = self.bot.get_emoji(await self.config.guild(message.guild).cocoemoji())
         cocotarget = await self.config.guild(message.guild).cocotarget()
         if cocotarget == 0: 
             return
@@ -28,9 +29,20 @@ class Galaxy(commands.Cog):
     async def coco(self, ctx):
         """Checks who Coco is currently set to."""
         cocotarget = await self.config.guild(ctx.guild).cocotarget()
-        embed=discord.Embed(color=await self.bot.get_embed_color(None), description=f"Coco is currently set to <@{cocotarget}> ({cocotarget}).")
+        embed=discord.Embed(color=await self.bot.get_embed_color(None), description=f"Coco is currently set to <@{cocotarget}> ({cocotarget}).\nCoco's emoji is currently set to ")
         await ctx.send(embed=embed)
     
+    @coco.command(name="emoji")
+    @checks.is_owner()
+    async def coco_emoji_set(self, ctx, emoji: discord.Emoji):
+        """Sets Coco's emoji."""
+        if emoji:
+            await self.config.guild(ctx.guild).cocotarget.set(emoji.id)
+            embed=discord.Embed(color=await self.bot.get_embed_color(None), description=f"Coco's emoji has been set to {emoji} ({emoji.id}).")
+            await ctx.send(embed=embed)
+        else:
+            await ctx.send(content="That is not a valid argument!")
+
     @coco.command(name="set")
     @checks.is_owner()
     async def coco_set(self, ctx, member: discord.Member):
