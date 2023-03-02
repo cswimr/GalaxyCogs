@@ -31,7 +31,7 @@ class Galaxy(commands.Cog):
         embed=discord.Embed(color=await self.bot.get_embed_color(None), description=f"Coco is currently set to <@{cocotarget}> (cocotarget)")
         ctx.send(embed=embed)
     
-    @coco.command(name=set)
+    @coco.command(name="set")
     @checks.is_owner()
     async def coco_set(self, ctx, member = discord.Member):
         """Sets Coco's target."""
