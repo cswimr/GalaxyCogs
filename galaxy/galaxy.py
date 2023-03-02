@@ -28,10 +28,13 @@ class Galaxy(commands.Cog):
         else:
            return
         
-    @commands.group(autohelp=False)
+    @commands.group(autohelp=True)
     @commands.guild_only()
-    async def coco(self, ctx):
+    async def coco(self):
         """Checks who Coco is currently set to."""
+
+    @coco.command(name="get")
+    async def coco_get(self, ctx):
         cocotarget = await self.config.guild(ctx.guild).cocotarget()
         embed=discord.Embed(color=await self.bot.get_embed_color(None), description=f"Coco is currently set to <@{cocotarget}> (cocotarget).")
         ctx.send(embed=embed)
