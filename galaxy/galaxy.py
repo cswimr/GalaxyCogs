@@ -9,10 +9,9 @@ class Galaxy(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         self.config = Config.get_conf(self, identifier=6621962)
-        guild_default = {
-            "cocotarget":  0
-        }
-        self.config.register_guild(**guild_default)
+        self.config.register_guild(
+            cocotarget = 0
+        )
 
     @commands.Cog.listener('on_message')
     async def cocoreact(self, ctx, message):
