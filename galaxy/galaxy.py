@@ -15,12 +15,13 @@ class Galaxy(commands.Cog):
 
     @commands.Cog.listener('on_message')
     async def cocoreact(self, message):
+        emoji = self.bot.get_emoji(1028535684757209118)
         cocotarget = await self.config.guild(message.guild).cocotarget()
         if cocotarget == 0: 
             return
         if not message.author.id == cocotarget:
             return
-        await message.add_reaction(emoji="<:coco:1028535684757209118>")
+        await message.add_reaction(emoji)
         
     @commands.group(autohelp=True)
     @commands.guild_only()
