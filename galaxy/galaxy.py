@@ -30,7 +30,7 @@ class Galaxy(commands.Cog):
         
     @commands.group(autohelp=True)
     @commands.guild_only()
-    async def coco(self):
+    async def coco(self, ctx):
         """Checks who Coco is currently set to."""
 
     @coco.command(name="get")
