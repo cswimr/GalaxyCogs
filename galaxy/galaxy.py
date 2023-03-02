@@ -18,10 +18,9 @@ class Galaxy(commands.Cog):
         cocotarget = await self.config.guild(ctx.guild).cocotarget()
         if cocotarget == 0: 
             return
-        elif message.author.id == cocotarget:
-            await message.add_reaction(emoji="<:coco:1028535684757209118>")
-        else:
-           return
+        if not message.author.id == cocotarget:
+            return
+        await message.add_reaction(emoji="<:coco:1028535684757209118>")
         
     @commands.group(autohelp=True)
     @commands.guild_only()
@@ -40,7 +39,7 @@ class Galaxy(commands.Cog):
     async def coco_set(self, ctx, member: discord.Member):
         """Sets Coco's target."""
         if member:
-            await self.config.cocotarget.set(member.id)
+            await self.config.guild(ctx.guild).cocotarget.set(member.id)
             embed=discord.Embed(color=await self.bot.get_embed_color(None), description=f"Coco has been set to {member.mention} ({member.id}).")
             await ctx.send(embed=embed)
         else:
