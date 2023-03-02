@@ -35,7 +35,7 @@ class Galaxy(commands.Cog):
     
     @coco.command(name="emoji")
     @checks.is_owner()
-    async def coco_emoji_set(self, ctx, emoji: discord.Emoji):
+    async def coco_emoji_set(self, ctx, emoji: discord.Emoji = None):
         """Sets Coco's emoji."""
         if emoji:
             await self.config.guild(ctx.guild).cocotarget.set(emoji.id)
