@@ -14,8 +14,8 @@ class Galaxy(commands.Cog):
         )
 
     @commands.Cog.listener('on_message')
-    async def cocoreact(self, ctx, message):
-        cocotarget = await self.config.guild(ctx.guild).cocotarget()
+    async def cocoreact(self, message):
+        cocotarget = await self.config.guild(message.guild).cocotarget()
         if cocotarget == 0: 
             return
         if not message.author.id == cocotarget:
