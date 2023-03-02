@@ -43,6 +43,7 @@ class Galaxy(commands.Cog):
             await ctx.send(embed=embed)
         else:
             await self.config.guild(ctx.guild).cocotarget.set(1028535684757209118)
+            emoji = self.bot.get_emoji(1028535684757209118)
             embed=discord.Embed(color=await self.bot.get_embed_color(None), description=f"Coco's emoji has been set to {emoji} (1028535684757209118).")
             await ctx.send(embed=embed)
 
