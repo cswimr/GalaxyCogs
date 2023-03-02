@@ -1,4 +1,4 @@
-from redbot.core import commands, checks, config
+from redbot.core import commands, checks, Config
 import discord
 from datetime import datetime
 import re
@@ -8,7 +8,7 @@ class Galaxy(commands.Cog):
 
     def __init__(self, bot):
         self.bot = bot
-        self.config = config.get_conf(self, identifier=6621962)
+        self.config = Config.get_conf(self, identifier=6621962)
         guild_default = {
             "cocotarget = 0"
         }
