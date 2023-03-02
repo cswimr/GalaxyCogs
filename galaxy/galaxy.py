@@ -35,6 +35,7 @@ class Galaxy(commands.Cog):
 
     @coco.command(name="get")
     async def coco_get(self, ctx):
+        """Checks who Coco is currently set to."""
         cocotarget = await self.config.guild(ctx.guild).cocotarget()
         embed=discord.Embed(color=await self.bot.get_embed_color(None), description=f"Coco is currently set to <@{cocotarget}> (cocotarget).")
         ctx.send(embed=embed)
