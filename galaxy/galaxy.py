@@ -33,7 +33,7 @@ class Galaxy(commands.Cog):
         """Checks who Coco is currently set to."""
         cocotarget = await self.config.guild(ctx.guild).cocotarget()
         embed=discord.Embed(color=await self.bot.get_embed_color(None), description=f"Coco is currently set to <@{cocotarget}> ({cocotarget}).")
-        ctx.send(embed=embed)
+        await ctx.send(embed=embed)
     
     @coco.command(name="set")
     @checks.is_owner()
@@ -42,9 +42,9 @@ class Galaxy(commands.Cog):
         if member:
             await self.config.cocotarget.set(member.id)
             embed=discord.Embed(color=await self.bot.get_embed_color(None), description=f"Coco has been set to {member.mention} ({member.id}).")
-            ctx.send(embed=embed)
+            await ctx.send(embed=embed)
         else:
-            ctx.send(content="That is not a valid argument!")
+            await ctx.send(content="That is not a valid argument!")
 
     @coco.command(name="reset")
     @checks.is_owner()
@@ -52,7 +52,7 @@ class Galaxy(commands.Cog):
         """Resets Coco's target."""
         await self.config.cocotarget.set(0)
         embed=discord.Embed(color=await self.bot.get_embed_color(None), description=f"Coco has been reset.")
-        ctx.send(embed=embed)
+        await ctx.send(embed=embed)
 
     @commands.command()
     @commands.guild_only()
