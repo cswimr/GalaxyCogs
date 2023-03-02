@@ -29,6 +29,7 @@ class Galaxy(commands.Cog):
            return
         
     @commands.group(autohelp=False)
+    @commands.guild_only()
     async def coco(self, ctx):
         """Checks who Coco is currently set to."""
         cocotarget = await self.config.guild(ctx.guild).cocotarget()
