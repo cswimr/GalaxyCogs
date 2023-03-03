@@ -1,9 +1,4 @@
 from datetime import datetime
-import asyncio
-from collections import defaultdict
-from enum import Enum
-from random import randint, choice
-from typing import Final, cast
 import discord
 from redbot.core import commands, checks, Config
 from redbot.core.bot import Red
