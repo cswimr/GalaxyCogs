@@ -491,7 +491,7 @@ class Info(commands.Cog):
         name = " ~ ".join((name, member.nick)) if member.nick else name
         name = filter_invites(name)
 
-        avatar = member.display_avatar.replace(static_format="png")
+        avatar = member.avatar_url_as(format='png')
         data.set_author(name=f"{statusemoji} {name}", url=avatar)
         data.set_thumbnail(url=avatar)
 
