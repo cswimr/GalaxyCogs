@@ -67,7 +67,6 @@ class Galaxy(commands.Cog):
         embed=discord.Embed(color=await self.bot.get_embed_color(None), description=f"Coco has been reset.")
         await ctx.send(embed=embed)
 
-
     @commands.command()
     async def unix(self, ctx):
         """Posts the current Unix timestamp."""
