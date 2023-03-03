@@ -13,7 +13,8 @@ from redbot.core.utils.chat_formatting import (
     humanize_timedelta,
 )
 from redbot.core.utils.common_filters import (
-    filter_invites
+    filter_invites,
+    escape_spoilers_and_mass_mentions
 )
 
 
@@ -345,6 +346,15 @@ class Info(commands.Cog):
                 continue
             string += f"{status_string}\n"
         return string
+
+    async def get_names_and_nicks(self, user):
+        names = await self.config.user(user).past_names()
+        nicks = await self.config.member(user).past_nicks()
+        if names:
+            names = [escape_spoilers_and_mass_mentions(name) for name in names if name]
+        if nicks:
+            nicks = [escape_spoilers_and_mass_mentions(nick) for nick in nicks if nick]
+        return names, nicks
 
     @commands.command()
     @commands.guild_only()
