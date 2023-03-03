@@ -154,14 +154,20 @@ class Info(commands.Cog):
                 description=(f"{guild.description}\n\n" if guild.description else "") + created_at,
                 colour=await ctx.embed_colour(),
             )
-            data.set_author(
-                name=guild.name,
-                icon_url="https://cdn.discordapp.com/emojis/457879292152381443.png"
-                if "VERIFIED" in guild.features
-                else "https://cdn.discordapp.com/emojis/508929941610430464.png"
-                if "PARTNERED" in guild.features
-                else None,
-            )
+            if "VERIFIED" in guild.features:
+                data.set_author(
+                    name=guild.name,
+                    icon_url="https://cdn.discordapp.com/emojis/457879292152381443.png"
+                )
+            elif "PARTNERNED" in guild.features:
+                data.set_author(
+                    name=guild.name,
+                    icon_url="https://cdn.discordapp.com/emojis/508929941610430464.png"
+                )
+            else:
+                data.set_author(
+                    name=guild.name
+                )
             if guild.icon:
                 data.set_thumbnail(url=str(guild.icon_url))
             data.add_field(name=_("Members:"), value=member_msg)
