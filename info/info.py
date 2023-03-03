@@ -1,14 +1,24 @@
+import datetime
+import time
+from enum import Enum
+from random import randint, choice
+from typing import Final
+import urllib.parse
+import aiohttp
 import discord
 from redbot.core import commands
 from redbot.core.bot import Red
 from redbot.core.i18n import Translator, cog_i18n
-from datetime import datetime
+from redbot.core.utils.menus import menu
 import re
 from redbot.core.utils.chat_formatting import (
     bold,
+    escape,
+    italics,
     humanize_number,
     humanize_timedelta,
 )
+
 
 _ = T_ = Translator("General", __file__)
 
