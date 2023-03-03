@@ -45,9 +45,10 @@ class Info(commands.Cog):
         Default to False.
         """
         guild = ctx.guild
+        timestamp = int(datetime.timestamp(guild.created_at))
         created_at = _("Created on {date_and_time}. That's {relative_time}!").format(
-            date_and_time=discord.utils.format_dt(guild.created_at),
-            relative_time=discord.utils.format_dt(guild.created_at, "R"),
+            date_and_time=f"<t:{timestamp}>",
+            relative_time=f"<t:{timestamp}:R>",
         )
         online = humanize_number(
             len([m.status for m in guild.members if m.status != discord.Status.offline])
