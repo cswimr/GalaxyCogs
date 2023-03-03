@@ -1,4 +1,4 @@
-import datetime
+from datetime import datetime
 import time
 from enum import Enum
 from random import randint, choice
