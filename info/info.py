@@ -75,8 +75,8 @@ class Info(commands.Cog):
                 )
             )
             if guild.icon:
-                data.set_author(name=guild.name, url=guild.icon)
-                data.set_thumbnail(url=guild.icon)
+                data.set_author(name=guild.name, url=str(guild.icon_url))
+                data.set_thumbnail(url=str(guild.icon_url))
             else:
                 data.set_author(name=guild.name)
         else:
@@ -163,7 +163,7 @@ class Info(commands.Cog):
                 else None,
             )
             if guild.icon:
-                data.set_thumbnail(url=guild.icon)
+                data.set_thumbnail(url=str(guild.icon_url))
             data.add_field(name=_("Members:"), value=member_msg)
             data.add_field(
                 name=_("Channels:"),
