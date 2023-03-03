@@ -1,9 +1,11 @@
 from datetime import datetime
+import asyncio
+from collections import defaultdict
 from enum import Enum
 from random import randint, choice
 from typing import Final, cast
 import discord
-from redbot.core import commands, checks
+from redbot.core import commands, checks, Config
 from redbot.core.bot import Red
 from redbot.core.i18n import Translator, cog_i18n
 import re
@@ -24,9 +26,21 @@ _ = T_ = Translator("General", __file__)
 class Info(commands.Cog):
     """Provides information on Discord objects."""
 
-    def __init__(self, bot: Red) -> None:
+    def __init__(self, bot: Red):
         super().__init__()
         self.bot = bot
+
+        self.config = Config.get_conf(self, 2657117654, force_registration=True)
+        self.config.register_global(**self.default_global_settings)
+        self.config.register_guild(**self.default_guild_settings)
+        self.config.register_channel(**self.default_channel_settings)
+        self.config.register_member(**self.default_member_settings)
+        self.config.register_user(**self.default_user_settings)
+        self.cache: dict = {}
+        
+    default_member_settings = {"past_nicks": [], "perms_cache": {}}
+
+    default_user_settings = {"past_names": []}
 
     async def red_delete_data_for_user(self, **kwargs):
         """Nothing to delete."""
