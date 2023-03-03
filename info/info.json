@@ -1,0 +1,9 @@
+{
+    "author" : ["SeaswimmerTheFsh"],
+    "install_msg" : "Thank you for installing Galaxy!\nYou can find the source code of this cog here: https://github.com/SeaswimmerTheFsh/GalaxyCogs",
+    "name" : "Info",
+    "short" : "Provides information on Discord objects.",
+    "description" : "Provides information on Discord objects. Most of this code is shamelessly ripped from <https://github.com/Cog-Creators/Red-DiscordBot/blob/V3/develop/redbot/cogs/general/general.py>.",
+    "end_user_data_statement" : "This cog does not store any End User Data."
+  }
+  

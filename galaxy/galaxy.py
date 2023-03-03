@@ -67,46 +67,6 @@ class Galaxy(commands.Cog):
         embed=discord.Embed(color=await self.bot.get_embed_color(None), description=f"Coco has been reset.")
         await ctx.send(embed=embed)
 
-    @commands.command()
-    @commands.guild_only()
-    async def userinfo(self, ctx, member: discord.Member):
-        """Gives information on a specific person."""
-        if member.color.value == 0:
-            colorint = 10070709
-        else:
-            colorint = member.color.value
-        avatarurl = str(member.avatar_url)
-        timestamp_create = int(datetime.timestamp(member.created_at))
-        timestamp_join = int(datetime.timestamp(member.joined_at))
-        embed = discord.Embed(title=f"{member.name}#{member.discriminator}", color=colorint)
-        embed.add_field(name="Joined At", value=f"<t:{timestamp_join}>")
-        embed.add_field(name="Created At", value=f"<t:{timestamp_create}>")
-        embed.add_field(name="Avatar", value=f"[Click Here]({avatarurl})")
-        embed.add_field(name="Roles", value=f"{member.roles}")
-        embed.set_thumbnail(url=f"{avatarurl}")
-        embed.set_footer(text=f"ID: {member.id}")
-        await ctx.send(embed=embed)
-
-    @commands.command()
-    @commands.guild_only()
-    async def roleinfo(self, ctx, role: discord.Role):
-        """Gives information on a specific role."""
-        permissions = role.permissions
-        if role.color.value == 0:
-            colorint = 10070709
-            color = "99aab5"
-        else:
-            colorint = role.color.value
-            color = re.sub('#',"",str(role.color))
-        colorcodelink = f"https://www.color-hex.com/color/{color}"
-        timestamp = int(datetime.timestamp(role.created_at))
-        if permissions.administrator:
-            embed = discord.Embed(title=f"{role.name}", color=colorint, description=f"**ID:** {role.id}\n**Mention:** {role.mention}\n**Creation Date:** <t:{timestamp}>\n**Color:** [#{color}]({colorcodelink})\n**Hoisted:** {role.hoist}\n**Position:** {role.position}\n**Managed:** {role.managed}\n**Mentionable:** {role.mentionable}\n**Administrator:** {role.permissions.administrator}")
-        else:
-            embed = discord.Embed(title=f"{role.name}", color=colorint, description=f"**ID:** {role.id}\n**Mention:** {role.mention}\n**Creation Date:** <t:{timestamp}>\n**Color:** [#{color}]({colorcodelink})\n**Hoisted:** {role.hoist}\n**Position:** {role.position}\n**Managed:** {role.managed}\n**Mentionable:** {role.mentionable}\n**Administrator:** {role.permissions.administrator}")
-            embed.add_field(name="Permissions", value=f"**Manage Server:** {permissions.manage_guild}\n**Manage Webhooks:** {permissions.manage_webhooks}\n**Manage Channels:** {permissions.manage_channels}\n**Manage Roles:** {permissions.manage_roles}\n**Manage Emojis:** {permissions.manage_emojis}\n**Manage Messages:** {permissions.manage_messages}\n**Manage Nicknames:** {permissions.manage_nicknames}\n**Mention @everyone**: {permissions.mention_everyone}\n**Ban Members:** {permissions.ban_members}\n**Kick Members:** {permissions.kick_members}")
-        await ctx.send(embed=embed)
-
 
     @commands.command()
     async def unix(self, ctx):
