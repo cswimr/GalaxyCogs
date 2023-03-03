@@ -75,7 +75,7 @@ class Info(commands.Cog):
                 )
             )
             if guild.icon:
-                data.set_author(name=guild.name, url=str(guild.icon_url))
+                data.set_author(name=guild.name, icon_url=str(guild.icon_url))
                 data.set_thumbnail(url=str(guild.icon_url))
             else:
                 data.set_author(name=guild.name)
