@@ -1,0 +1,9 @@
+{
+    "author" : ["SeaswimmerTheFsh"],
+    "install_msg" : "Thank you for installing Podcast!\nYou can find the source code of this cog here: https://github.com/SeaswimmerTheFsh/GalaxyCogs",
+    "name" : "Podcast",
+    "short" : "Provides a questions submission system.",
+    "description" : "Provies a questions submission system.",
+    "end_user_data_statement" : "This cog does not store any End User Data."
+  }
+  
