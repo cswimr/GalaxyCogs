@@ -1,7 +1,7 @@
 # GalaxyCogs
 <p align="center">
   <a href="https://discord.com/invite/robloxgalaxy">
-    <img src="https://discord.com/api/guilds/204965774618656769/widget.json" alt="Galaxy Discord Server">
+    <img src="https://discordapp.com/api/guilds/204965774618656769/widget.png?style=shield" alt="Galaxy Discord Server">
   </a>
   <a href="https://www.python.org/downloads/">
     <img alt="PyPI - Python Version" src="https://img.shields.io/pypi/pyversions/Red-Discordbot">
