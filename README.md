@@ -11,6 +11,7 @@
   </a>
 </p>
 Repository for Redbot cogs developed by the Galaxy Discord Management team.
+
 ## Galaxy
 Utility cog designed specifically for use on the Galaxy Discord server. 
 
