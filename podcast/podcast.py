@@ -40,7 +40,7 @@ class Podcast(commands.Cog):
             await ctx.send(content="Question submitted!")
 
     @commands.group(autohelp=True)
-    @checks.admin_or_permissions(manage_server=True)
+    @checks.admin_or_permissions(manage_guild=True)
     @commands.guild_only()
     async def podcastset(self, ctx):
         """Commands to configure the Podcast cog."""
