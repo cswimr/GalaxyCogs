@@ -39,21 +39,21 @@ class Podcast(commands.Cog):
             await submission_channel.send(content=f"{question}")
             await ctx.send(content="Question submitted!")
 
-        @commands.group(autohelp=True)
-        @checks.is_admin_or_superior()
-        @commands.guild_only()
-        async def podcastset(self, ctx):
-            """Commands to configure the Podcast cog."""
+    @commands.group(autohelp=True)
+    @checks.is_admin_or_superior()
+    @commands.guild_only()
+    async def podcastset(self):
+        """Commands to configure the Podcast cog."""
 
-        @podcastset.command(name="global")
-        @checks.is_admin_or_superior()
-        async def set_global_mode(self, ctx, boolean: bool):
-            """Enables or disables global mode."""
-            if boolean == True:
-                await self.config.guild(ctx.guild).global_mode.set(True)
-                await ctx.send(content="``global_mode`` has been set to True.")
-            elif boolean == False:
-                await self.config.guild(ctx.guild).global_mode.set(False)
-                await ctx.send(content="``global_mode`` has been set to False.")
-            else:
-                await ctx.send(content="Please specify an argument!")
+    @podcastset.command(name="global")
+    @checks.is_admin_or_superior()
+    async def set_global_mode(self, ctx, boolean: bool):
+        """Enables or disables global mode."""
+        if boolean == True:
+            await self.config.guild(ctx.guild).global_mode.set(True)
+            await ctx.send(content="``global_mode`` has been set to True.")
+        elif boolean == False:
+            await self.config.guild(ctx.guild).global_mode.set(False)
+            await ctx.send(content="``global_mode`` has been set to False.")
+        else:
+            await ctx.send(content="Please specify an argument!")
