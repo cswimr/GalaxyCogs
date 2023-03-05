@@ -40,13 +40,12 @@ class Podcast(commands.Cog):
             await ctx.send(content="Question submitted!")
 
     @commands.group(autohelp=True)
-    @checks.is_admin_or_superior()
+    @checks.admin_or_permissions(manage_server=True)
     @commands.guild_only()
     async def podcastset(self, ctx):
         """Commands to configure the Podcast cog."""
 
     @podcastset.command(name="global")
-    @checks.is_admin_or_superior()
     async def set_global_mode(self, ctx, boolean: bool):
         """Enables or disables global mode."""
         if boolean == True:
