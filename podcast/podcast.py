@@ -33,7 +33,7 @@ class Podcast(commands.Cog):
         else:
             return
         if ctx.author.id in blacklisted_users:
-            ctx.author.send(content=f"You are blacklisted from ``{prefix}podcast``!")
+            await ctx.author.send(content=f"You are blacklisted from ``{prefix}podcast``!")
             return
         else:
             await submission_channel.send(content=f"{question}")
