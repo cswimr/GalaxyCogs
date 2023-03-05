@@ -42,7 +42,7 @@ class Podcast(commands.Cog):
     @commands.group(autohelp=True)
     @checks.is_admin_or_superior()
     @commands.guild_only()
-    async def podcastset(self):
+    async def podcastset(self, ctx):
         """Commands to configure the Podcast cog."""
 
     @podcastset.command(name="global")
