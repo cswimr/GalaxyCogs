@@ -44,7 +44,7 @@ class SugonCredit(commands.Cog):
             return
         else:
             embed=discord.Embed(title=f"{bank_name} - Add", color=await self.bot.get_embed_color(None), description=f"{target.mention}'s {currency_name} balance has been increased by {amount}.\nCurrent balance is {new_bal}.")
-            bank.deposit_credits(target, amount=amount)
+            await bank.deposit_credits(target, amount=amount)
             await ctx.send(embed=embed)
 
     @credit.command()
@@ -61,5 +61,5 @@ class SugonCredit(commands.Cog):
             return
         else:
             embed=discord.Embed(title=f"{bank_name} - Remove", color=await self.bot.get_embed_color(None), description=f"{target.mention}'s {currency_name} balance has been decreased by {amount}.\nCurrent balance is {new_bal}.")
-            bank.withdraw_credits(target, amount=amount)
+            await bank.withdraw_credits(target, amount=amount)
             await ctx.send(embed=embed)
