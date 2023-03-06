@@ -1,7 +1,7 @@
 import discord
 from redbot.core import commands, bank, checks
 
-class SugonCredit(commands.cog):
+class SugonCredit(commands.Cog):
     """Implements a way for moderators to give out social-credit like points, dubbed 'sugoncredits' by the community."""
     def __init__(self, bot):
         self.bot = bot
