@@ -8,7 +8,7 @@ class SugonCredit(commands.Cog):
 
     @commands.group(autohelp=True, aliases=["sugoncredit"])
     @commands.guild_only()
-    async def credit(self):
+    async def credit(self, ctx):
         """Simple points system."""
 
     @credit.command()
