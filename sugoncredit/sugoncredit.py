@@ -34,6 +34,11 @@ class SugonCredit(commands.Cog):
     @commands.mod()
     async def add(self, ctx, target: discord.Member, amount: int):
         """Adds credits to an account."""
+        try:
+            val = int(amount)
+        except ValueError:
+            await ctx.send(content="``amount`` must be a number! Please try again.")
+            return
         bank_name = await bank.get_bank_name(ctx.guild)
         currency_name = await bank.get_currency_name(ctx.guild)
         current_bal = await bank.get_balance(target)
@@ -41,6 +46,9 @@ class SugonCredit(commands.Cog):
         new_bal = current_bal + amount
         if new_bal > max_bal:
             await ctx.send(content=f"You are attempting to set {target.mention}'s balance to above {max.bal}. Please try again!")
+            return
+        elif new_bal < 0:
+            await ctx.send(content=f"You are attempting to set {target.mention}'s balance to below 0. Please try again!")
             return
         else:
             embed=discord.Embed(title=f"{bank_name} - Add", color=await self.bot.get_embed_color(None), description=f"{target.mention}'s {currency_name} balance has been increased by {amount}.\nCurrent balance is {new_bal}.")
@@ -52,12 +60,17 @@ class SugonCredit(commands.Cog):
     @commands.mod()
     async def remove(self, ctx, target: discord.Member, amount: int):
         """Removes credits from an account."""
+        try:
+            val = int(amount)
+        except ValueError:
+            await ctx.send(content="``amount`` must be a number. Please try again!")
+            return
         bank_name = await bank.get_bank_name(ctx.guild)
         currency_name = await bank.get_currency_name(ctx.guild)
         current_bal = await bank.get_balance(target)
         new_bal = current_bal - amount
-        if new_bal < 1:
-            await ctx.send(content=f"You are attempting to set {target.mention}'s balance to below 1. Please try again!")
+        if new_bal < 0:
+            await ctx.send(content=f"You are attempting to set {target.mention}'s balance to below 0. Please try again!")
             return
         else:
             embed=discord.Embed(title=f"{bank_name} - Remove", color=await self.bot.get_embed_color(None), description=f"{target.mention}'s {currency_name} balance has been decreased by {amount}.\nCurrent balance is {new_bal}.")
