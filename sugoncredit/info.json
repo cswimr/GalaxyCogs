@@ -1,0 +1,9 @@
+{
+    "author" : ["SeaswimmerTheFsh"],
+    "install_msg" : "Thank you for installing SugonCredit!\n**Please load the Bank cog before loading this cog.**\nYou can find the source code of this cog here: https://github.com/SeaswimmerTheFsh/GalaxyCogs.",
+    "name" : "SugonCredit",
+    "short" : "Simple points system.",
+    "description" : "Implements a way for moderators to give out social-credit like points, dubbed 'sugoncredits' by the community.",
+    "tags" : ["bank"],
+    "end_user_data_statement": "This cog stores no end user data."
+}

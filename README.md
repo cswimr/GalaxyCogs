@@ -41,3 +41,11 @@ Currently supports:
  Features:
  * Separate approved and denied channels
  * Custom emoji support
+
+ ## SugonCredit
+Implements a way for moderators to give out social-credit like points, dubbed 'sugoncredits' by the community.
+
+Features:
+* Add Credit to people.
+* Remove Credit from people.
+* Supports custom currency names and bank names.

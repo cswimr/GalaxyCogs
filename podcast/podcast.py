@@ -46,13 +46,13 @@ class Podcast(commands.Cog):
         """Commands to configure the Podcast cog."""
 
     @podcastset.command(name="global")
-    async def set_global_mode(self, ctx, boolean: bool):
+    async def set_global_mode(self, ctx, enabled: bool):
         """Enables or disables global mode."""
-        if boolean == True:
+        if enabled == True:
             await self.config.guild(ctx.guild).global_mode.set(True)
-            await ctx.send(content="``global_mode`` has been set to True.")
-        elif boolean == False:
+            await ctx.send(content="``global_mode`` has been enabled.")
+        elif enabled == False:
             await self.config.guild(ctx.guild).global_mode.set(False)
-            await ctx.send(content="``global_mode`` has been set to False.")
+            await ctx.send(content="``global_mode`` has been disabled.")
         else:
             await ctx.send(content="Please specify an argument!")
