@@ -45,7 +45,7 @@ class SugonCredit(commands.Cog):
         max_bal = await bank.get_max_balance(ctx.guild)
         new_bal = current_bal + amount
         if new_bal > max_bal:
-            await ctx.send(content=f"You are attempting to set {target.mention}'s balance to above {max.bal}. Please try again!")
+            await ctx.send(content=f"You are attempting to set {target.mention}'s balance to above {max_bal}. Please try again!")
             return
         elif new_bal < 0:
             await ctx.send(content=f"You are attempting to set {target.mention}'s balance to below 0. Please try again!")
