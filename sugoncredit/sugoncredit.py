@@ -60,9 +60,9 @@ class SugonCredit(commands.Cog):
             await bank.deposit_credits(target, amount=amount)
             await ctx.send(content=f"{target.mention} now has {output_amount} more SugonCredit, with a total of {output_new_bal}!")
             if amount == 1 or amount == -1:
-                await target.send(content=f"You gained {output_amount} SugonCredit! Good work community member! You now have {output_new_bal} SugonCredits.", file={image})
+                await target.send(content=f"You gained {output_amount} SugonCredit! Good work community member! You now have {output_new_bal} SugonCredits.", file=image)
             else:
-                await target.send(content=f"You gained {output_amount} SugonCredits! Good work community member! You now have {output_new_bal} SugonCredits.", file={image})
+                await target.send(content=f"You gained {output_amount} SugonCredits! Good work community member! You now have {output_new_bal} SugonCredits.", file=image)
             logging_embed=discord.Embed(title="SugonCredit Added", color=await self.bot.get_embed_color(None), description=f"{ctx.author.name}#{ctx.author.discriminator} ({ctx.author.id}) added {amount} SugonCredit to {target.name}#{target.discriminator} ({target.id})! They now have {new_bal} SugonCredit.")
             await logging_channel.send(embed=logging_embed)
         elif ctx.guild.id != 204965774618656769:
