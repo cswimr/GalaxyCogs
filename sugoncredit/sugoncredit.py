@@ -40,6 +40,7 @@ class SugonCredit(commands.Cog):
         except ValueError:
             await ctx.send(content="``amount`` must be a number! Please try again.")
             return
+        image = discord.File(fp="add.png", filename="Add", description="SugonCredit Added")
         bank_name = await bank.get_bank_name(ctx.guild)
         currency_name = await bank.get_currency_name(ctx.guild)
         current_bal = await bank.get_balance(target)
@@ -59,10 +60,9 @@ class SugonCredit(commands.Cog):
             await bank.deposit_credits(target, amount=amount)
             await ctx.send(content=f"{target.mention} now has {output_amount} more SugonCredit, with a total of {output_new_bal}!")
             if amount == 1 or amount == -1:
-                await target.send(content=f"You gained {output_amount} SugonCredit! Good work community member! You now have {output_new_bal} SugonCredits.")
+                await target.send(content=f"You gained {output_amount} SugonCredit! Good work community member! You now have {output_new_bal} SugonCredits.", file={image})
             else:
-                await target.send(content=f"You gained {output_amount} SugonCredits! Good work community member! You now have {output_new_bal} SugonCredits.")
-            await target.send(content="https://cdn.discordapp.com/attachments/932790367043063818/1016032836576362556/social-credit-positive.png")
+                await target.send(content=f"You gained {output_amount} SugonCredits! Good work community member! You now have {output_new_bal} SugonCredits.", file={image})
             logging_embed=discord.Embed(title="SugonCredit Added", color=await self.bot.get_embed_color(None), description=f"{ctx.author.name}#{ctx.author.discriminator} ({ctx.author.id}) added {amount} SugonCredit to {target.name}#{target.discriminator} ({target.id})! They now have {new_bal} SugonCredit.")
             await logging_channel.send(embed=logging_embed)
         elif ctx.guild.id != 204965774618656769:
@@ -80,6 +80,7 @@ class SugonCredit(commands.Cog):
         except ValueError:
             await ctx.send(content="``amount`` must be a number. Please try again!")
             return
+        image = discord.File(fp="remove.mp4", filename="MEGA_BASE", description="SugonCredit Removed")
         bank_name = await bank.get_bank_name(ctx.guild)
         currency_name = await bank.get_currency_name(ctx.guild)
         current_bal = await bank.get_balance(target)
