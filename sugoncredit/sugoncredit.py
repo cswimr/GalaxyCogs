@@ -88,6 +88,7 @@ class SugonCredit(commands.Cog):
             else:
                 await target.send(content=f"__MESSAGE FROM THE MINISTRY OF THE MEGA BASE__\n\n(我们的) {amount} SugonCredits have been taken from your account. Citizen, do not continue to preform bad actions! Glory to the Galaxy Communist Party!")
             await target.send(content="https://cdn.discordapp.com/attachments/408777890222571530/909534123004133497/MEGA_BASE.mp4")
-        else:
+        elif ctx.guild.id != 204965774618656769:
             embed=discord.Embed(title=f"{bank_name} - Remove", color=await self.bot.get_embed_color(None), description=f"{target.mention}'s {currency_name} balance has been decreased by {amount}.\nCurrent balance is {new_bal}.")
             await ctx.send(embed=embed)
+            await bank.withdraw_credits(target, amount=amount)
