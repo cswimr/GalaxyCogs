@@ -95,9 +95,9 @@ class SugonCredit(commands.Cog):
             logging_channel = self.bot.get_channel(1082495815878189076)
             await ctx.send(content=f"{target.mention} now has {output_amount} less SugonCredit, with a total of {output_new_bal}!\nIf this is a punishment, do better Galaxy Player! Re-education mods will be sent to your DM's if your SugonCredit drops to a substantially low amount!")
             if amount == 1 or amount == -1:
-                await target.send(content=f"__MESSAGE FROM THE MINISTRY OF THE MEGA BASE__\n\n(我们的) {output_amount} SugonCredit has been taken from your account. Citizen, do not continue to preform bad actions! Glory to the Galaxy Communist Party!", file={image})
+                await target.send(content=f"__MESSAGE FROM THE MINISTRY OF THE MEGA BASE__\n\n(我们的) {output_amount} SugonCredit has been taken from your account. Citizen, do not continue to preform bad actions! Glory to the Galaxy Communist Party!", file=image)
             else:
-                await target.send(content=f"__MESSAGE FROM THE MINISTRY OF THE MEGA BASE__\n\n(我们的) {output_amount} SugonCredits have been taken from your account. Citizen, do not continue to preform bad actions! Glory to the Galaxy Communist Party!", file={image})
+                await target.send(content=f"__MESSAGE FROM THE MINISTRY OF THE MEGA BASE__\n\n(我们的) {output_amount} SugonCredits have been taken from your account. Citizen, do not continue to preform bad actions! Glory to the Galaxy Communist Party!", file=image)
             logging_embed=discord.Embed(title="SugonCredit Removed", color=await self.bot.get_embed_color(None), description=f"{ctx.author.name}#{ctx.author.discriminator} ({ctx.author.id}) removed {output_amount} SugonCredit from {target.name}#{target.discriminator} ({target.id})! They now have {output_new_bal} SugonCredit.")
             await logging_channel.send(embed=logging_embed)
         elif ctx.guild.id != 204965774618656769:
