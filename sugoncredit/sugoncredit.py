@@ -51,6 +51,7 @@ class SugonCredit(commands.Cog):
             await ctx.send(content=f"You are attempting to set {target.mention}'s balance to below 0. Please try again!")
             return
         elif ctx.guild.id == 204965774618656769:
+            logging_channel = self.bot.get_channel(1082495815878189076)
             await bank.deposit_credits(target, amount=amount)
             await ctx.send(content=f"{target.mention} now has {amount} more SugonCredit, with a total of {new_bal}!")
             if amount == 1 or amount == -1:
@@ -58,6 +59,8 @@ class SugonCredit(commands.Cog):
             else:
                 await target.send(content=f"You gained {amount} SugonCredits! Good work community member! You now have {new_bal} SugonCredits.")
             await target.send(content="https://cdn.discordapp.com/attachments/932790367043063818/1016032836576362556/social-credit-positive.png")
+            logging_embed=discord.Embed(title="SugonCredit Added", color=await self.bot.get_embed_color(None), description=f"{ctx.author.name}#{ctx.author.discriminator} ({ctx.author.id}) added {amount} SugonCredit to {target.name}#{target.discriminator} ({target.id})! They now have {new_bal} SugonCredit.")
+            await logging_channel.send(embed=logging_embed)
         elif ctx.guild.id != 204965774618656769:
             embed=discord.Embed(title=f"{bank_name} - Add", color=await self.bot.get_embed_color(None), description=f"{target.mention}'s {currency_name} balance has been increased by {amount}.\nCurrent balance is {new_bal}.")
             await bank.deposit_credits(target, amount=amount)
@@ -82,12 +85,15 @@ class SugonCredit(commands.Cog):
             return
         elif ctx.guild.id == 204965774618656769:
             await bank.withdraw_credits(target, amount=amount)
+            logging_channel = self.bot.get_channel(1082495815878189076)
             await ctx.send(content=f"{target.mention} now has {amount} less SugonCredit, with a total of {new_bal}!\nIf this is a punishment, do better Galaxy Player! Re-education mods will be sent to your DM's if your SugonCredit drops to a substantially low amount!")
             if amount == 1 or amount == -1:
                 await target.send(content=f"__MESSAGE FROM THE MINISTRY OF THE MEGA BASE__\n\n(我们的) {amount} SugonCredit has been taken from your account. Citizen, do not continue to preform bad actions! Glory to the Galaxy Communist Party!")
             else:
                 await target.send(content=f"__MESSAGE FROM THE MINISTRY OF THE MEGA BASE__\n\n(我们的) {amount} SugonCredits have been taken from your account. Citizen, do not continue to preform bad actions! Glory to the Galaxy Communist Party!")
             await target.send(content="https://cdn.discordapp.com/attachments/408777890222571530/909534123004133497/MEGA_BASE.mp4")
+            logging_embed=discord.Embed(title="SugonCredit Removed", color=await self.bot.get_embed_color(None), description=f"{ctx.author.name}#{ctx.author.discriminator} ({ctx.author.id}) removed {amount} SugonCredit from {target.name}#{target.discriminator} ({target.id})! They now have {new_bal} SugonCredit.")
+            await ctx.send(embed=logging_embed)
         elif ctx.guild.id != 204965774618656769:
             embed=discord.Embed(title=f"{bank_name} - Remove", color=await self.bot.get_embed_color(None), description=f"{target.mention}'s {currency_name} balance has been decreased by {amount}.\nCurrent balance is {new_bal}.")
             await ctx.send(embed=embed)
