@@ -90,5 +90,4 @@ class SugonCredit(commands.Cog):
             await target.send(content="https://cdn.discordapp.com/attachments/408777890222571530/909534123004133497/MEGA_BASE.mp4")
         else:
             embed=discord.Embed(title=f"{bank_name} - Remove", color=await self.bot.get_embed_color(None), description=f"{target.mention}'s {currency_name} balance has been decreased by {amount}.\nCurrent balance is {new_bal}.")
-            await bank.withdraw_credits(target, amount=amount)
             await ctx.send(embed=embed)
