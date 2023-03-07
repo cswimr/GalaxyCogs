@@ -51,14 +51,14 @@ class SugonCredit(commands.Cog):
             await ctx.send(content=f"You are attempting to set {target.mention}'s balance to below 0. Please try again!")
             return
         elif ctx.guild.id == 204965774618656769:
-            await bank.withdraw_credits(target, amount=amount)
+            await bank.deposit_credits(target, amount=amount)
             await ctx.send(content=f"{target.mention} now has {amount} more SugonCredit, with a total of {new_bal}!")
             if amount == 1 or amount == -1:
-                await target.send(content=f"You gained {amount} SugonCredit! Good work community member! You now have {amount} SugonCredits.")
+                await target.send(content=f"You gained {amount} SugonCredit! Good work community member! You now have {new_bal} SugonCredits.")
             else:
-                await target.send(content=f"You gained {amount} SugonCredits! Good work community member! You now have {amount} SugonCredits.")
+                await target.send(content=f"You gained {amount} SugonCredits! Good work community member! You now have {new_bal} SugonCredits.")
             await target.send(content="https://cdn.discordapp.com/attachments/932790367043063818/1016032836576362556/social-credit-positive.png")
-        else:
+        elif ctx.guild.id != 204965774618656769:
             embed=discord.Embed(title=f"{bank_name} - Add", color=await self.bot.get_embed_color(None), description=f"{target.mention}'s {currency_name} balance has been increased by {amount}.\nCurrent balance is {new_bal}.")
             await bank.deposit_credits(target, amount=amount)
             await ctx.send(embed=embed)
@@ -91,4 +91,4 @@ class SugonCredit(commands.Cog):
         elif ctx.guild.id != 204965774618656769:
             embed=discord.Embed(title=f"{bank_name} - Remove", color=await self.bot.get_embed_color(None), description=f"{target.mention}'s {currency_name} balance has been decreased by {amount}.\nCurrent balance is {new_bal}.")
             await ctx.send(embed=embed)
-            await bank.withdraw_credits(target, amount=amount)
+            await bank.withdraw_credits(target, amount=val)
