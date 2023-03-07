@@ -40,7 +40,7 @@ class SugonCredit(commands.Cog):
         except ValueError:
             await ctx.send(content="``amount`` must be a number! Please try again.")
             return
-        image = discord.File(fp="add.png", filename="Add", description="SugonCredit Added")
+        image = discord.File(fp="add.png", filename="Add")
         bank_name = await bank.get_bank_name(ctx.guild)
         currency_name = await bank.get_currency_name(ctx.guild)
         current_bal = await bank.get_balance(target)
@@ -80,7 +80,7 @@ class SugonCredit(commands.Cog):
         except ValueError:
             await ctx.send(content="``amount`` must be a number. Please try again!")
             return
-        image = discord.File(fp="remove.mp4", filename="MEGA_BASE", description="SugonCredit Removed")
+        image = discord.File(fp="remove.mp4", filename="MEGA_BASE")
         bank_name = await bank.get_bank_name(ctx.guild)
         currency_name = await bank.get_currency_name(ctx.guild)
         current_bal = await bank.get_balance(target)
