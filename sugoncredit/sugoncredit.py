@@ -50,6 +50,14 @@ class SugonCredit(commands.Cog):
         elif new_bal < 0:
             await ctx.send(content=f"You are attempting to set {target.mention}'s balance to below 0. Please try again!")
             return
+        elif ctx.guild.id == 204965774618656769:
+            await bank.withdraw_credits(target, amount=amount)
+            await ctx.send(content=f"{target.mention} now has {amount} more SugonCredit, with a total pf {new_bal}!")
+            if amount == 1 or amount == -1:
+                await target.send(content=f"You gained {amount} SugonCredit! Good work community member! You now have {amount} SugonCredits.")
+            else:
+                await target.send(content=f"You gained {amount} SugonCredits! Good work community member! You now have {amount} SugonCredits.")
+            await target.send(content="https://cdn.discordapp.com/attachments/408777890222571530/909534123004133497/MEGA_BASE.mp4")
         else:
             embed=discord.Embed(title=f"{bank_name} - Add", color=await self.bot.get_embed_color(None), description=f"{target.mention}'s {currency_name} balance has been increased by {amount}.\nCurrent balance is {new_bal}.")
             await bank.deposit_credits(target, amount=amount)
@@ -72,6 +80,14 @@ class SugonCredit(commands.Cog):
         if new_bal < 0:
             await ctx.send(content=f"You are attempting to set {target.mention}'s balance to below 0. Please try again!")
             return
+        elif ctx.guild.id == 204965774618656769:
+            await bank.withdraw_credits(target, amount=amount)
+            await ctx.send(content=f"{target.mention} now has {amount} less SugonCredit, with a total of {new_bal}!\nIf this is a punishment, do better Galaxy Player! Re-education mods will be sent to your DM's if your SugonCredit drops to a substantially low amount!")
+            if amount == 1 or amount == -1:
+                await target.send(content=f"__MESSAGE FROM THE MINISTRY OF THE MEGA BASE__\n\n(我们的) {amount} SugonCredit has been taken from your account. Citizen, do not continue to preform bad actions! Glory to the Galaxy Communist Party!")
+            else:
+                await target.send(content=f"__MESSAGE FROM THE MINISTRY OF THE MEGA BASE__\n\n(我们的) {amount} SugonCredits have been taken from your account. Citizen, do not continue to preform bad actions! Glory to the Galaxy Communist Party!")
+            await target.send(content="https://cdn.discordapp.com/attachments/408777890222571530/909534123004133497/MEGA_BASE.mp4")
         else:
             embed=discord.Embed(title=f"{bank_name} - Remove", color=await self.bot.get_embed_color(None), description=f"{target.mention}'s {currency_name} balance has been decreased by {amount}.\nCurrent balance is {new_bal}.")
             await bank.withdraw_credits(target, amount=amount)
