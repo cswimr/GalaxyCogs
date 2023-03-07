@@ -52,7 +52,7 @@ class SugonCredit(commands.Cog):
             return
         elif ctx.guild.id == 204965774618656769:
             await bank.withdraw_credits(target, amount=amount)
-            await ctx.send(content=f"{target.mention} now has {amount} more SugonCredit, with a total pf {new_bal}!")
+            await ctx.send(content=f"{target.mention} now has {amount} more SugonCredit, with a total of {new_bal}!")
             if amount == 1 or amount == -1:
                 await target.send(content=f"You gained {amount} SugonCredit! Good work community member! You now have {amount} SugonCredits.")
             else:
