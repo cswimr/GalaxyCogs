@@ -57,7 +57,7 @@ class SugonCredit(commands.Cog):
                 await target.send(content=f"You gained {amount} SugonCredit! Good work community member! You now have {amount} SugonCredits.")
             else:
                 await target.send(content=f"You gained {amount} SugonCredits! Good work community member! You now have {amount} SugonCredits.")
-            await target.send(content="https://cdn.discordapp.com/attachments/408777890222571530/909534123004133497/MEGA_BASE.mp4")
+            await target.send(content="https://cdn.discordapp.com/attachments/932790367043063818/1016032836576362556/social-credit-positive.png")
         else:
             embed=discord.Embed(title=f"{bank_name} - Add", color=await self.bot.get_embed_color(None), description=f"{target.mention}'s {currency_name} balance has been increased by {amount}.\nCurrent balance is {new_bal}.")
             await bank.deposit_credits(target, amount=amount)
