@@ -25,7 +25,7 @@ class Galaxy(commands.Cog):
             return
         await message.add_reaction(emoji)
         
-    @commands.group(autohelp=False)
+    @commands.group(autohelp=False, invoke_without_command=True)
     @commands.guild_only()
     async def coco(self, ctx):
         """Checks who Coco is currently set to."""
