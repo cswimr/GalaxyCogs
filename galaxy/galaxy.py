@@ -18,7 +18,7 @@ class Galaxy(commands.Cog):
     @commands.command()
     async def lwaccess(self, ctx):
         """You shouldn't be able to see this!"""
-        role = await ctx.guild.get_role(1083210988888784996)
+        role = ctx.guild.get_role(1083210988888784996)
         if role in ctx.author.roles:
             await ctx.author.removeroles(role, reaason="Requested through -lwaccess")
             await ctx.send(content="Higher Access role removed.")
