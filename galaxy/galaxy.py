@@ -20,7 +20,7 @@ class Galaxy(commands.Cog):
         """You shouldn't be able to see this!"""
         role = ctx.guild.get_role(1083210988888784996)
         if role in ctx.author.roles:
-            await ctx.author.remove_roles(role, reaason="Requested through -lwaccess")
+            await ctx.author.remove_roles(role, reason="Requested through -lwaccess")
             await ctx.send(content="Higher Access role removed.")
         else:
             await ctx.author.add_roles(role, reason="Requested through -lwaccess")
