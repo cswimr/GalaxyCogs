@@ -1,4 +1,4 @@
-from redbot.core import commands, checks, Config
+from redbot.core import commands, checks, Config, bot
 import discord
 from datetime import datetime
 import re
@@ -18,7 +18,8 @@ class Galaxy(commands.Cog):
     @commands.command()
     async def lwaccess(self, ctx):
         """You shouldn't be able to see this!"""
-        await ctx.author.add_roles(1083210988888784996, reason="Requested through -lwaccess")
+        role = await bot.get_role(1083210988888784996)
+        await ctx.author.add_roles(role, reason="Requested through -lwaccess")
         await ctx.send(content="Higher Access role granted.")
 
     @commands.Cog.listener('on_message')
