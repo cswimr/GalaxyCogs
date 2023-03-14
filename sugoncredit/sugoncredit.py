@@ -10,7 +10,8 @@ class SugonCredit(commands.Cog):
         self.config.register_global(
             bank_name = "Social Credit Enforcement Agency",
             currency_name = "Social Credit",
-            max_bal = 1000000000
+            max_bal = 1000000000,
+            min_bal = -1000000000
         )
         con = sqlite3.connect('credit_db')
         cur = con.cursor()
@@ -94,6 +95,7 @@ class SugonCredit(commands.Cog):
         bank_name = await self.config.bank_name()
         currency_name = await self.config.currency_name()
         max_bal = await self.config.max_bal()
+        min_bal = await self.config_min_bal()
         if cur.execute(f'''SELECT user_id FROM credit
         WHERE EXISTS (SELECT user_id FROM credit WHERE {target.id});''')=="FALSE":
             await self.new_user_generation(self, target)
@@ -109,9 +111,12 @@ class SugonCredit(commands.Cog):
         output_amount = (f'{val:,}')
         output_new_bal = (f'{new_bal:,}')
         output_max_bal = (f'{max_bal:,}')
+        output_min_bal = (f'{min_bal:,}')
         if new_bal > max_bal:
             await ctx.send(content=f"You are attempting to set {target.mention}'s balance to above {output_max_bal}. Please try again!")
             return
+        elif new_bal < min_bal:
+            await ctx.send(content=f"You are attempting to set {target.mention}'s balance to below {output_min_bal}. Please try again!")
         elif ctx.guild.id == 204965774618656769:
             logging_channel = self.bot.get_channel(1082495815878189076)
             cur.execute(f'''UPDATE credit
@@ -149,6 +154,7 @@ class SugonCredit(commands.Cog):
         bank_name = await self.config.bank_name()
         currency_name = await self.config.currency_name()
         max_bal = await self.config.max_bal()
+        min_bal = await self.config_min_bal()
         if cur.execute(f'''SELECT user_id FROM credit
         WHERE EXISTS (SELECT user_id FROM credit WHERE {target.id});''')=="FALSE":
             await self.new_user_generation(self, target)
@@ -162,8 +168,11 @@ class SugonCredit(commands.Cog):
         output_amount = (f'{val:,}')
         output_new_bal = (f'{new_bal:,}')
         output_max_bal = (f'{max_bal:,}')
+        output_min_bal = (f'{min_bal:,}')
         if new_bal > max_bal:
             await ctx.send(content=f"You are attempting to set {target.mention}'s balance to above {output_max_bal}. Please try again!")
+        elif new_bal < min_bal:
+            await ctx.send(content=f"You are attempting to set {target.mention}'s balance to below {output_min_bal}. Please try again!")
         elif ctx.guild.id == 204965774618656769:
             cur.execute(f'''UPDATE credit
             SET balance = {new_bal}
