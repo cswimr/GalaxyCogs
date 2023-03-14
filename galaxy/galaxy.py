@@ -1,7 +1,6 @@
 from redbot.core import commands, checks, Config, bot
 import discord
 from datetime import datetime
-import re
 
 class Galaxy(commands.Cog):
     """Custom cog intended for use on the Galaxy discord server.
