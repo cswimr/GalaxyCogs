@@ -1,5 +1,5 @@
 import discord
-from redbot.core import commands, bank, checks, data_manager, Config
+from redbot.core import commands, checks, data_manager, Config
 import sqlite3
 
 class SugonCredit(commands.Cog):
@@ -18,7 +18,7 @@ class SugonCredit(commands.Cog):
                                     FROM sqlite_master
                                     WHERE type='table'
                                     AND name='{credit}';''') == 0:
-            cur.execute('''CREATE TABLE credit (user_id text, balance real)''')
+            cur.execute('''CREATE TABLE credit (username text, user_id text, balance real);''')
             con.commit()
             con.close()
         else:
@@ -26,10 +26,22 @@ class SugonCredit(commands.Cog):
 
     def new_user_generation(self, target):
         """Adds a new user to the SQLite database."""
+        username = str({target})
         con = sqlite3.connect('credit_db')
         cur = con.cursor()
-        cur.execute('''INSERT INTO credit (user_id,balance)
-                                VALUES({target},250)''')
+        cur.execute(f'''INSERT INTO credit
+                                VALUES ('{username}', {target.id}, 250);''')
+        con.commit()
+        con.close()
+    
+    def username_updater(self, target):
+        """Updates a users' username in the SQLite database."""
+        new_username = str(target)
+        con = sqlite3.connect('credit_db')
+        cur = con.cursor()
+        cur.execute(f'''UPDATE credit
+        SET username = '{new_username}'
+        WHERE user_id = {target.id};''')
         con.commit()
         con.close()
     
@@ -48,10 +60,17 @@ class SugonCredit(commands.Cog):
         currency_name = await self.config.guild(ctx.guild).currency_name()
         if user == None:
             target = ctx.author
-            bal = cur.execute('''SELECT {ctx.author} FROM user_id''')
         else:
-            bal = await bank.get_balance(user)
             target = user
+        if cur.execute(f'''SELECT user_id FROM credit
+        WHERE EXISTS (SELECT user_id FROM credit WHERE {target.id});''')=="FALSE":
+            await self.new_user_generation(self, target)
+        stored_username = cur.execute(f'''SELECT username FROM credit
+                                                            WHERE user_id = {target.id};''')
+        if str(target) != stored_username:
+            await self.username_updater(self, target)
+        bal = cur.execute(f'''SELECT balance FROM credit
+                                        WHERE user_id = {target.id};''')
         output_bal = (f'{bal:,}')
         if bal == 1 or bal == -1:
             embed=discord.Embed(title=f"{bank_name} - Balance", color=await self.bot.get_embed_color(None), description=f"{target.mention} has {output_bal} {currency_name}.")
@@ -69,11 +88,23 @@ class SugonCredit(commands.Cog):
         except ValueError:
             await ctx.send(content="``amount`` must be a number! Please try again.")
             return
+        con = sqlite3.connect('credit_db')
+        cur = con.cursor()
         image = discord.File(fp=data_manager.bundled_data_path(self) / "add.png", filename="Add.png")
         bank_name = await self.config.bank_name()
         currency_name = await self.config.currency_name()
         max_bal = await self.config.max_bal()
-        current_bal = await bank.get_balance(target)
+        if cur.execute(f'''SELECT user_id FROM credit
+        WHERE EXISTS (SELECT user_id FROM credit WHERE {target.id});''')=="FALSE":
+            await self.new_user_generation(self, target)
+        stored_username = cur.execute(f'''SELECT username FROM credit
+                                                            WHERE user_id = {target.id};''')
+        if str(target) != stored_username:
+            await self.username_updater(self, target)
+        bal = cur.execute(f'''SELECT balance FROM credit
+                                        WHERE user_id = {target.id};''')
+        current_bal = cur.execute(f'''SELECT balance FROM credit
+        WHERE user_id = {target.id};''')
         new_bal = current_bal + amount
         output_amount = (f'{val:,}')
         output_new_bal = (f'{new_bal:,}')
@@ -86,7 +117,9 @@ class SugonCredit(commands.Cog):
             return
         elif ctx.guild.id == 204965774618656769:
             logging_channel = self.bot.get_channel(1082495815878189076)
-            await bank.deposit_credits(target, amount=amount)
+            cur.execute(f'''UPDATE credit
+            SET balance = {new_bal}
+            WHERE user_id = {target.id};''')
             await ctx.send(content=f"{target.mention} now has {output_amount} more SugonCredit, with a total of {output_new_bal}!")
             if amount == 1 or amount == -1:
                 await target.send(content=f"You gained {output_amount} SugonCredit! Good work community member! You now have {output_new_bal} SugonCredits.", file=image)
@@ -96,8 +129,12 @@ class SugonCredit(commands.Cog):
             await logging_channel.send(embed=logging_embed)
         elif ctx.guild.id != 204965774618656769:
             embed=discord.Embed(title=f"{bank_name} - Add", color=await self.bot.get_embed_color(None), description=f"{target.mention}'s {currency_name} balance has been increased by {output_amount}.\nCurrent balance is {output_new_bal}.")
-            await bank.deposit_credits(target, amount=amount)
+            cur.execute(f'''UPDATE credit
+            SET balance = {new_bal}
+            WHERE user_id = {target.id};''')
             await ctx.send(embed=embed)
+            con.commit()
+            con.close()
 
     @credit.command()
     @commands.guild_only()
@@ -110,10 +147,20 @@ class SugonCredit(commands.Cog):
             await ctx.send(content="``amount`` must be a number. Please try again!")
             return
         image = discord.File(fp=data_manager.bundled_data_path(self) / "remove.mp4", filename="MEGA_BASE.mp4")
+        con = sqlite3.connect('credit_db')
+        cur = con.cursor()
         bank_name = await self.config.bank_name()
         currency_name = await self.config.currency_name()
         max_bal = await self.config.max_bal()
-        current_bal = await bank.get_balance(target)
+        if cur.execute(f'''SELECT user_id FROM credit
+        WHERE EXISTS (SELECT user_id FROM credit WHERE {target.id});''')=="FALSE":
+            await self.new_user_generation(self, target)
+        stored_username = cur.execute(f'''SELECT username FROM credit
+        WHERE user_id = {target.id};''')
+        if str(target) != stored_username:
+            await self.username_updater(self, target)
+        current_bal = cur.execute(f'''SELECT balance FROM credit
+        WHERE user_id = {target.id};''')
         new_bal = current_bal - amount
         output_amount = (f'{val:,}')
         output_new_bal = (f'{new_bal:,}')
@@ -124,7 +171,9 @@ class SugonCredit(commands.Cog):
         elif new_bal > max_bal:
             await ctx.send(content=f"You are attempting to set {target.mention}'s balance to above {output_max_bal}. Please try again!")
         elif ctx.guild.id == 204965774618656769:
-            await bank.withdraw_credits(target, amount=amount)
+            cur.execute(f'''UPDATE credit
+            SET balance = {new_bal}
+            WHERE user_id = {target.id};''')
             logging_channel = self.bot.get_channel(1082495815878189076)
             await ctx.send(content=f"{target.mention} now has {output_amount} less SugonCredit, with a total of {output_new_bal}!\nIf this is a punishment, do better Galaxy Player! Re-education mods will be sent to your DM's if your SugonCredit drops to a substantially low amount!")
             if amount == 1 or amount == -1:
@@ -136,4 +185,8 @@ class SugonCredit(commands.Cog):
         elif ctx.guild.id != 204965774618656769:
             embed=discord.Embed(title=f"{bank_name} - Remove", color=await self.bot.get_embed_color(None), description=f"{target.mention}'s {currency_name} balance has been decreased by {output_amount}.\nCurrent balance is {output_new_bal}.")
             await ctx.send(embed=embed)
-            await bank.withdraw_credits(target, amount=val)
+            cur.execute(f'''UPDATE credit
+            SET balance = {new_bal}
+            WHERE user_id = {target.id};''')
+            con.commit()
+            con.close()
