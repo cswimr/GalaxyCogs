@@ -494,7 +494,7 @@ class Info(commands.Cog):
 
     @commands.command()
     @commands.guild_only()
-    async def roleinfo(self, ctx, role: discord.Role):
+    async def roleinfo(self, ctx, *, role: discord.Role):
         """Gives information on a specific role."""
         permissions = role.permissions
         if role.color.value == 0:
