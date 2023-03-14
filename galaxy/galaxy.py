@@ -15,6 +15,19 @@ class Galaxy(commands.Cog):
         )
 
     @commands.command()
+    async def galaxyissues(self, ctx, target: discord.Member = None):
+        if ctx.me.id == 1070819799254438039:
+            embed = discord.Embed(title="Issue Reporting & Suggestions", color=await self.bot.get_embed_color(None), description="Have a problem or a suggestion for the Galaxy bot or GalaxyCogs? Read this!")
+            embed.add_field(name="Bot Issues & Suggestions", value="If you'd like to submit a suggestion or a bug report to the developers of the Galaxy bot, please do so [here](https://github.com/SeaswimmerTheFsh/GalaxyCogs/issues).\n**Please make sure whatever you're suggesting or reporting doesn't have an existing issue! If it does, you can comment on that issue with additional details if necessary.**")
+        else:
+            embed = discord.Embed(title="Issue Reporting & Suggestions", color=await self.bot.get_embed_color(None), description="Have a problem or a suggestion for GalaxyCogs? Read this!")
+        embed.add_field(name="Cog Issues & Suggestions", value="If you'd like to submit a suggestion or a bug report to the developers of GalaxyCogs, please do so [here](https://github.com/SeaswimmerTheFsh/GalaxyCogs/issues).\n**Please make sure whatever you're suggesting or reporting doesn't have an existing issue! If it does, you can comment on that issue with additional details if necessary.**")
+        if target:
+            await ctx.send(embed=embed, content=f"{target.mention}")
+        else:
+            await ctx.send(embed=embed)
+
+    @commands.command()
     async def lwaccess(self, ctx):
         """You shouldn't be able to see this!"""
         role = ctx.guild.get_role(1083210988888784996)
