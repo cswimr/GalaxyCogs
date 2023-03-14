@@ -112,9 +112,6 @@ class SugonCredit(commands.Cog):
         if new_bal > max_bal:
             await ctx.send(content=f"You are attempting to set {target.mention}'s balance to above {output_max_bal}. Please try again!")
             return
-        elif new_bal < 0:
-            await ctx.send(content=f"You are attempting to set {target.mention}'s balance to below 0. Please try again!")
-            return
         elif ctx.guild.id == 204965774618656769:
             logging_channel = self.bot.get_channel(1082495815878189076)
             cur.execute(f'''UPDATE credit
@@ -165,10 +162,7 @@ class SugonCredit(commands.Cog):
         output_amount = (f'{val:,}')
         output_new_bal = (f'{new_bal:,}')
         output_max_bal = (f'{max_bal:,}')
-        if new_bal < 0:
-            await ctx.send(content=f"You are attempting to set {target.mention}'s balance to below 0. Please try again!")
-            return
-        elif new_bal > max_bal:
+        if new_bal > max_bal:
             await ctx.send(content=f"You are attempting to set {target.mention}'s balance to above {output_max_bal}. Please try again!")
         elif ctx.guild.id == 204965774618656769:
             cur.execute(f'''UPDATE credit
