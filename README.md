@@ -30,8 +30,8 @@ Currently supports:
 [^dpy_notice]:
     Due to Red's use of Discord.py 1.7.3, the ``[p]roleinfo`` command in the Info cog does not show all permissions. This is due to the outdated Discord.py version not supporting checking for all permissions.
 
- ## Podcast **(WIP)**[^incomplete]
- Allows users to submit questions to a specified channel, intended for use with podcasts.
+ ## Podcast **(WIP)**
+ Allows users to submit questions to a specified channel, intended for use with podcasts.[^incomplete]
 
  Also features user blacklists, both configurable per-server and globally.
  [incomplete]:
