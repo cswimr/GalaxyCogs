@@ -1,11 +1,38 @@
 import discord
-from redbot.core import commands, bank, checks, data_manager
+from redbot.core import commands, bank, checks, data_manager, Config
+import sqlite3
 
 class SugonCredit(commands.Cog):
     """Implements a way for moderators to give out social-credit like points, dubbed 'sugoncredits' by the community."""
     def __init__(self, bot):
         self.bot = bot
+        self.config = Config.get_conf(self, identifier=47252584)
+        self.config.register_global(
+            bank_name = "Social Credit Enforcement Agency",
+            currency_name = "Social Credit",
+            max_bal = 1000000000
+        )
+        con = sqlite3.connect('credit_db')
+        cur = con.cursor()
+        if cur.execute('''SELECT name
+                                    FROM sqlite_master
+                                    WHERE type='table'
+                                    AND name='{credit}';''') == 0:
+            cur.execute('''CREATE TABLE credit (user_id text, balance real)''')
+            con.commit()
+            con.close()
+        else:
+            con.close()
 
+    def new_user_generation(self, target):
+        """Adds a new user to the SQLite database."""
+        con = sqlite3.connect('credit_db')
+        cur = con.cursor()
+        cur.execute('''INSERT INTO credit (user_id,balance)
+                                VALUES({target},250)''')
+        con.commit()
+        con.close()
+    
     @commands.group(autohelp=True, aliases=["sugoncredit"])
     @commands.guild_only()
     async def credit(self, ctx):
@@ -15,11 +42,13 @@ class SugonCredit(commands.Cog):
     @commands.guild_only()
     async def balance(self, ctx, user: discord.Member = None):
         """Checks an account's balance."""
-        bank_name = await bank.get_bank_name(ctx.guild)
-        currency_name = await bank.get_currency_name(ctx.guild)
+        con = sqlite3.connect('credit_db')
+        cur = con.cursor()
+        bank_name = await self.config.guild(ctx.guild).bank_name()
+        currency_name = await self.config.guild(ctx.guild).currency_name()
         if user == None:
-            bal = await bank.get_balance(ctx.author)
             target = ctx.author
+            bal = cur.execute('''SELECT {ctx.author} FROM user_id''')
         else:
             bal = await bank.get_balance(user)
             target = user
@@ -41,10 +70,10 @@ class SugonCredit(commands.Cog):
             await ctx.send(content="``amount`` must be a number! Please try again.")
             return
         image = discord.File(fp=data_manager.bundled_data_path(self) / "add.png", filename="Add.png")
-        bank_name = await bank.get_bank_name(ctx.guild)
-        currency_name = await bank.get_currency_name(ctx.guild)
+        bank_name = await self.config.bank_name()
+        currency_name = await self.config.currency_name()
+        max_bal = await self.config.max_bal()
         current_bal = await bank.get_balance(target)
-        max_bal = await bank.get_max_balance(ctx.guild)
         new_bal = current_bal + amount
         output_amount = (f'{val:,}')
         output_new_bal = (f'{new_bal:,}')
@@ -81,15 +110,19 @@ class SugonCredit(commands.Cog):
             await ctx.send(content="``amount`` must be a number. Please try again!")
             return
         image = discord.File(fp=data_manager.bundled_data_path(self) / "remove.mp4", filename="MEGA_BASE.mp4")
-        bank_name = await bank.get_bank_name(ctx.guild)
-        currency_name = await bank.get_currency_name(ctx.guild)
+        bank_name = await self.config.bank_name()
+        currency_name = await self.config.currency_name()
+        max_bal = await self.config.max_bal()
         current_bal = await bank.get_balance(target)
         new_bal = current_bal - amount
         output_amount = (f'{val:,}')
         output_new_bal = (f'{new_bal:,}')
+        output_max_bal = (f'{max_bal:,}')
         if new_bal < 0:
             await ctx.send(content=f"You are attempting to set {target.mention}'s balance to below 0. Please try again!")
             return
+        elif new_bal > max_bal:
+            await ctx.send(content=f"You are attempting to set {target.mention}'s balance to above {output_max_bal}. Please try again!")
         elif ctx.guild.id == 204965774618656769:
             await bank.withdraw_credits(target, amount=amount)
             logging_channel = self.bot.get_channel(1082495815878189076)
