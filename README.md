@@ -35,7 +35,7 @@ Currently supports:
 
  Also features user blacklists, both configurable per-server and globally.
  [^incomplete]:
-  Podcast currently is non-functional. This notice will be removed once the Cog is completed.
+   Podcast currently is non-functional. This notice will be removed once the Cog is completed.
 
  ## Suggestions
  Allows users to submit suggestions to a specified channel. Highly cut-down modification of [SauriCog's Suggestions Cog](https://github.com/elijabesu/SauriCogs).
