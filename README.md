@@ -30,10 +30,12 @@ Currently supports:
 [^dpy_notice]:
     Due to Red's use of Discord.py 1.7.3, the ``[p]roleinfo`` command in the Info cog does not show all permissions. This is due to the outdated Discord.py version not supporting checking for all permissions.
 
- ## Podcast **(WIP)**
+ ## Podcast **(WIP)**[^incomplete]
  Allows users to submit questions to a specified channel, intended for use with podcasts.
 
  Also features user blacklists, both configurable per-server and globally.
+ [incomplete]:
+  Podcast currently is non-functional. This notice will be removed once the Cog is completed.
 
  ## Suggestions
  Allows users to submit suggestions to a specified channel. Highly cut-down modification of [SauriCog's Suggestions Cog](https://github.com/elijabesu/SauriCogs).
