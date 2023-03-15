@@ -15,13 +15,15 @@ class SugonCredit(commands.Cog):
             max_bal = 1000000000,
             min_bal = -1000000000
         )
-        con = sqlite3.connect('credit_db')
+        data_path = data_manager.cog_data_path(self) / "credit.db"
+        con = sqlite3.connect(f'{data_path}')
         con.commit()
         con.close()
 
     def new_guild_generation(self, ctx):
         """Adds a new table for a guild to the SQLite databse."""
-        con = sqlite3.connect('credit_db')
+        data_path = data_manager.cog_data_path(self) / "credit.db"
+        con = sqlite3.connect(f'{data_path}')
         cur = con.cursor()
         exist_check = cur.execute(f'''IF EXISTS 
             (SELECT object_id FROM sys.tables
@@ -38,7 +40,8 @@ class SugonCredit(commands.Cog):
     def new_user_generation(self, ctx, target):
         """Adds a new user to the SQLite database."""
         username = str(target)
-        con = sqlite3.connect('credit_db')
+        data_path = data_manager.cog_data_path(self) / "credit.db"
+        con = sqlite3.connect(f'{data_path}')
         cur = con.cursor()
         cur.execute(f'''INSERT INTO {ctx.guild.id}
         VALUES ('{username}', {target.id}, 250);''')
@@ -48,7 +51,8 @@ class SugonCredit(commands.Cog):
     def username_updater(self, ctx, target):
         """Updates a users' username in the SQLite database."""
         new_username = str(target)
-        con = sqlite3.connect('credit_db')
+        data_path = data_manager.cog_data_path(self) / "credit.db"
+        con = sqlite3.connect(f'{data_path}')
         cur = con.cursor()
         cur.execute(f'''UPDATE {ctx.guild.id}
         SET username = '{new_username}'
@@ -66,7 +70,8 @@ class SugonCredit(commands.Cog):
     async def leaderboard(self, ctx, page: int = 1):
         """Shows the individuals with the highest balances."""
         await ctx.send(content="This command isn't done yet!")
-        con = sqlite3.connect('credit_db')
+        data_path = data_manager.cog_data_path(self) / "credit.db"
+        con = sqlite3.connect(f'{data_path}')
         cur = con.cursor()
         await self.new_guild_generation(self, ctx)
         bank_name = await self.config.guild(ctx.guild).bank_name()
@@ -81,7 +86,8 @@ class SugonCredit(commands.Cog):
     @commands.guild_only()
     async def balance(self, ctx, user: discord.Member = None):
         """Checks an account's balance."""
-        con = sqlite3.connect('credit_db')
+        data_path = data_manager.cog_data_path(self) / "credit.db"
+        con = sqlite3.connect(f'{data_path}')
         cur = con.cursor()
         await self.new_guild_generation(self, ctx)
         bank_name = await self.config.guild(ctx.guild).bank_name()
@@ -116,7 +122,8 @@ class SugonCredit(commands.Cog):
         except ValueError:
             await ctx.send(content="``amount`` must be a number! Please try again.")
             return
-        con = sqlite3.connect('credit_db')
+        data_path = data_manager.cog_data_path(self) / "credit.db"
+        con = sqlite3.connect(f'{data_path}')
         cur = con.cursor()
         await self.new_guild_generation(self, ctx)
         image = discord.File(fp=data_manager.bundled_data_path(self) / "add.png", filename="Add.png")
@@ -177,7 +184,8 @@ class SugonCredit(commands.Cog):
             await ctx.send(content="``amount`` must be a number. Please try again!")
             return
         image = discord.File(fp=data_manager.bundled_data_path(self) / "remove.mp4", filename="MEGA_BASE.mp4")
-        con = sqlite3.connect('credit_db')
+        data_path = data_manager.cog_data_path(self) / "credit.db"
+        con = sqlite3.connect(f'{data_path}')
         cur = con.cursor()
         await self.new_guild_generation(self, ctx)
         bank_name = await self.config.bank_name()
