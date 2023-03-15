@@ -36,7 +36,7 @@ class SugonCredit(commands.Cog):
         con = sqlite3.connect('credit_db')
         cur = con.cursor()
         cur.execute(f'''INSERT INTO {ctx.guild.id}
-                                VALUES ('{username}', {target.id}, 250);''')
+        VALUES ('{username}', {target.id}, 250);''')
         con.commit()
         con.close()
     
@@ -79,11 +79,11 @@ class SugonCredit(commands.Cog):
         WHERE EXISTS (SELECT user_id FROM {ctx.guild.id} WHERE {target.id});''')=="FALSE":
             await self.new_user_generation(self, ctx, target)
         stored_username = cur.execute(f'''SELECT username FROM {ctx.guild.id}
-                                                            WHERE user_id = {target.id};''')
+        WHERE user_id = {target.id};''')
         if str(target) != stored_username:
             await self.username_updater(self, ctx, target)
         bal = cur.execute(f'''SELECT balance FROM {ctx.guild.id}
-                                        WHERE user_id = {target.id};''')
+        WHERE user_id = {target.id};''')
         output_bal = (f'{bal:,}')
         if bal == 1 or bal == -1:
             embed=discord.Embed(title=f"{bank_name} - Balance", color=await self.bot.get_embed_color(None), description=f"{target.mention} has {output_bal} {currency_name}.")
@@ -113,11 +113,11 @@ class SugonCredit(commands.Cog):
         WHERE EXISTS (SELECT user_id FROM credit WHERE {target.id});''')=="FALSE":
             await self.new_user_generation(self, ctx, target)
         stored_username = cur.execute(f'''SELECT username FROM {ctx.guild.id}
-                                                            WHERE user_id = {target.id};''')
+        WHERE user_id = {target.id};''')
         if str(target) != stored_username:
             await self.username_updater(self, ctx, target)
         bal = cur.execute(f'''SELECT balance FROM credit
-                                        WHERE user_id = {target.id};''')
+        WHERE user_id = {target.id};''')
         current_bal = cur.execute(f'''SELECT balance FROM {ctx.guild.id}
         WHERE user_id = {target.id};''')
         new_bal = current_bal + amount
