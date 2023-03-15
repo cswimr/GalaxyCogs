@@ -1,9 +1,11 @@
 import discord
 from redbot.core import commands, checks, data_manager, Config
 import sqlite3
+from sqlite3 import Error
 
 class SugonCredit(commands.Cog):
     """Implements a way for moderators to give out social-credit like points, dubbed 'sugoncredits' by the community."""
+    
     def __init__(self, bot):
         self.bot = bot
         self.config = Config.get_conf(self, identifier=47252584)
@@ -13,6 +15,9 @@ class SugonCredit(commands.Cog):
             max_bal = 1000000000,
             min_bal = -1000000000
         )
+        con = sqlite3.connect('credit_db')
+        con.commit()
+        con.close()
 
     def new_guild_generation(self, ctx):
         """Adds a new table for a guild to the SQLite databse."""
@@ -58,9 +63,19 @@ class SugonCredit(commands.Cog):
 
     @credit.command()
     @commands.guild_only()
-    async def leaderboard(self, ctx):
+    async def leaderboard(self, ctx, page: int = 1):
         """Shows the individuals with the highest balances."""
         await ctx.send(content="This command isn't done yet!")
+        con = sqlite3.connect('credit_db')
+        cur = con.cursor()
+        await self.new_guild_generation(self, ctx)
+        bank_name = await self.config.guild(ctx.guild).bank_name()
+        currency_name = await self.config.guild(ctx.guild).currency_name()
+        offset = (page - 1) * 10
+        raw_list = cur.execute(f'''SELECT user_id, balance FROM {ctx.guild.id}
+        ORDER BY balance DESC
+        LIMIT 10 OFFSET {offset};''')
+        await ctx.send(content=f"{raw_list}")
 
     @credit.command()
     @commands.guild_only()
@@ -109,14 +124,14 @@ class SugonCredit(commands.Cog):
         currency_name = await self.config.currency_name()
         max_bal = await self.config.max_bal()
         min_bal = await self.config_min_bal()
-        if cur.execute(f'''SELECT user_id FROM credit
-        WHERE EXISTS (SELECT user_id FROM credit WHERE {target.id});''')=="FALSE":
+        if cur.execute(f'''SELECT user_id FROM {ctx.guild.id}
+        WHERE EXISTS (SELECT user_id FROM {ctx.guild.id} WHERE {target.id});''')=="FALSE":
             await self.new_user_generation(self, ctx, target)
         stored_username = cur.execute(f'''SELECT username FROM {ctx.guild.id}
         WHERE user_id = {target.id};''')
         if str(target) != stored_username:
             await self.username_updater(self, ctx, target)
-        bal = cur.execute(f'''SELECT balance FROM credit
+        bal = cur.execute(f'''SELECT balance FROM {ctx.guild.id}
         WHERE user_id = {target.id};''')
         current_bal = cur.execute(f'''SELECT balance FROM {ctx.guild.id}
         WHERE user_id = {target.id};''')
@@ -169,8 +184,8 @@ class SugonCredit(commands.Cog):
         currency_name = await self.config.currency_name()
         max_bal = await self.config.max_bal()
         min_bal = await self.config_min_bal()
-        if cur.execute(f'''SELECT user_id FROM credit
-        WHERE EXISTS (SELECT user_id FROM credit WHERE {target.id});''')=="FALSE":
+        if cur.execute(f'''SELECT user_id FROM {ctx.guild.id}
+        WHERE EXISTS (SELECT user_id FROM {ctx.guild.id} WHERE {target.id});''')=="FALSE":
             await self.new_user_generation(self, ctx, target)
         stored_username = cur.execute(f'''SELECT username FROM {ctx.guild.id}
         WHERE user_id = {target.id};''')
