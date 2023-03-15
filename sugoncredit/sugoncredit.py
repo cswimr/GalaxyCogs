@@ -7,7 +7,7 @@ class SugonCredit(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         self.config = Config.get_conf(self, identifier=47252584)
-        self.config.register_global(
+        self.config.register_guild(
             bank_name = "Social Credit Enforcement Agency",
             currency_name = "Social Credit",
             max_bal = 1000000000,
