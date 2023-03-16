@@ -15,6 +15,18 @@ class Galaxy(commands.Cog):
             cocoemoji = 1028535684757209118
         )
 
+    @commands.command(aliases=["pxc", "pc", "polarisconvert", "tatsutopolaris", "ttp"])
+    @commands.guild_only()
+    async def polarisxpconvert(self, ctx, *, tatsu_studs: int):
+        """Converts Tatsu Studs to Polaris XP."""
+        math  = round((tatsu_studs/25)*10, 0)
+        output_from = f'{tatsu_studs:,}'
+        output_to = f'{math:,}'
+        embed = discord.Embed(color=await self.bot.get_embed_color(None))
+        embed.add_field(name="Tatsu Studs", value=f"{output_from}")
+        embed.add_field(name="Polaris XP", value=f"{output_to}")
+        await ctx.send(embed=embed)
+
     @commands.command()
     async def galaxyissues(self, ctx, target: discord.Member = None):
         if ctx.me.id == 1070819799254438039:
