@@ -15,46 +15,43 @@ class SugonCredit(commands.Cog):
             max_bal = 1000000000,
             min_bal = -1000000000
         )
-        data_path = data_manager.cog_data_path(self) / "credit.db"
-        con = sqlite3.connect(f'{data_path}')
+        self.data_path = data_manager.cog_data_path(self) / "credit.db"
+        con = sqlite3.connect(f'{self.data_path}')
         con.commit()
         con.close()
 
-    def new_guild_generation(self, ctx):
+    def new_guild_generation(self, guild_id):
         """Adds a new table for a guild to the SQLite databse."""
-        data_path = data_manager.cog_data_path(self) / "credit.db"
-        con = sqlite3.connect(f'{data_path}')
+        con = sqlite3.connect(f'{self.data_path}')
         cur = con.cursor()
         exist_check = cur.execute(f'''IF EXISTS 
             (SELECT object_id FROM sys.tables
-            WHERE name = {ctx.guild.id}
+            WHERE name = '{guild_id}'
             AND SCHEMA_NAME(schema_id) = 'dbo')
             PRINT 'False'
         ELSE 
             PRINT 'True';''')
         if exist_check == False:
-            cur.execute(f'''CREATE TABLE {ctx.guild.id} (username text, user_id text, balance real)''')
+            cur.execute(f'''CREATE TABLE '{guild_id}' (username text, user_id text, balance real)''')
             con.commit()
         con.close()
         
-    def new_user_generation(self, ctx, target):
+    def new_user_generation(self, guild_id, target):
         """Adds a new user to the SQLite database."""
         username = str(target)
-        data_path = data_manager.cog_data_path(self) / "credit.db"
-        con = sqlite3.connect(f'{data_path}')
+        con = sqlite3.connect(f'{self.data_path}')
         cur = con.cursor()
-        cur.execute(f'''INSERT INTO {ctx.guild.id}
+        cur.execute(f'''INSERT INTO {guild_id}
         VALUES ('{username}', {target.id}, 250);''')
         con.commit()
         con.close()
     
-    def username_updater(self, ctx, target):
+    def username_updater(self, guild_id, target):
         """Updates a users' username in the SQLite database."""
         new_username = str(target)
-        data_path = data_manager.cog_data_path(self) / "credit.db"
-        con = sqlite3.connect(f'{data_path}')
+        con = sqlite3.connect(f'{self.data_path}')
         cur = con.cursor()
-        cur.execute(f'''UPDATE {ctx.guild.id}
+        cur.execute(f'''UPDATE {guild_id}
         SET username = '{new_username}'
         WHERE user_id = {target.id};''')
         con.commit()
@@ -70,10 +67,9 @@ class SugonCredit(commands.Cog):
     async def leaderboard(self, ctx, page: int = 1):
         """Shows the individuals with the highest balances."""
         await ctx.send(content="This command isn't done yet!")
-        data_path = data_manager.cog_data_path(self) / "credit.db"
-        con = sqlite3.connect(f'{data_path}')
+        con = sqlite3.connect(f'{self.data_path}')
         cur = con.cursor()
-        await self.new_guild_generation(self, ctx)
+        await self.new_guild_generation(self, ctx.guild.id)
         bank_name = await self.config.guild(ctx.guild).bank_name()
         currency_name = await self.config.guild(ctx.guild).currency_name()
         offset = (page - 1) * 10
@@ -86,10 +82,9 @@ class SugonCredit(commands.Cog):
     @commands.guild_only()
     async def balance(self, ctx, user: discord.Member = None):
         """Checks an account's balance."""
-        data_path = data_manager.cog_data_path(self) / "credit.db"
-        con = sqlite3.connect(f'{data_path}')
+        con = sqlite3.connect(f'{self.data_path}')
         cur = con.cursor()
-        await self.new_guild_generation(self, ctx)
+        await self.new_guild_generation({ctx.guild.id})
         bank_name = await self.config.guild(ctx.guild).bank_name()
         currency_name = await self.config.guild(ctx.guild).currency_name()
         if user == None:
@@ -98,11 +93,11 @@ class SugonCredit(commands.Cog):
             target = user
         if cur.execute(f'''SELECT user_id FROM {ctx.guild.id}
         WHERE EXISTS (SELECT user_id FROM {ctx.guild.id} WHERE {target.id});''')=="FALSE":
-            await self.new_user_generation(self, ctx, target)
+            await self.new_user_generation({ctx.guild.id}, target)
         stored_username = cur.execute(f'''SELECT username FROM {ctx.guild.id}
         WHERE user_id = {target.id};''')
         if str(target) != stored_username:
-            await self.username_updater(self, ctx, target)
+            await self.username_updater({ctx.guild.id}, target)
         bal = cur.execute(f'''SELECT balance FROM {ctx.guild.id}
         WHERE user_id = {target.id};''')
         output_bal = (f'{bal:,}')
@@ -111,6 +106,7 @@ class SugonCredit(commands.Cog):
         else:
             embed=discord.Embed(title=f"{bank_name} - Balance", color=await self.bot.get_embed_color(None), description=f"{target.mention} has {output_bal} {currency_name}s.")
         await ctx.send(embed=embed)
+        con.close()
 
     @credit.command()
     @commands.guild_only()
@@ -122,10 +118,9 @@ class SugonCredit(commands.Cog):
         except ValueError:
             await ctx.send(content="``amount`` must be a number! Please try again.")
             return
-        data_path = data_manager.cog_data_path(self) / "credit.db"
-        con = sqlite3.connect(f'{data_path}')
+        con = sqlite3.connect(f'{self.data_path}')
         cur = con.cursor()
-        await self.new_guild_generation(self, ctx)
+        await self.new_guild_generation({ctx.guild.id})
         image = discord.File(fp=data_manager.bundled_data_path(self) / "add.png", filename="Add.png")
         bank_name = await self.config.bank_name()
         currency_name = await self.config.currency_name()
@@ -133,13 +128,11 @@ class SugonCredit(commands.Cog):
         min_bal = await self.config_min_bal()
         if cur.execute(f'''SELECT user_id FROM {ctx.guild.id}
         WHERE EXISTS (SELECT user_id FROM {ctx.guild.id} WHERE {target.id});''')=="FALSE":
-            await self.new_user_generation(self, ctx, target)
+            await self.new_user_generation({ctx.guild.id}, target)
         stored_username = cur.execute(f'''SELECT username FROM {ctx.guild.id}
         WHERE user_id = {target.id};''')
         if str(target) != stored_username:
-            await self.username_updater(self, ctx, target)
-        bal = cur.execute(f'''SELECT balance FROM {ctx.guild.id}
-        WHERE user_id = {target.id};''')
+            await self.username_updater({ctx.guild.id}, target)
         current_bal = cur.execute(f'''SELECT balance FROM {ctx.guild.id}
         WHERE user_id = {target.id};''')
         new_bal = current_bal + amount
@@ -187,18 +180,18 @@ class SugonCredit(commands.Cog):
         data_path = data_manager.cog_data_path(self) / "credit.db"
         con = sqlite3.connect(f'{data_path}')
         cur = con.cursor()
-        await self.new_guild_generation(self, ctx)
+        await self.new_guild_generation({ctx.guild.id})
         bank_name = await self.config.bank_name()
         currency_name = await self.config.currency_name()
         max_bal = await self.config.max_bal()
         min_bal = await self.config_min_bal()
         if cur.execute(f'''SELECT user_id FROM {ctx.guild.id}
         WHERE EXISTS (SELECT user_id FROM {ctx.guild.id} WHERE {target.id});''')=="FALSE":
-            await self.new_user_generation(self, ctx, target)
+            await self.new_user_generation({ctx.guild.id}, target)
         stored_username = cur.execute(f'''SELECT username FROM {ctx.guild.id}
         WHERE user_id = {target.id};''')
         if str(target) != stored_username:
-            await self.username_updater(self, ctx, target)
+            await self.username_updater({ctx.guild.id}, target)
         current_bal = cur.execute(f'''SELECT balance FROM {ctx.guild.id}
         WHERE user_id = {target.id};''')
         new_bal = current_bal - amount
