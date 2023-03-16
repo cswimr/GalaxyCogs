@@ -19,9 +19,13 @@ class Galaxy(commands.Cog):
     @commands.guild_only()
     async def polarisxpconvert(self, ctx, *, tatsu_studs: str):
         """Converts Tatsu Studs to Polaris XP."""
-        tatsu_studs_str = f"{tatsu_studs}".replace(",", "")
-        math  = round((tatsu_studs_str/25)*10)
-        output_from = f'{tatsu_studs_str:,}'
+        try:
+            tatsu_studs_int = int(f"{tatsu_studs}".replace(",", ""))
+        except ValueError:
+            await ctx.send(content="Please input a number!")
+            return
+        math  = round((tatsu_studs_int/25)*10)
+        output_from = f'{tatsu_studs_int:,}'
         output_to = f'{math:,}'
         embed = discord.Embed(color=await self.bot.get_embed_color(None))
         embed.add_field(name="Tatsu Studs", value=f"{output_from}", inline=False)
