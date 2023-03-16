@@ -20,11 +20,12 @@ class Galaxy(commands.Cog):
     async def polarisxpconvert(self, ctx, *, tatsu_studs: int):
         """Converts Tatsu Studs to Polaris XP."""
         math  = round((tatsu_studs/25)*10, 0)
-        output_from = f'{tatsu_studs:,}'
+        rounded_tatsu_studs = round(tatsu_studs, 0)
+        output_from = f'{rounded_tatsu_studs:,}'
         output_to = f'{math:,}'
         embed = discord.Embed(color=await self.bot.get_embed_color(None))
-        embed.add_field(name="Tatsu Studs", value=f"{output_from}")
-        embed.add_field(name="Polaris XP", value=f"{output_to}")
+        embed.add_field(name="Tatsu Studs", value=f"{output_from}", inline=False)
+        embed.add_field(name="Polaris XP", value=f"{output_to}", inline=False)
         await ctx.send(embed=embed)
 
     @commands.command()
