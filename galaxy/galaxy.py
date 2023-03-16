@@ -1,6 +1,7 @@
 from redbot.core import commands, checks, Config, bot
 import discord
 from datetime import datetime
+import re
 
 class Galaxy(commands.Cog):
     """Custom cog intended for use on the Galaxy discord server.
@@ -13,6 +14,23 @@ class Galaxy(commands.Cog):
             cocotarget = 0,
             cocoemoji = 1028535684757209118
         )
+
+    @commands.command(aliases=["pxc", "pc", "polarisconvert", "tatsutopolaris", "ttp"])
+    @commands.guild_only()
+    async def polarisxpconvert(self, ctx, *, tatsu_studs: str):
+        """Converts Tatsu Studs to Polaris XP."""
+        try:
+            tatsu_studs_int = int(f"{tatsu_studs}".replace(",", ""))
+        except ValueError:
+            await ctx.send(content="Please input a number!")
+            return
+        math  = round((tatsu_studs_int/25)*10)
+        output_from = f'{tatsu_studs_int:,}'
+        output_to = f'{math:,}'
+        embed = discord.Embed(color=await self.bot.get_embed_color(None))
+        embed.add_field(name="Tatsu Studs", value=f"{output_from}", inline=False)
+        embed.add_field(name="Polaris XP", value=f"{output_to}", inline=False)
+        await ctx.send(embed=embed)
 
     @commands.command()
     async def galaxyissues(self, ctx, target: discord.Member = None):
