@@ -1,0 +1,9 @@
+{
+    "author" : ["SeaswimmerTheFsh"],
+    "install_msg" : "Thank you for installing Shortmute!\nYou can find the source code of this cog here: https://github.com/SeaswimmerTheFsh/GalaxyCogs\nYou can find the original source code from sravan-cogs here: <https://github.com/sravan1946/sravan-cogs/tree/master/timeout>",
+    "name" : "Shortmute",
+    "short" : "Allows staff members to shortmute individuals for up to 30 minutes.",
+    "description" : "Allows staff members to shortmute individuals for up to 30 minutes, using Discord's Timeouts feature.",
+    "tags" : ["moderation, mutes, timeouts"],
+    "end_user_data_statement": "This cog stores no end user data."
+}

@@ -35,7 +35,10 @@ Currently supports:
 
  Also features user blacklists, both configurable per-server and globally.
  [^incomplete]:
-    Podcast currently is non-functional. This notice will be removed once the Cog is completed.
+    This cog currently is non-functional. This notice will be removed once the Cog is completed.
+
+## Shortmutes **(WIP)**[^incomplete]
+ Allows staff members to shortmute individuals for up to 30 minutes, using Discord's Timeouts feature.
 
  ## Suggestions
  Allows users to submit suggestions to a specified channel. Highly cut-down modification of [SauriCog's Suggestions Cog](https://github.com/elijabesu/SauriCogs).
