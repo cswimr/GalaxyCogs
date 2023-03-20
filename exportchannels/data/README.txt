@@ -1,0 +1,2 @@
+This bundled version of Discord Chat Exporter can be found here: https://github.com/Tyrrrz/DiscordChatExporter/releases/tag/2.39.1
+I DID NOT MAKE THIS PROGRAM. This program is developed by Tyrrrz, NOT me.
