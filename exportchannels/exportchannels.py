@@ -4,7 +4,7 @@ import os
 from redbot.core import Config, checks, commands, bot, data_manager
 
 class ExportChannels(commands.Cog):
-    """Custom cog to export channels to Json and HTML formats using Discord Chat Exporter.
+    """Custom cog to export channels to JSON and HTML formats using Discord Chat Exporter.
     Developed by SeaswimmerTheFsh and yname."""
 
     def __init__(self, bot):
