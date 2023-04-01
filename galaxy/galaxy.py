@@ -119,7 +119,7 @@ class Galaxy(commands.Cog):
         await ctx.message.delete()
 
     @commands.command(aliases=["wh"])
-    async def warehouse(self, ctx:  commands.Context,  lvlfrom: int, lvlto: int):
+    async def warehouse(self, ctx:  commands.Context,  lvlfrom: int = 1, lvlto: int = 38):
         """Calculates the total cost to upgrade your warehouse from a level to a level."""
         warehouse_levels = {1:0, 2:1000,3:2500,4:4500,5:7500,6:12500,7:20000,8:31500,9:46500,10:65500,11:87500,12:113500,13:143500,14:178500,15:218500,16:263500,17:313500,18:373500,19:443500,20:523500,21:613500,22:713500,23:823500,24:943500,25:1073500,26:1223500,27:1398500,28:1598500,29:1823500,30:2073500,31:2353500, 32:2663500, 33:3003500, 34:3373500, 35:3773500, 36:4193500, 37:4644500, 38:5093500}
         total_from = (f'{warehouse_levels[lvlfrom]:,}')
