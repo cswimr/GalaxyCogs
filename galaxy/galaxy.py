@@ -130,9 +130,9 @@ class Galaxy(commands.Cog):
         cost_output = (f'{cost:,}')
         ship_class = "Miner"
         embed = discord.Embed(title="Insurance Cost", color=await self.bot.get_embed_color(None))
-        embed.add_field(name="Ship Class", content={ship_class})
-        embed.add_field(name="Ship  Cost", content={cost_output})
-        embed.add_field(name="Insurance Amount", content={output})
+        embed.add_field(name="Ship Class", value={ship_class})
+        embed.add_field(name="Ship  Cost", value={cost_output})
+        embed.add_field(name="Insurance Amount", value={output})
         await ctx.send(embed=embed)
 
     @insurance.command()
@@ -143,9 +143,9 @@ class Galaxy(commands.Cog):
         cost_output = (f'{cost:,}')
         ship_class = "Freighter"
         embed = discord.Embed(title="Insurance Cost", color=await self.bot.get_embed_color(None))
-        embed.add_field(name="Ship Class", content={ship_class})
-        embed.add_field(name="Ship  Cost", content={cost_output})
-        embed.add_field(name="Insurance Amount", content={output})
+        embed.add_field(name="Ship Class", value={ship_class})
+        embed.add_field(name="Ship  Cost", value={cost_output})
+        embed.add_field(name="Insurance Amount", value={output})
         await ctx.send(embed=embed)
 
     @insurance.command()
@@ -156,9 +156,9 @@ class Galaxy(commands.Cog):
         cost_output = (f'{cost:,}')
         ship_class = "Frigate"
         embed = discord.Embed(title="Insurance Cost", color=await self.bot.get_embed_color(None))
-        embed.add_field(name="Ship Class", content={ship_class})
-        embed.add_field(name="Ship  Cost", content={cost_output})
-        embed.add_field(name="Insurance Amount", content={output})
+        embed.add_field(name="Ship Class", value={ship_class})
+        embed.add_field(name="Ship  Cost", value={cost_output})
+        embed.add_field(name="Insurance Amount", value={output})
         await ctx.send(embed=embed)
 
     @insurance.command()
@@ -169,9 +169,9 @@ class Galaxy(commands.Cog):
         cost_output = (f'{cost:,}')
         ship_class = "Destroyer"
         embed = discord.Embed(title="Insurance Cost", color=await self.bot.get_embed_color(None))
-        embed.add_field(name="Ship Class", content={ship_class})
-        embed.add_field(name="Ship  Cost", content={cost_output})
-        embed.add_field(name="Insurance Amount", content={output})
+        embed.add_field(name="Ship Class", value={ship_class})
+        embed.add_field(name="Ship  Cost", value={cost_output})
+        embed.add_field(name="Insurance Amount", value={output})
         await ctx.send(embed=embed)
 
     @insurance.command()
@@ -182,9 +182,9 @@ class Galaxy(commands.Cog):
         cost_output = (f'{cost:,}')
         ship_class = "Cruiser"
         embed = discord.Embed(title="Insurance Cost", color=await self.bot.get_embed_color(None))
-        embed.add_field(name="Ship Class", content={ship_class})
-        embed.add_field(name="Ship  Cost", content={cost_output})
-        embed.add_field(name="Insurance Amount", content={output})
+        embed.add_field(name="Ship Class", value={ship_class})
+        embed.add_field(name="Ship  Cost", value={cost_output})
+        embed.add_field(name="Insurance Amount", value={output})
         await ctx.send(embed=embed)
 
     @insurance.command()
@@ -195,9 +195,9 @@ class Galaxy(commands.Cog):
         cost_output = (f'{cost:,}')
         ship_class = "Battlecruiser"
         embed = discord.Embed(title="Insurance Cost", color=await self.bot.get_embed_color(None))
-        embed.add_field(name="Ship Class", content={ship_class})
-        embed.add_field(name="Ship  Cost", content={cost_output})
-        embed.add_field(name="Insurance Amount", content={output})
+        embed.add_field(name="Ship Class", value={ship_class})
+        embed.add_field(name="Ship  Cost", value={cost_output})
+        embed.add_field(name="Insurance Amount", value={output})
         await ctx.send(embed=embed)
 
     @insurance.command()
@@ -208,9 +208,9 @@ class Galaxy(commands.Cog):
         cost_output = (f'{cost:,}')
         ship_class = "Battleship"
         embed = discord.Embed(title="Insurance Cost", color=await self.bot.get_embed_color(None))
-        embed.add_field(name="Ship Class", content={ship_class})
-        embed.add_field(name="Ship  Cost", content={cost_output})
-        embed.add_field(name="Insurance Amount", content={output})
+        embed.add_field(name="Ship Class", value={ship_class})
+        embed.add_field(name="Ship  Cost", value={cost_output})
+        embed.add_field(name="Insurance Amount", value={output})
         await ctx.send(embed=embed)
 
     @insurance.command()
@@ -221,9 +221,9 @@ class Galaxy(commands.Cog):
         cost_output = (f'{cost:,}')
         ship_class = "Dreadnought"
         embed = discord.Embed(title="Insurance Cost", color=await self.bot.get_embed_color(None))
-        embed.add_field(name="Ship Class", content={ship_class})
-        embed.add_field(name="Ship  Cost", content={cost_output})
-        embed.add_field(name="Insurance Amount", content={output})
+        embed.add_field(name="Ship Class", value={ship_class})
+        embed.add_field(name="Ship  Cost", value={cost_output})
+        embed.add_field(name="Insurance Amount", value={output})
         await ctx.send(embed=embed)
 
     @insurance.command()
@@ -234,9 +234,9 @@ class Galaxy(commands.Cog):
         cost_output = (f'{cost:,}')
         ship_class = "Carrier"
         embed = discord.Embed(title="Insurance Cost", color=await self.bot.get_embed_color(None))
-        embed.add_field(name="Ship Class", content={ship_class})
-        embed.add_field(name="Ship  Cost", content={cost_output})
-        embed.add_field(name="Insurance Amount", content={output})
+        embed.add_field(name="Ship Class", value={ship_class})
+        embed.add_field(name="Ship  Cost", value={cost_output})
+        embed.add_field(name="Insurance Amount", value={output})
         await ctx.send(embed=embed)
 
     @insurance.command()
@@ -247,9 +247,9 @@ class Galaxy(commands.Cog):
         cost_output = (f'{cost:,}')
         ship_class = "Super Capital"
         embed = discord.Embed(title="Insurance Cost", color=await self.bot.get_embed_color(None))
-        embed.add_field(name="Ship Class", content={ship_class})
-        embed.add_field(name="Ship  Cost", content={cost_output})
-        embed.add_field(name="Insurance Amount", content={output})
+        embed.add_field(name="Ship Class", value={ship_class})
+        embed.add_field(name="Ship  Cost", value={cost_output})
+        embed.add_field(name="Insurance Amount", value={output})
         await ctx.send(embed=embed)
 
     @commands.command(aliases=["wh"])
