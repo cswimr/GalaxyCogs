@@ -125,131 +125,131 @@ class Galaxy(commands.Cog):
     @insurance.command()
     async def miner(self, ctx: commands.Context, cost: int):
         """Calculates insurance for miners."""
-        insurance_amount = cost * 0.7
+        insurance_amount = round(cost * 0.7)
         output = (f'{insurance_amount:,}')
         cost_output = (f'{cost:,}')
         ship_class = "Miner"
         embed = discord.Embed(title="Insurance Cost", color=await self.bot.get_embed_color(None))
-        embed.add_field(name="Ship Class", value={ship_class})
-        embed.add_field(name="Ship  Cost", value={cost_output})
-        embed.add_field(name="Insurance Amount", value={output})
+        embed.add_field(name="Ship Class", value=f"{ship_class}", inline=False)
+        embed.add_field(name="Ship  Cost", value=f"{cost_output}", inline=False)
+        embed.add_field(name="Insurance Amount", value=f"{output}", inline=False)
         await ctx.send(embed=embed)
 
     @insurance.command()
     async def freighter(self, ctx: commands.Context, cost: int):
         """Calculates insurance for freighters."""
-        insurance_amount = cost * 0.65
+        insurance_amount = round(cost * 0.65)
         output = (f'{insurance_amount:,}')
         cost_output = (f'{cost:,}')
         ship_class = "Freighter"
         embed = discord.Embed(title="Insurance Cost", color=await self.bot.get_embed_color(None))
-        embed.add_field(name="Ship Class", value={ship_class})
-        embed.add_field(name="Ship  Cost", value={cost_output})
-        embed.add_field(name="Insurance Amount", value={output})
+        embed.add_field(name="Ship Class", value=f"{ship_class}", inline=False)
+        embed.add_field(name="Ship  Cost", value=f"{cost_output}", inline=False)
+        embed.add_field(name="Insurance Amount", value=f"{output}", inline=False)
         await ctx.send(embed=embed)
 
     @insurance.command()
     async def frigate(self, ctx: commands.Context, cost: int):
         """Calculates insurance for frigates."""
-        insurance_amount = cost * 0.6
+        insurance_amount = round(cost * 0.6)
         output = (f'{insurance_amount:,}')
         cost_output = (f'{cost:,}')
         ship_class = "Frigate"
         embed = discord.Embed(title="Insurance Cost", color=await self.bot.get_embed_color(None))
-        embed.add_field(name="Ship Class", value={ship_class})
-        embed.add_field(name="Ship  Cost", value={cost_output})
-        embed.add_field(name="Insurance Amount", value={output})
+        embed.add_field(name="Ship Class", value=f"{ship_class}", inline=False)
+        embed.add_field(name="Ship  Cost", value=f"{cost_output}", inline=False)
+        embed.add_field(name="Insurance Amount", value=f"{output}", inline=False)
         await ctx.send(embed=embed)
 
     @insurance.command()
     async def destroyer(self, ctx: commands.Context, cost: int):
         """Calculates insurance for destroyers."""
-        insurance_amount = cost * 0.55
+        insurance_amount = round(cost * 0.55)
         output = (f'{insurance_amount:,}')
         cost_output = (f'{cost:,}')
         ship_class = "Destroyer"
         embed = discord.Embed(title="Insurance Cost", color=await self.bot.get_embed_color(None))
-        embed.add_field(name="Ship Class", value={ship_class})
-        embed.add_field(name="Ship  Cost", value={cost_output})
-        embed.add_field(name="Insurance Amount", value={output})
+        embed.add_field(name="Ship Class", value=f"{ship_class}", inline=False)
+        embed.add_field(name="Ship  Cost", value=f"{cost_output}", inline=False)
+        embed.add_field(name="Insurance Amount", value=f"{output}", inline=False)
         await ctx.send(embed=embed)
 
     @insurance.command()
     async def cruiser(self, ctx: commands.Context, cost: int):
         """Calculates insurance for cruisers."""
-        insurance_amount = cost * 0.7
+        insurance_amount = round(cost * 0.5)
         output = (f'{insurance_amount:,}')
         cost_output = (f'{cost:,}')
         ship_class = "Cruiser"
         embed = discord.Embed(title="Insurance Cost", color=await self.bot.get_embed_color(None))
-        embed.add_field(name="Ship Class", value={ship_class})
-        embed.add_field(name="Ship  Cost", value={cost_output})
-        embed.add_field(name="Insurance Amount", value={output})
+        embed.add_field(name="Ship Class", value=f"{ship_class}", inline=False)
+        embed.add_field(name="Ship  Cost", value=f"{cost_output}", inline=False)
+        embed.add_field(name="Insurance Amount", value=f"{output}", inline=False)
         await ctx.send(embed=embed)
 
     @insurance.command()
     async def battlecruiser(self, ctx: commands.Context, cost: int):
         """Calculates insurance for battlecruisers."""
-        insurance_amount = cost * 0.4
+        insurance_amount = round(cost * 0.4)
         output = (f'{insurance_amount:,}')
         cost_output = (f'{cost:,}')
         ship_class = "Battlecruiser"
         embed = discord.Embed(title="Insurance Cost", color=await self.bot.get_embed_color(None))
-        embed.add_field(name="Ship Class", value={ship_class})
-        embed.add_field(name="Ship  Cost", value={cost_output})
-        embed.add_field(name="Insurance Amount", value={output})
+        embed.add_field(name="Ship Class", value=f"{ship_class}", inline=False)
+        embed.add_field(name="Ship  Cost", value=f"{cost_output}", inline=False)
+        embed.add_field(name="Insurance Amount", value=f"{output}", inline=False)
         await ctx.send(embed=embed)
 
     @insurance.command()
     async def battleship(self, ctx: commands.Context, cost: int):
         """Calculates insurance for battleships."""
-        insurance_amount = cost * 0.35
+        insurance_amount = round(cost * 0.35)
         output = (f'{insurance_amount:,}')
         cost_output = (f'{cost:,}')
         ship_class = "Battleship"
         embed = discord.Embed(title="Insurance Cost", color=await self.bot.get_embed_color(None))
-        embed.add_field(name="Ship Class", value={ship_class})
-        embed.add_field(name="Ship  Cost", value={cost_output})
-        embed.add_field(name="Insurance Amount", value={output})
+        embed.add_field(name="Ship Class", value=f"{ship_class}", inline=False)
+        embed.add_field(name="Ship  Cost", value=f"{cost_output}", inline=False)
+        embed.add_field(name="Insurance Amount", value=f"{output}", inline=False)
         await ctx.send(embed=embed)
 
     @insurance.command()
     async def dreadnought(self, ctx: commands.Context, cost: int):
         """Calculates insurance for dreadnoughts."""
-        insurance_amount = cost * 0.3
+        insurance_amount = round(cost * 0.3)
         output = (f'{insurance_amount:,}')
         cost_output = (f'{cost:,}')
         ship_class = "Dreadnought"
         embed = discord.Embed(title="Insurance Cost", color=await self.bot.get_embed_color(None))
-        embed.add_field(name="Ship Class", value={ship_class})
-        embed.add_field(name="Ship  Cost", value={cost_output})
-        embed.add_field(name="Insurance Amount", value={output})
+        embed.add_field(name="Ship Class", value=f"{ship_class}", inline=False)
+        embed.add_field(name="Ship  Cost", value=f"{cost_output}", inline=False)
+        embed.add_field(name="Insurance Amount", value=f"{output}", inline=False)
         await ctx.send(embed=embed)
 
     @insurance.command()
     async def carrier(self, ctx: commands.Context, cost: int):
         """Calculates insurance for carriers."""
-        insurance_amount = cost * 0.3
+        insurance_amount = round(cost * 0.3)
         output = (f'{insurance_amount:,}')
         cost_output = (f'{cost:,}')
         ship_class = "Carrier"
         embed = discord.Embed(title="Insurance Cost", color=await self.bot.get_embed_color(None))
-        embed.add_field(name="Ship Class", value={ship_class})
-        embed.add_field(name="Ship  Cost", value={cost_output})
-        embed.add_field(name="Insurance Amount", value={output})
+        embed.add_field(name="Ship Class", value=f"{ship_class}", inline=False)
+        embed.add_field(name="Ship  Cost", value=f"{cost_output}", inline=False)
+        embed.add_field(name="Insurance Amount", value=f"{output}", inline=False)
         await ctx.send(embed=embed)
 
     @insurance.command()
     async def supercapital(self, ctx: commands.Context, cost: int):
         """Calculates insurance for super capitals."""
-        insurance_amount = cost * 0.25
+        insurance_amount = round(cost * 0.25)
         output = (f'{insurance_amount:,}')
         cost_output = (f'{cost:,}')
         ship_class = "Super Capital"
         embed = discord.Embed(title="Insurance Cost", color=await self.bot.get_embed_color(None))
-        embed.add_field(name="Ship Class", value={ship_class})
-        embed.add_field(name="Ship  Cost", value={cost_output})
-        embed.add_field(name="Insurance Amount", value={output})
+        embed.add_field(name="Ship Class", value=f"{ship_class}", inline=False)
+        embed.add_field(name="Ship  Cost", value=f"{cost_output}", inline=False)
+        embed.add_field(name="Insurance Amount", value=f"{output}", inline=False)
         await ctx.send(embed=embed)
 
     @commands.command(aliases=["wh"])
