@@ -215,7 +215,7 @@ class Galaxy(commands.Cog):
 
     @insurance.command()
     async def dreadnought(self, ctx: commands.Context, cost: int):
-        """Calculates insurance for Dreadnoughts."""
+        """Calculates insurance for dreadnoughts."""
         insurance_amount = cost * 0.3
         output = (f'{insurance_amount:,}')
         cost_output = (f'{cost:,}')
@@ -241,7 +241,7 @@ class Galaxy(commands.Cog):
 
     @insurance.command()
     async def supercapital(self, ctx: commands.Context, cost: int):
-        """Calculates insurance for Super Capitals."""
+        """Calculates insurance for super capitals."""
         insurance_amount = cost * 0.25
         output = (f'{insurance_amount:,}')
         cost_output = (f'{cost:,}')
