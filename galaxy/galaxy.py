@@ -124,7 +124,7 @@ class Galaxy(commands.Cog):
 
     @insurance.command()
     async def miner(self, ctx: commands.Context, cost: int):
-        """Calculates insurance for miners."""
+        """Calculates insurance for miners. (70%)"""
         insurance_amount = round(cost * 0.7)
         output = (f'{insurance_amount:,}')
         cost_output = (f'{cost:,}')
@@ -137,7 +137,7 @@ class Galaxy(commands.Cog):
 
     @insurance.command()
     async def freighter(self, ctx: commands.Context, cost: int):
-        """Calculates insurance for freighters."""
+        """Calculates insurance for freighters. (65%)"""
         insurance_amount = round(cost * 0.65)
         output = (f'{insurance_amount:,}')
         cost_output = (f'{cost:,}')
@@ -150,7 +150,7 @@ class Galaxy(commands.Cog):
 
     @insurance.command()
     async def frigate(self, ctx: commands.Context, cost: int):
-        """Calculates insurance for frigates."""
+        """Calculates insurance for frigates. (60%)"""
         insurance_amount = round(cost * 0.6)
         output = (f'{insurance_amount:,}')
         cost_output = (f'{cost:,}')
@@ -163,7 +163,7 @@ class Galaxy(commands.Cog):
 
     @insurance.command()
     async def destroyer(self, ctx: commands.Context, cost: int):
-        """Calculates insurance for destroyers."""
+        """Calculates insurance for destroyers. (55%)"""
         insurance_amount = round(cost * 0.55)
         output = (f'{insurance_amount:,}')
         cost_output = (f'{cost:,}')
@@ -176,7 +176,7 @@ class Galaxy(commands.Cog):
 
     @insurance.command()
     async def cruiser(self, ctx: commands.Context, cost: int):
-        """Calculates insurance for cruisers."""
+        """Calculates insurance for cruisers. (50%)"""
         insurance_amount = round(cost * 0.5)
         output = (f'{insurance_amount:,}')
         cost_output = (f'{cost:,}')
@@ -189,7 +189,7 @@ class Galaxy(commands.Cog):
 
     @insurance.command()
     async def battlecruiser(self, ctx: commands.Context, cost: int):
-        """Calculates insurance for battlecruisers."""
+        """Calculates insurance for battlecruisers. (40%)"""
         insurance_amount = round(cost * 0.4)
         output = (f'{insurance_amount:,}')
         cost_output = (f'{cost:,}')
@@ -202,7 +202,7 @@ class Galaxy(commands.Cog):
 
     @insurance.command()
     async def battleship(self, ctx: commands.Context, cost: int):
-        """Calculates insurance for battleships."""
+        """Calculates insurance for battleships. (35%)"""
         insurance_amount = round(cost * 0.35)
         output = (f'{insurance_amount:,}')
         cost_output = (f'{cost:,}')
@@ -215,7 +215,7 @@ class Galaxy(commands.Cog):
 
     @insurance.command()
     async def dreadnought(self, ctx: commands.Context, cost: int):
-        """Calculates insurance for dreadnoughts."""
+        """Calculates insurance for dreadnoughts. (30%)"""
         insurance_amount = round(cost * 0.3)
         output = (f'{insurance_amount:,}')
         cost_output = (f'{cost:,}')
@@ -228,7 +228,7 @@ class Galaxy(commands.Cog):
 
     @insurance.command()
     async def carrier(self, ctx: commands.Context, cost: int):
-        """Calculates insurance for carriers."""
+        """Calculates insurance for carriers. (30%)"""
         insurance_amount = round(cost * 0.3)
         output = (f'{insurance_amount:,}')
         cost_output = (f'{cost:,}')
@@ -241,7 +241,7 @@ class Galaxy(commands.Cog):
 
     @insurance.command()
     async def supercapital(self, ctx: commands.Context, cost: int):
-        """Calculates insurance for super capitals."""
+        """Calculates insurance for super capitals. (25%)"""
         insurance_amount = round(cost * 0.25)
         output = (f'{insurance_amount:,}')
         cost_output = (f'{cost:,}')
