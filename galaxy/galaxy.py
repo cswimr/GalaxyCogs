@@ -306,7 +306,7 @@ class Galaxy(commands.Cog):
     async def faq_links(self, ctx, member: discord.Member = None):
         """Posts important links, primarily invite links."""
         embed=discord.Embed(title="Important Links", color=await self.bot.get_embed_color(None))
-        embed.add_field(name="Galaxy", value="[Galaxy Discord](https://discord.com/invite/robloxgalaxy)\n[Galaxy Support](https://discord.com/invite/ShWshkhYhZ)")
+        embed.add_field(name="Galaxy", value="[Galaxy Discord](https://discord.com/invite/robloxgalaxy)\n[Galaxy Support](https://discord.com/invite/ShWshkhYhZ)\n[Galaxy Music Server](https://discord.gg/mRRfUcNw4C)")
         embed.add_field(name="Galaxypedia", value="[Galaxypedia Website](https://robloxgalaxy.wiki/wiki/Main_Page)\n[Galaxypedia Discord](https://discord.robloxgalaxy.wiki/)")
         if member:
             await ctx.channel.send(embed=embed, content=member.mention)
