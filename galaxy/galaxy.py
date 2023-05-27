@@ -295,7 +295,7 @@ class Galaxy(commands.Cog):
     @faq.command(name="dps")
     async def faq_dps(self, ctx, member: discord.Member = None):
         """DPS Calculations/Inaccuracy"""
-        embed=discord.Embed(title="DPS Calculations", color=await self.bot.get_embed_color(None), description="The ``/info`` command (and by extention ``/shipinfo`` from Odin) misreports DPS, due to it calculating DPS disregarding the turret's type (kinetic, laser), causing it to assume the target ship is both hulled and has shield simultaneously. It also ignores turret overrides, custom reloads, and custom damage values. If you'd like to check ship stats accurately, you can either use the ``/ship`` command in this channel or you can use the [Galaxy Info Website](https://galaxy.wingysam.xyz/ships). Alternatively, to check turret stats, you can use the [Galaxy Info Turrets Page](https://galaxy.wingysam.xyz/turrets).")
+        embed=discord.Embed(title="DPS Calculations", color=await self.bot.get_embed_color(None), description="The ``/info`` command (and by extention ``/shipinfo`` from Odin) misreports DPS, due to it calculating DPS disregarding the turret's type (kinetic, laser), causing it to assume the target ship is both hulled and has shield simultaneously. It also ignores turret overrides, custom reloads, and custom damage values. If you'd like to check ship stats accurately, you can either use the ``/ship`` command in this channel or you can use the [Galaxy Info Website](https://info.galaxy.casa/ships). Alternatively, to check turret stats, you can use the [Galaxy Info Turrets Page](https://info.galaxy.casa/turrets).")
         if member:
             await ctx.channel.send(embed=embed, content=member.mention)
         else:
