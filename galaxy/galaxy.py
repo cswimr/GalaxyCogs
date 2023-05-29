@@ -357,11 +357,11 @@ class Galaxy(commands.Cog):
         """Posts an embed containing NPC spawn intervals."""
         embed=discord.Embed(title="NPC Spawn Intervals", color=await self.bot.get_embed_color(None), description="*Disclaimer: Spawn times may be different if EventID is active!*")
         embed.add_field(name="Every 6.7 Minutes", value="[Dragoon](https://robloxgalaxy.wiki/wiki/Dragoon) *(80% Chance)*")
-        embed.add_field(name="Every 8.4 Minutes", value="[Swarmer](https://robloxgalaxy.wiki/wiki/Swarmer) *(33% Chance)*")
+        embed.add_field(name="Every 8.3 Minutes", value="[Swarmer](https://robloxgalaxy.wiki/wiki/Swarmer) *(33% Chance)*")
         embed.add_field(name="Every 10 Minutes", value="[Jormungand](https://robloxgalaxy.wiki/wiki/Jormungand) *(75% Chance)*")
         embed.add_field(name="Every 12.5 Minutes", value="[Bruiser](https://robloxgalaxy.wiki/wiki/Bruiser) *(50% Chance)*")
         embed.add_field(name="Every 16.7 Minutes", value="[Outrider](https://robloxgalaxy.wiki/wiki/Outrider) *(50% Chance)*")
-        embed.add_field(name="Every 28.5 Minutes", value="[Punisher](https://robloxgalaxy.wiki/wiki/Punisher)")
+        embed.add_field(name="Every 28.3 Minutes", value="[Punisher](https://robloxgalaxy.wiki/wiki/Punisher)")
         embed.add_field(name="Every 60 Minutes", value="[X-0](https://robloxgalaxy.wiki/wiki/X-0) *(45% Chance)*\n[Decimator](https://robloxgalaxy.wiki/wiki/Decimator)")
         embed.add_field(name="Every 70 Minutes", value="[Galleon](https://robloxgalaxy.wiki/wiki/Galleon)")
         embed.add_field(name="Every 120 Minutes", value="[Kodiak](https://robloxgalaxy.wiki/wiki/Kodiak)")
