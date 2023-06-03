@@ -120,7 +120,8 @@ class Galaxy(commands.Cog):
 
     @commands.group(autohelp=True)
     async def insurance(self, ctx: commands.Context):
-        """Calculates insurance."""
+        """Calculates insurance.
+        Please only use the value of a ship (from ``/shipinfo``) to calculate insurance and **not** ship cost."""
 
     @insurance.command()
     async def miner(self, ctx: commands.Context, cost: int):
