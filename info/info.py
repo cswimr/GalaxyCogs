@@ -494,7 +494,7 @@ class Info(commands.Cog):
 
     @commands.command()
     @commands.guild_only()
-    async def roleinfo(self, ctx, *, role: discord.Role, permissions: bool = False):
+    async def roleinfo(self, ctx, *, role: discord.Role, list_permissions: bool = False):
         """Gives information on a specific role."""
         permissions = role.permissions
         if role.color.value == 0:
@@ -505,7 +505,7 @@ class Info(commands.Cog):
             color = re.sub('#',"",str(role.color))
         colorcodelink = f"https://www.color-hex.com/color/{color}"
         timestamp = int(datetime.timestamp(role.created_at))
-        if permissions == False:
+        if list_permissions == False:
             embed = discord.Embed(title=f"{role.name}", color=colorint, description=f"**ID:** {role.id}\n**Mention:** {role.mention}\n**Creation Date:** <t:{timestamp}>\n**Color:** [#{color}]({colorcodelink})\n**Hoisted:** {role.hoist}\n**Position:** {role.position}\n**Managed:** {role.managed}\n**Mentionable:** {role.mentionable}\n**Administrator:** {role.permissions.administrator}")
         else:
             embed = discord.Embed(title=f"{role.name}", color=colorint, description=f"**ID:** {role.id}\n**Mention:** {role.mention}\n**Creation Date:** <t:{timestamp}>\n**Color:** [#{color}]({colorcodelink})\n**Hoisted:** {role.hoist}\n**Position:** {role.position}\n**Managed:** {role.managed}\n**Mentionable:** {role.mentionable}\n**Administrator:** {role.permissions.administrator}")
