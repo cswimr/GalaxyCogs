@@ -112,7 +112,7 @@ class Galaxy(commands.Cog):
     async def unix(self, ctx):
         """Posts the current Unix timestamp."""
         timestamp = int(datetime.timestamp(datetime.now()))
-        embed=discord.Embed(title="Current Time", color=await self.bot.get_embed_color(None), description=f"<t:{timestamp}>")
+        embed=discord.Embed(title="Current Time", url="https://www.unixtimestamp.com/", color=await self.bot.get_embed_color(None), description=f"<t:{timestamp}>")
         embed.set_footer(text=f"{timestamp}")
         embed.set_image(url="https://cdn.discordapp.com/attachments/1047347377348030494/1080048421127335956/image.png")
         await ctx.send(embed=embed)
@@ -120,7 +120,8 @@ class Galaxy(commands.Cog):
 
     @commands.group(autohelp=True)
     async def insurance(self, ctx: commands.Context):
-        """Calculates insurance."""
+        """Calculates insurance.
+        Please only use the value of a ship (from ``/shipinfo``) to calculate insurance and **not** ship cost."""
 
     @insurance.command()
     async def miner(self, ctx: commands.Context, cost: int):
