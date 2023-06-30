@@ -486,7 +486,7 @@ class Info(commands.Cog):
             name = str(member.name)
         else:
             name = str(member)
-        name = " - ".join((name, member.nick)) if member.nick else name
+        name = " ~ ".join((name, member.nick)) if member.nick else name
         name = filter_invites(name)
 
         avatar = member.avatar_url_as(format='png')
