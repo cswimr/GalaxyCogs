@@ -60,12 +60,12 @@ class Galaxy(commands.Cog):
     async def cocoreact(self, message):
         emoji = self.bot.get_emoji(await self.config.guild(message.guild).cocoemoji())
         cocotarget = await self.config.guild(message.guild).cocotarget()
-        if cocotarget == 0: 
+        if cocotarget == 0:
             return
         if not message.author.id == cocotarget:
             return
         await message.add_reaction(emoji)
-        
+
     @commands.group(autohelp=False, invoke_without_command=True)
     @commands.guild_only()
     async def coco(self, ctx):
@@ -74,7 +74,7 @@ class Galaxy(commands.Cog):
         cocotarget = await self.config.guild(ctx.guild).cocotarget()
         embed = discord.Embed(color=await self.bot.get_embed_color(None), description=f"Coco is currently set to <@{cocotarget}> ({cocotarget}).\nCoco's emoji is currently set to {emoji} ({await self.config.guild(ctx.guild).cocoemoji()}).")
         await ctx.send(embed=embed)
-    
+
     @coco.command(name="emoji")
     @checks.is_owner()
     async def coco_emoji_set(self, ctx, emoji: discord.Emoji = None):
@@ -307,7 +307,7 @@ class Galaxy(commands.Cog):
     async def faq_links(self, ctx, member: discord.Member = None):
         """Posts important links, primarily invite links."""
         embed=discord.Embed(title="Important Links", color=await self.bot.get_embed_color(None))
-        embed.add_field(name="Galaxy", value="[Galaxy Discord](https://discord.com/invite/robloxgalaxy)\n[Galaxy Support](https://discord.com/invite/ShWshkhYhZ)\n[Galaxy Music Server](https://discord.gg/mRRfUcNw4C)")
+        embed.add_field(name="Galaxy", value="[Galaxy Discord](https://discord.com/invite/robloxgalaxy)\n[Galaxy Support](https://discord.com/invite/ShWshkhYhZ)")
         embed.add_field(name="Galaxypedia", value="[Galaxypedia Website](https://robloxgalaxy.wiki/wiki/Main_Page)\n[Galaxypedia Discord](https://discord.robloxgalaxy.wiki/)")
         if member:
             await ctx.channel.send(embed=embed, content=member.mention)
