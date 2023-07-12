@@ -84,9 +84,9 @@ class Suggestions(commands.Cog):
                 "Uh oh, looks like the Admins haven't added the required channel."
             )
         embed = discord.Embed(color=await ctx.embed_colour(), description=suggestion)
-        footer = [f"Suggested by {self.check_discrim(author)} ({ctx.author.id})",
+        footer = [f"Suggested by {self.check_discrim(ctx.author)} ({ctx.author.id})",
                   ctx.author.avatar_url]
-        author = [f"{self.check_discrim(author)}", ctx.author.avatar_url]
+        author = [f"{self.check_discrim(ctx.author)}", ctx.author.avatar_url]
         embed.set_footer(
             text=footer[0],
             icon_url=footer[1]
