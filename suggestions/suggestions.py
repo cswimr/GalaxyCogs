@@ -44,6 +44,12 @@ class Suggestions(commands.Cog):
             rtext=None,
         )
 
+    def check_discrim(self, user: discord.User):
+        if user.discriminator != 0:
+            return f"{user.name}"
+        else:
+            return f"{user.name}#{user.discriminator}"
+
     async def red_delete_data_for_user(self, *, requester, user_id):
         # per guild suggestions
         for guild in self.bot.guilds:
@@ -78,9 +84,9 @@ class Suggestions(commands.Cog):
                 "Uh oh, looks like the Admins haven't added the required channel."
             )
         embed = discord.Embed(color=await ctx.embed_colour(), description=suggestion)
-        footer = [f"Suggested by {ctx.author.name}#{ctx.author.discriminator} ({ctx.author.id})",
+        footer = [f"Suggested by {self.check_discrim(author)} ({ctx.author.id})",
                   ctx.author.avatar_url]
-        author = [f"{ctx.author.name}#{ctx.author.discriminator}", ctx.author.avatar_url]
+        author = [f"{self.check_discrim(author)}", ctx.author.avatar_url]
         embed.set_footer(
             text=footer[0],
             icon_url=footer[1]
@@ -183,7 +189,7 @@ class Suggestions(commands.Cog):
         content = old_msg.content
         approved = "Approved" if approve else "Denied"
         embed.title = f"Suggestion {approved} (#{suggestion_id})"
-        footer = [f"{approved} by {author.name}#{author.discriminator} ({author.id}",
+        footer = [f"{approved} by {self.check_discrim(author)} ({author.id}",
                   author.avatar_url_as(format="png", size=512)]
         embed.set_footer(
             text=footer[0],
@@ -230,7 +236,7 @@ class Suggestions(commands.Cog):
         """Set the channel for approved suggestions.
 
         If the channel is not provided, approved suggestions will not be reposted.
-        
+
         This cannot be the same channel as denied suggestions."""
         old_channel = ctx.guild.get_channel(await self.config.guild(ctx.guild).approve_id())
         if channel:
@@ -254,7 +260,7 @@ class Suggestions(commands.Cog):
         """Set the channel for denied suggestions.
 
         If the channel is not provided, denied suggestions will not be reposted.
-        
+
         This cannot be the same channel as approved suggestions."""
         old_channel = ctx.guild.get_channel(await self.config.guild(ctx.guild).denied_id())
         if channel:
@@ -457,7 +463,7 @@ class Suggestions(commands.Cog):
         approved = "Approved" if approve else "Denied"
 
         embed.title = f"Suggestion {approved} (#{suggestion_id})"
-        footer = [f"{approved} by {author.name}#{author.discriminator} ({author.id}",
+        footer = [f"{approved} by {self.check_discrim(author)} ({author.id}",
                   author.avatar_url_as(format="png", size=512)]
         embed.set_footer(
             text=footer[0],
