@@ -46,7 +46,7 @@ class Suggestions(commands.Cog):
 
     def check_discrim(self, user: discord.User):
         if user.discriminator != 0:
-            return f"{user.name}"
+            return user.name
         else:
             return f"{user.name}#{user.discriminator}"
 
