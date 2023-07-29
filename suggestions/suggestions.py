@@ -86,7 +86,7 @@ class Suggestions(commands.Cog):
         embed = discord.Embed(color=await ctx.embed_colour(), description=suggestion)
         footer = [f"Suggested by {self.check_discrim(ctx.author)} ({ctx.author.id})",
                   ctx.author.avatar_url]
-        author = [f"{self.check_discrim(ctx.author)}", ctx.author.avatar_url]
+        author = [f"{ctx.author.mention}", ctx.author.avatar_url]
         embed.set_footer(
             text=footer[0],
             icon_url=footer[1]
