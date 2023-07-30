@@ -160,52 +160,52 @@ class Galaxy(commands.Cog):
         return embed
 
     @insurance.command()
-    async def miner(self, ctx: commands.Context, value: int):
+    async def miner(self, ctx: commands.Context, value):
         """Calculates insurance for miners. (70%)"""
         await ctx.send(embed=await self._insurance('miner', value))
 
     @insurance.command()
-    async def freighter(self, ctx: commands.Context, value: int):
+    async def freighter(self, ctx: commands.Context, value):
         """Calculates insurance for freighters. (65%)"""
         await ctx.send(embed=await self._insurance('freighter', value))
 
     @insurance.command()
-    async def frigate(self, ctx: commands.Context, value: int):
+    async def frigate(self, ctx: commands.Context, value):
         """Calculates insurance for frigates. (60%)"""
         await ctx.send(embed=await self._insurance('frigate', value))
 
     @insurance.command()
-    async def destroyer(self, ctx: commands.Context, value: int):
+    async def destroyer(self, ctx: commands.Context, value):
         """Calculates insurance for destroyers. (55%)"""
         await ctx.send(embed=await self._insurance('destroyer', value))
 
     @insurance.command()
-    async def cruiser(self, ctx: commands.Context, value: int):
+    async def cruiser(self, ctx: commands.Context, value):
         """Calculates insurance for cruisers. (50%)"""
         await ctx.send(embed=await self._insurance('cruiser', value))
 
     @insurance.command()
-    async def battlecruiser(self, ctx: commands.Context, value: int):
+    async def battlecruiser(self, ctx: commands.Context, value):
         """Calculates insurance for battlecruisers. (40%)"""
         await ctx.send(embed=await self._insurance('battlecruiser', value))
 
     @insurance.command()
-    async def battleship(self, ctx: commands.Context, value: int):
+    async def battleship(self, ctx: commands.Context, value):
         """Calculates insurance for battleships. (35%)"""
         await ctx.send(embed=await self._insurance('battleship', value))
 
     @insurance.command()
-    async def dreadnought(self, ctx: commands.Context, value: int):
+    async def dreadnought(self, ctx: commands.Context, value):
         """Calculates insurance for dreadnoughts. (30%)"""
         await ctx.send(embed=await self._insurance('dreadnought', value))
 
     @insurance.command()
-    async def carrier(self, ctx: commands.Context, value: int):
+    async def carrier(self, ctx: commands.Context, value):
         """Calculates insurance for carriers. (30%)"""
         await ctx.send(embed=await self._insurance('carrier', value))
 
     @insurance.command()
-    async def supercapital(self, ctx: commands.Context, value: int):
+    async def supercapital(self, ctx: commands.Context, value):
         """Calculates insurance for super capitals. (25%)"""
         await ctx.send(embed=await self._insurance('super_capital', value))
 
