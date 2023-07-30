@@ -130,7 +130,7 @@ class Galaxy(commands.Cog):
 
         value: Required[:class:`int`]
             The value of the ship you're checking. This should be supplied by `/shipinfo`. Not the same as ship cost!"""
-        cleaned_value = ''.join(char for char in value if char.isdigit())
+        cleaned_value = int(''.join(char for char in value if char.isdigit()))
         insurance_dict = {
             "miner": 0.7,
             "freighter": 0.65,
