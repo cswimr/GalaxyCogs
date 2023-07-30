@@ -76,7 +76,7 @@ class Galaxy(commands.Cog):
         await ctx.send(embed=embed)
 
     @coco.command(name="emoji")
-    async def coco_emoji_set(self, ctx, emoji: discord.Emoji = None):
+    async def coco_emoji(self, ctx, emoji: discord.Emoji = None):
         """Sets Coco's emoji."""
         if emoji:
             await self.config.guild(ctx.guild).cocoemoji.set(emoji.id)
