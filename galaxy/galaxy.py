@@ -152,7 +152,7 @@ class Galaxy(commands.Cog):
             humanized_class = ship_class.capitalize()
         insurance_amount = (f"{round(value * insurance_dict[f'{ship_class}']):,}")
         value_output = (f'{value:,}')
-        embed = discord.Embed(title="Insurance Cost", color=await self.bot.get_embed_color(None))
+        embed = discord.Embed(title="Insurance Payout", color=await self.bot.get_embed_color(None))
         embed.add_field(name="Ship Class", value=f"{humanized_class}", inline=False)
         embed.add_field(name="Ship Value", value=f"{value_output}", inline=False)
         embed.add_field(name="Insurance Amount", value=f"{insurance_amount}", inline=False)
