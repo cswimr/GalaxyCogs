@@ -120,7 +120,7 @@ class Galaxy(commands.Cog):
         """Calculates insurance.
         Please only use the value of a ship (from ``/shipinfo``) to calculate insurance and **not** ship cost."""
 
-    async def _insurance(self, ship_class: str, value: int):
+    async def _insurance(self, ship_class: str, value: str):
         """This function does the actual math and configures the embed.
 
         Attributes
@@ -129,7 +129,8 @@ class Galaxy(commands.Cog):
             The class of the ship whose insurance you're checking.
 
         value: Required[:class:`int`]
-            The value of the ship you're checking. This should be supplied by `/shipinfo`. Not the same as ship cost"""
+            The value of the ship you're checking. This should be supplied by `/shipinfo`. Not the same as ship cost!"""
+        cleaned_value = ''.join(char for char in value if char.isdigit())
         insurance_dict = {
             "miner": 0.7,
             "freighter": 0.65,
@@ -150,8 +151,8 @@ class Galaxy(commands.Cog):
             humanized_class = ship_class.replace("_", " ").title()
         else:
             humanized_class = ship_class.capitalize()
-        insurance_amount = (f"{round(value * insurance_dict[f'{ship_class}']):,}")
-        value_output = (f'{value:,}')
+        insurance_amount = (f"{round(cleaned_value * insurance_dict[f'{ship_class}']):,}")
+        value_output = (f'{cleaned_value:,}')
         embed = discord.Embed(title="Insurance Payout", color=await self.bot.get_embed_color(None))
         embed.add_field(name="Ship Class", value=f"{humanized_class}", inline=False)
         embed.add_field(name="Ship Value", value=f"{value_output}", inline=False)
