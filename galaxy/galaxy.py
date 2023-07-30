@@ -76,7 +76,6 @@ class Galaxy(commands.Cog):
         await ctx.send(embed=embed)
 
     @coco.command(name="emoji")
-    @checks.is_owner()
     async def coco_emoji_set(self, ctx, emoji: discord.Emoji = None):
         """Sets Coco's emoji."""
         if emoji:
@@ -90,7 +89,6 @@ class Galaxy(commands.Cog):
             await ctx.send(embed=embed)
 
     @coco.command(name="set")
-    @checks.is_owner()
     async def coco_set(self, ctx, member: discord.Member):
         """Sets Coco's target."""
         if member:
@@ -101,7 +99,6 @@ class Galaxy(commands.Cog):
             await ctx.send(content="That is not a valid argument!")
 
     @coco.command(name="reset")
-    @checks.is_owner()
     async def coco_reset(self, ctx):
         """Resets Coco's target."""
         await self.config.guild(ctx.guild).cocotarget.set(0)
