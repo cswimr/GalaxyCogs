@@ -11,8 +11,8 @@ class Galaxy(commands.Cog):
         self.bot = bot
         self.config = Config.get_conf(self, identifier=6621962)
         self.config.register_guild(
-            cocotarget = 0,
-            cocoemoji = 1028535684757209118
+            fishtarget = 0,
+            fish = "🐟"
         )
 
     @commands.command(aliases=["pxc", "pc", "polarisconvert", "tatsutopolaris", "ttp"])
@@ -68,41 +68,41 @@ class Galaxy(commands.Cog):
 
     @commands.group(autohelp=False, invoke_without_command=True)
     @commands.guild_only()
-    async def coco(self, ctx):
-        """Checks who Coco is currently set to."""
+    async def fish(self, ctx):
+        """Checks who Fish is currently set to."""
         emoji = self.bot.get_emoji(await self.config.guild(ctx.guild).cocoemoji())
         cocotarget = await self.config.guild(ctx.guild).cocotarget()
         embed = discord.Embed(color=await self.bot.get_embed_color(None), description=f"Coco is currently set to <@{cocotarget}> ({cocotarget}).\nCoco's emoji is currently set to {emoji} ({await self.config.guild(ctx.guild).cocoemoji()}).")
         await ctx.send(embed=embed)
 
-    @coco.command(name="emoji")
-    async def coco_emoji(self, ctx, emoji: discord.Emoji = None):
-        """Sets Coco's emoji."""
+    @fish.command(name="emoji")
+    async def fish_emoji(self, ctx, emoji: discord.Emoji = None):
+        """Sets Fish's emoji."""
         if emoji:
-            await self.config.guild(ctx.guild).cocoemoji.set(emoji.id)
-            embed=discord.Embed(color=await self.bot.get_embed_color(None), description=f"Coco's emoji has been set to {emoji} ({emoji.id}).")
+            await self.config.guild(ctx.guild).fishemoji.set(emoji)
+            embed=discord.Embed(color=await self.bot.get_embed_color(None), description=f"Fish's emoji has been set to {emoji}.")
             await ctx.send(embed=embed)
         else:
-            await self.config.guild(ctx.guild).cocoemoji.set(1028535684757209118)
-            emoji = self.bot.get_emoji(1028535684757209118)
-            embed=discord.Embed(color=await self.bot.get_embed_color(None), description=f"Coco's emoji has been set to {emoji} (1028535684757209118).")
+            await self.config.guild(ctx.guild).cocoemoji.set('🐟')
+            emoji = self.bot.get_emoji('🐟')
+            embed=discord.Embed(color=await self.bot.get_embed_color(None), description=f"Fish's emoji has been set to {emoji}.")
             await ctx.send(embed=embed)
 
-    @coco.command(name="set")
-    async def coco_set(self, ctx, member: discord.Member):
-        """Sets Coco's target."""
+    @fish.command(name="set")
+    async def fish_set(self, ctx, member: discord.Member):
+        """Sets Fish's target."""
         if member:
-            await self.config.guild(ctx.guild).cocotarget.set(member.id)
-            embed=discord.Embed(color=await self.bot.get_embed_color(None), description=f"Coco has been set to {member.mention} ({member.id}).")
+            await self.config.guild(ctx.guild).fishtarget.set(member.id)
+            embed=discord.Embed(color=await self.bot.get_embed_color(None), description=f"Fish has been set to {member.mention} ({member.id}).")
             await ctx.send(embed=embed)
         else:
             await ctx.send(content="That is not a valid argument!")
 
-    @coco.command(name="reset")
-    async def coco_reset(self, ctx):
-        """Resets Coco's target."""
-        await self.config.guild(ctx.guild).cocotarget.set(0)
-        embed=discord.Embed(color=await self.bot.get_embed_color(None), description=f"Coco has been reset.")
+    @fish.command(name="reset")
+    async def fish_reset(self, ctx):
+        """Resets Fish's target."""
+        await self.config.guild(ctx.guild).fishtarget.set(0)
+        embed=discord.Embed(color=await self.bot.get_embed_color(None), description=f"Fish has been reset.")
         await ctx.send(embed=embed)
 
     @commands.command()
