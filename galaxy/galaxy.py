@@ -118,7 +118,7 @@ class Galaxy(commands.Cog):
     @commands.group(autohelp=True)
     async def insurance(self, ctx: commands.Context):
         """Calculates insurance.
-        Please only use the value of a ship (from ``/shipinfo``) to calculate insurance and **not** ship cost."""
+        Please only use the value of a ship (from ``/shipinfo``) to calculate insurance and **not** ship cost. Decimals do not work properly with this command, just remove them."""
 
     async def _insurance(self, ship_class: str, value: str):
         """This function does the actual math and configures the embed.
