@@ -1,7 +1,10 @@
-import discord
-from redbot.core import commands, checks, data_manager, Config
 import sqlite3
 from sqlite3 import Error
+import discord
+import inflect
+from redbot.core import Config, checks, commands, data_manager
+from tabulate import tabulate
+
 
 class SugonCredit(commands.Cog):
     """Implements a way for moderators to give out social-credit like points, dubbed 'sugoncredits' by the community."""
@@ -19,6 +22,10 @@ class SugonCredit(commands.Cog):
         con = sqlite3.connect(f'{self.data_path}')
         con.commit()
         con.close()
+
+    def pluralize(word, count):
+        p = inflect.engine()
+        return p.plural(word, count)
 
     def new_guild_generation(self, guild_id):
         """Adds a new table for a guild to the SQLite databse."""
@@ -71,27 +78,23 @@ class SugonCredit(commands.Cog):
     @commands.guild_only()
     async def balance(self, ctx, user: discord.Member = None):
         """Checks an account's balance."""
-        con = sqlite3.connect(f'{self.data_path}')
+        target = user if user else ctx.author
+        con = sqlite3.connect(self.data_path)
         cur = con.cursor()
         await self.new_guild_generation({ctx.guild.id})
-        bank_name = await self.config.guild(ctx.guild).bank_name()
-        currency_name = await self.config.guild(ctx.guild).currency_name()
-        if user == None:
-            target = ctx.author
-        else:
-            target = user
-        if cur.execute(f'''SELECT user_id FROM {ctx.guild.id}
-        WHERE EXISTS (SELECT user_id FROM {ctx.guild.id} WHERE {target.id});''')=="FALSE":
+        bank_name = await self.config.guild(ctx.guild).get_raw('bank_name', default="Bank")
+        currency_name = await self.config.guild(ctx.guild).get_raw('currency_name', default="Credit")
+        cur.execute(f"SELECT user_id FROM {ctx.guild.id} WHERE user_id = ?;", (target.id,))
+        if not cur.fetchone():
             await self.new_user_generation({ctx.guild.id}, target)
-        stored_username = cur.execute(f'''SELECT username FROM {ctx.guild.id}
-        WHERE user_id = {target.id};''')
-        bal = cur.execute(f'''SELECT balance FROM {ctx.guild.id}
-        WHERE user_id = {target.id};''')
-        output_bal = (f'{bal:,}')
-        if bal == 1 or bal == -1:
-            embed=discord.Embed(title=f"{bank_name} - Balance", color=await self.bot.get_embed_color(None), description=f"{target.mention} has {output_bal} {currency_name}.")
-        else:
-            embed=discord.Embed(title=f"{bank_name} - Balance", color=await self.bot.get_embed_color(None), description=f"{target.mention} has {output_bal} {currency_name}s.")
+        cur.execute(f"SELECT balance FROM {ctx.guild.id} WHERE user_id = ?;", (target.id,))
+        bal = cur.fetchone()[0]
+        output_bal = f'{bal:,}'
+        pluralized_currency_name = await self.pluralize(currency_name, bal)
+        embed_title = f"{bank_name} - Balance"
+        embed_color = await self.bot.get_embed_color(None)
+        embed_description = f"{target.mention} has {output_bal} {pluralized_currency_name}."
+        embed = discord.Embed(title=embed_title, color=embed_color, description=embed_description)
         await ctx.send(embed=embed)
         con.close()
 
