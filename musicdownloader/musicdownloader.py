@@ -15,7 +15,7 @@ class MusicDownloader(commands.Cog):
 
     @commands.command()
     @checks.is_owner()
-    async def change_data_path(self, ctx: commands.Context, data_path: str = None):
+    async def change_data_path(self, ctx: commands.Context, *, data_path: str = None):
         """This command changes the data path this cog outputs to."""
         old_path = await self.config.save_directory()
         if not data_path:
