@@ -55,9 +55,7 @@ class MusicDownloader(commands.Cog):
             'paths': {'home': path}
             }
             with YoutubeDL(ydl_opts) as ydl:
-                error_code = ydl.download(url)
-            with YoutubeDL(ydl_opts) as ydl:
-                info = ydl.extract_info(url=url, download=False)
+                info = ydl.extract_info(url=url, download=True)
                 title = info['title']
             return title
         data_path = await self.config.save_directory()
