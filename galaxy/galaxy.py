@@ -1,4 +1,4 @@
-from redbot.core import commands, checks, Config, bot
+from redbot.core import commands, checks, Config
 import discord
 from datetime import datetime
 import re
