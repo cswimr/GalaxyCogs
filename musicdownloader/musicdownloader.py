@@ -28,7 +28,7 @@ class MusicDownloader(commands.Cog):
 
     @commands.command(aliases=["dl"])
     @checks.is_owner()
-    async def download(self, ctx: commands.Context, url: str, subfolder: str = None):
+    async def download(self, ctx: commands.Context, url: str, delete: bool = True, subfolder: str = None):
         """This command downloads a YouTube Video as an MP3 to the local music directory."""
         def youtube_download(self, url: str, path: str, message: discord.Message):
             """This function does the actual downloading of the YouTube Video."""
@@ -59,7 +59,7 @@ class MusicDownloader(commands.Cog):
             filename = title + f' [{id}].m4a'
             return filename
         data_path = await self.config.save_directory()
-        if subfolder:
+        if subfolder and await self.bot.is_owner(ctx.user):
             data_path = os.path.join(data_path, subfolder)
             illegal_chars = r'<>:"/\|?*'
             if any(char in illegal_chars for char in subfolder):
@@ -94,4 +94,8 @@ class MusicDownloader(commands.Cog):
             await asyncio.sleep(0.5)
         if os.path.isfile(full_filename):
             with open(full_filename, 'rb') as file:
-                await ctx.send(content="YouTube Downloader completed!\nDownloaded file:", file=discord.File(file, filename))
+                complete_message = await ctx.send(content="YouTube Downloader completed!\nDownloaded file:", file=discord.File(file, filename))
+            file.close()
+            if delete is True or await self.bot.is_owner(ctx.user) is False:
+                os.remove(full_filename)
+                complete_message.edit(content="YouTube Downloader completed!\nFile has been deleted from Galaxy.\nDownloaded file:")
