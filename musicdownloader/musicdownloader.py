@@ -56,6 +56,10 @@ class MusicDownloader(commands.Cog):
             }
             with YoutubeDL(ydl_opts) as ydl:
                 error_code = ydl.download(url)
+            with YoutubeDL(ydl_opts) as ydl:
+                info = ydl.extract_info(url=url, download=False)
+                title = info['title']
+            return title
         data_path = await self.config.save_directory()
         if subfolder:
             data_path = os.path.join(data_path, subfolder)
@@ -86,4 +90,9 @@ class MusicDownloader(commands.Cog):
         else:
             msg = ctx.send
         message = await msg("YouTube Downloader started!")
-        youtube_download(self, url, data_path, message)
+        title = youtube_download(self, url, data_path, message)
+        matching_files = [file for file in os.listdir(data_path) if file.startswith(title)]
+        if len(matching_files) == 1:
+            full_filename = os.path.join(data_path, matching_files[0])
+            with open(full_filename, 'r') as file:
+                await ctx.send(content="Downloaded file:", file=discord.File(file, f'{title}.m4a'))
