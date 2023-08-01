@@ -90,7 +90,7 @@ class MusicDownloader(commands.Cog):
         filename = youtube_download(self, url, data_path, message)
         full_filename = os.path.join(data_path, filename)
         while not os.path.isfile(full_filename):
-            await asyncio.sleep(1)
+            await asyncio.sleep(0.5)
         if os.path.isfile(full_filename):
             with open(full_filename, 'rb') as file:
                 await ctx.send(content="YouTube Downloader completed!\nDownloaded file:", file=discord.File(file, {filename}))
