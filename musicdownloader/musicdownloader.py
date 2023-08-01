@@ -1,7 +1,7 @@
 import asyncio
 import re
 import discord
-from os import path, makedirs
+from os import path, makedirs, sep
 from yt_dlp import YoutubeDL
 from redbot.core import commands, checks, Config, data_manager
 
@@ -10,7 +10,7 @@ class MusicDownloader(commands.Cog):
         self.bot = bot
         self.config = Config.get_conf(self, identifier=475728338)
         self.config.register_global(
-            save_directory = data_manager.cog_data_path()
+            save_directory = data_manager.cog_data_path() + f"{sep}MusicDownloader"
         )
 
     @commands.command()
