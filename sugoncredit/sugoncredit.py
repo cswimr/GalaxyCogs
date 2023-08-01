@@ -38,9 +38,9 @@ class SugonCredit(commands.Cog):
         con = sqlite3.connect(self.data_path)
         cur = con.cursor()
         try:
-            cur.execute(f"SELECT 1 FROM {guild_id} LIMIT 1;")
+            cur.execute(f"SELECT 1 FROM '{guild_id}' LIMIT 1;")
         except sqlite3.OperationalError:
-            cur.execute(f"CREATE TABLE {guild_id} (user_id TEXT, balance REAL);")
+            cur.execute(f"CREATE TABLE '{guild_id}' (user_id TEXT, balance REAL);")
             con.commit()
         con.close()
 
