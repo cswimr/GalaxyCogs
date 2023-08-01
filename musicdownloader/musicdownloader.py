@@ -52,7 +52,7 @@ class MusicDownloader(commands.Cog):
             'progress_hooks': [hook],
             'format': 'm4a/bestaudio/best',
             'postprocessors': [{'key': 'FFmpegExtractAudio', 'preferredcodec': 'm4a',}],
-            'paths': [{'home': path}]
+            'paths': {'home': path}
             }
             with YoutubeDL(ydl_opts) as ydl:
                 error_code = ydl.download(url)
