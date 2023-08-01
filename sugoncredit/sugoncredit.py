@@ -46,7 +46,6 @@ class SugonCredit(commands.Cog):
 
     def new_user_generation(self, guild_id, target):
         """Adds a new user to the SQLite database."""
-        username = str(target)
         con = sqlite3.connect(f'{self.data_path}')
         cur = con.cursor()
         cur.execute(f'''INSERT INTO {guild_id}
