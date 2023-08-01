@@ -82,8 +82,8 @@ class MusicDownloader(commands.Cog):
                         makedirs(data_path)
                     except OSError as e:
                         await message.edit(f"Encountered an error attempting to create the subfolder!\n`{e}`")
-                    msg = message.edit
-            else:
-                msg = message.send
-        message = await msg("YouTube Downloader started!")
+                    msg = await message.edit
+        else:
+            msg = await message.send
+        message = msg("YouTube Downloader started!")
         youtube_download(url, data_path, message)
