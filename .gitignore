@@ -4,3 +4,4 @@ global.yaml
 galaxy_staff_server.yaml
 combat_welder.yaml
 OOUCogs
+.venv
