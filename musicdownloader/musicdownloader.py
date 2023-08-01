@@ -10,7 +10,7 @@ class MusicDownloader(commands.Cog):
         self.bot = bot
         self.config = Config.get_conf(self, identifier=475728338)
         self.config.register_global(
-            save_directory = data_manager.cog_data_path() + f"{sep}MusicDownloader"
+            save_directory = str(data_manager.cog_data_path()) + f"{sep}MusicDownloader"
         )
 
     @commands.command()
