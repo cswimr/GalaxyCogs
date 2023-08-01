@@ -84,6 +84,6 @@ class MusicDownloader(commands.Cog):
                         await message.edit(f"Encountered an error attempting to create the subfolder!\n`{e}`")
                     msg = await message.edit
         else:
-            msg = await message.send
+            msg = await ctx.send
         message = msg("YouTube Downloader started!")
         youtube_download(url, data_path, message)
