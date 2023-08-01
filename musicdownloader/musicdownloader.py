@@ -65,7 +65,7 @@ class MusicDownloader(commands.Cog):
                     previously_existed = False
             return filename, previously_existed
         data_path = await self.config.save_directory()
-        if subfolder and await self.bot.is_owner(ctx.user):
+        if subfolder and await self.bot.is_owner(ctx.author):
             data_path = os.path.join(data_path, subfolder)
             illegal_chars = r'<>:"/\|?*'
             if any(char in illegal_chars for char in subfolder):
@@ -102,7 +102,7 @@ class MusicDownloader(commands.Cog):
             with open(full_filename, 'rb') as file:
                 complete_message = await ctx.send(content="YouTube Downloader completed!\nDownloaded file:", file=discord.File(file, ytdlp_output[0]))
             file.close()
-            if delete is True or await self.bot.is_owner(ctx.user) is False:
+            if delete is True or await self.bot.is_owner(ctx.author) is False:
                 if ytdlp_output[1] is False:
                     os.remove(full_filename)
                     await complete_message.edit(content="YouTube Downloader completed!\nFile has been deleted from Galaxy.\nDownloaded file:")
