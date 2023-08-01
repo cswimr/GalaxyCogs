@@ -20,6 +20,7 @@ class MusicDownloader(commands.Cog):
         old_path = await self.config.save_directory()
         if not data_path:
             await ctx.send(f"The current data path is `{old_path}`.")
+            return
         if os.path.isdir(data_path):
             await self.config.save_directory.set(data_path)
             embed=discord.Embed(color=await self.bot.get_embed_color(None), description=f"The save directory has been set to `{data_path}`.\n It was previously set to `{old_path}`.")
