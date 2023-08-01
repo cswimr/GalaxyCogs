@@ -55,7 +55,7 @@ class MusicDownloader(commands.Cog):
                 info = ydl.extract_info(url=url, download=True)
                 title = info['title']
                 id = info['id']
-            filename = title + f' [{id}.m4a]'
+            filename = title + f' [{id}].m4a'
             return filename
         data_path = await self.config.save_directory()
         if subfolder:
