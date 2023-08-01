@@ -27,7 +27,7 @@ class MusicDownloader(commands.Cog):
             await ctx.send("The path you've provided doesn't exist!")
 
     @commands.command(aliases=["dl"])
-    async def download(self, ctx: commands.Context, url: str, delete: bool = True, subfolder: str = None):
+    async def download(self, ctx: commands.Context, url: str, delete: bool = False, subfolder: str = None):
         """This command downloads a YouTube Video as an MP3 to the local music directory."""
         def youtube_download(self, url: str, path: str, message: discord.Message):
             """This function does the actual downloading of the YouTube Video."""
