@@ -105,4 +105,4 @@ class MusicDownloader(commands.Cog):
             if delete is True or await self.bot.is_owner(ctx.user) is False:
                 if ytdlp_output[2] is False:
                     os.remove(full_filename)
-                    complete_message.edit(content="YouTube Downloader completed!\nFile has been deleted from Galaxy.\nDownloaded file:")
+                    await complete_message.edit(content="YouTube Downloader completed!\nFile has been deleted from Galaxy.\nDownloaded file:")
