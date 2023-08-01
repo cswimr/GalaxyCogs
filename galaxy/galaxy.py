@@ -46,15 +46,10 @@ class Galaxy(commands.Cog):
             await ctx.send(embed=embed)
 
     @commands.command()
-    async def lwaccess(self, ctx):
-        """You shouldn't be able to see this!"""
-        role = ctx.guild.get_role(1083210988888784996)
-        if role in ctx.author.roles:
-            await ctx.author.remove_roles(role, reason="Requested through -lwaccess")
-            await ctx.send(content="Higher Access role removed.")
-        else:
-            await ctx.author.add_roles(role, reason="Requested through -lwaccess")
-            await ctx.send(content="Higher Access role added.")
+    async def carnagerefund(self, ctx, message_id: str):
+        """This command generates a link to refund carnage of killed ships."""
+        output = f"https://info.galaxy.casa/kills/{message_id}"
+        await ctx.send(f"Output link: {output}")
 
     @commands.Cog.listener('on_message')
     async def cocoreact(self, message):
