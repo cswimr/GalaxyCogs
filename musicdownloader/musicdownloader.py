@@ -114,7 +114,11 @@ class MusicDownloader(commands.Cog):
             await asyncio.sleep(0.5)
         if os.path.isfile(full_filename):
             with open(full_filename, 'rb') as file:
-                complete_message = await ctx.send(content="YouTube Downloader completed!\nDownloaded file:", file=discord.File(file, ytdlp_output[0]))
+                try:
+                    complete_message = await ctx.send(content="YouTube Downloader completed!\nDownloaded file:", file=discord.File(file, ytdlp_output[0]))
+                except ValueError:
+                    complete_message = await ctx.send(content="YouTube Downloader completed, but the audio file was too large to upload.")
+                    return
             file.close()
             if delete is True or await self.bot.is_owner(ctx.author) is False:
                 if ytdlp_output[1] is False:
