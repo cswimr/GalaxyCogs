@@ -16,7 +16,7 @@ class MusicDownloader(commands.Cog):
     @commands.command()
     @checks.is_owner()
     async def change_data_path(self, ctx: commands.Context, *, data_path: str = None):
-        """This command changes the data path this cog outputs to."""
+        """This command changes the data path the `[p]download` command outputs to."""
         old_path = await self.config.save_directory()
         if not data_path:
             await ctx.send(f"The current data path is `{old_path}`.")
@@ -32,7 +32,17 @@ class MusicDownloader(commands.Cog):
 
     @commands.command(aliases=["dl"])
     async def download(self, ctx: commands.Context, url: str, delete: bool = False, subfolder: str = None):
-        """This command downloads a YouTube Video as an MP3 to the local music directory."""
+        """This command downloads a YouTube Video as an `m4a` and uploads the file to discord.
+
+        If you're considered a bot owner, you will be able to save downloaded files to the data path set in the `[p]change_data_path` command.
+
+        ## Arguments
+
+        - The `url` argument is just the url of the YouTube Video you're downloading.
+
+        - The `delete` argument will automatically delete the audio file after uploading it to Discord. If set to False, it will only save the file if you are a bot owner.
+
+        - The `subfolder` argument only does anything if `delete` is set to False, but it allows you to save to a subfolder in the data path you've set previously without having to change said data path manually."""
         def youtube_download(self, url: str, path: str, message: discord.Message):
             """This function does the actual downloading of the YouTube Video."""
             class Logger:
