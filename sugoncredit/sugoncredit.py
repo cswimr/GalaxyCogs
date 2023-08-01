@@ -34,18 +34,13 @@ class SugonCredit(commands.Cog):
             return word + 's'
 
     def new_guild_generation(self, guild_id):
-        """Adds a new table for a guild to the SQLite databse."""
-        con = sqlite3.connect(f'{self.data_path}')
+        """Adds a new table for a guild to the SQLite database."""
+        con = sqlite3.connect(self.data_path)
         cur = con.cursor()
-        exist_check = cur.execute(f'''IF EXISTS
-            (SELECT object_id FROM sys.tables
-            WHERE name = '{guild_id}'
-            AND SCHEMA_NAME(schema_id) = 'dbo')
-            PRINT 'False'
-        ELSE
-            PRINT 'True';''')
-        if exist_check == False:
-            cur.execute(f'''CREATE TABLE '{guild_id}' (user_id text, balance real)''')
+        try:
+            cur.execute(f"SELECT 1 FROM {guild_id} LIMIT 1;")
+        except sqlite3.OperationalError:
+            cur.execute(f"CREATE TABLE {guild_id} (user_id TEXT, balance REAL);")
             con.commit()
         con.close()
 
