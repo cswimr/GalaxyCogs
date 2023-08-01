@@ -14,6 +14,7 @@
 Repository for Redbot cogs developed by the Galaxy Discord Management team.
 
 ## ExportChannels **(WIP)**[^incomplete]
+
 This cog allows you to easily export channels using Discord Chat Exporter.
 
 **THIS COG IS NOT INTENDED FOR EXTERNAL USE. YOU WILL LIKELY HAVE TO RUN THIS COG LOCALLY AND MODIFY CODE SHOULD YOU WISH TO USE IT.**
