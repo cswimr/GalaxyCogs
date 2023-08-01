@@ -44,12 +44,8 @@ class MusicDownloader(commands.Cog):
                 def error(self, msg):
                     print(msg)
                     message.edit(msg)
-            async def hook(d):
-                if d['status'] == 'finished':
-                    await message.edit(content='YouTube Downloader completed!')
             ydl_opts = {
             'logger': Logger(),
-            'progress_hooks': [hook],
             'format': 'm4a/bestaudio/best',
             'postprocessors': [{'key': 'FFmpegExtractAudio', 'preferredcodec': 'm4a',}],
             'paths': {'home': path},
@@ -95,4 +91,4 @@ class MusicDownloader(commands.Cog):
         full_filename = os.path.join(data_path, filename)
         if os.path.isfile(full_filename):
             with open(full_filename, 'rb') as file:
-                await ctx.send(content="Downloaded file:", file=discord.File(file, {filename}))
+                await ctx.send(content="YouTube Downloader completed!\nDownloaded file:", file=discord.File(file, {filename}))
