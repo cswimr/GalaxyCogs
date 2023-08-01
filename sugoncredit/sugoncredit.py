@@ -5,7 +5,7 @@ from sqlite3 import Error
 
 class SugonCredit(commands.Cog):
     """Implements a way for moderators to give out social-credit like points, dubbed 'sugoncredits' by the community."""
-    
+
     def __init__(self, bot):
         self.bot = bot
         self.config = Config.get_conf(self, identifier=47252584)
@@ -24,39 +24,28 @@ class SugonCredit(commands.Cog):
         """Adds a new table for a guild to the SQLite databse."""
         con = sqlite3.connect(f'{self.data_path}')
         cur = con.cursor()
-        exist_check = cur.execute(f'''IF EXISTS 
+        exist_check = cur.execute(f'''IF EXISTS
             (SELECT object_id FROM sys.tables
             WHERE name = '{guild_id}'
             AND SCHEMA_NAME(schema_id) = 'dbo')
             PRINT 'False'
-        ELSE 
+        ELSE
             PRINT 'True';''')
         if exist_check == False:
-            cur.execute(f'''CREATE TABLE '{guild_id}' (username text, user_id text, balance real)''')
+            cur.execute(f'''CREATE TABLE '{guild_id}' (user_id text, balance real)''')
             con.commit()
         con.close()
-        
+
     def new_user_generation(self, guild_id, target):
         """Adds a new user to the SQLite database."""
         username = str(target)
         con = sqlite3.connect(f'{self.data_path}')
         cur = con.cursor()
         cur.execute(f'''INSERT INTO {guild_id}
-        VALUES ('{username}', {target.id}, 250);''')
+        VALUES ({target.id}, 250);''')
         con.commit()
         con.close()
-    
-    def username_updater(self, guild_id, target):
-        """Updates a users' username in the SQLite database."""
-        new_username = str(target)
-        con = sqlite3.connect(f'{self.data_path}')
-        cur = con.cursor()
-        cur.execute(f'''UPDATE {guild_id}
-        SET username = '{new_username}'
-        WHERE user_id = {target.id};''')
-        con.commit()
-        con.close()
-    
+
     @commands.group(autohelp=True, aliases=["sugoncredit"])
     @commands.guild_only()
     async def credit(self, ctx):
@@ -96,8 +85,6 @@ class SugonCredit(commands.Cog):
             await self.new_user_generation({ctx.guild.id}, target)
         stored_username = cur.execute(f'''SELECT username FROM {ctx.guild.id}
         WHERE user_id = {target.id};''')
-        if str(target) != stored_username:
-            await self.username_updater({ctx.guild.id}, target)
         bal = cur.execute(f'''SELECT balance FROM {ctx.guild.id}
         WHERE user_id = {target.id};''')
         output_bal = (f'{bal:,}')
@@ -126,13 +113,6 @@ class SugonCredit(commands.Cog):
         currency_name = await self.config.currency_name()
         max_bal = await self.config.max_bal()
         min_bal = await self.config_min_bal()
-        if cur.execute(f'''SELECT user_id FROM {ctx.guild.id}
-        WHERE EXISTS (SELECT user_id FROM {ctx.guild.id} WHERE {target.id});''')=="FALSE":
-            await self.new_user_generation({ctx.guild.id}, target)
-        stored_username = cur.execute(f'''SELECT username FROM {ctx.guild.id}
-        WHERE user_id = {target.id};''')
-        if str(target) != stored_username:
-            await self.username_updater({ctx.guild.id}, target)
         current_bal = cur.execute(f'''SELECT balance FROM {ctx.guild.id}
         WHERE user_id = {target.id};''')
         new_bal = current_bal + amount
@@ -185,13 +165,6 @@ class SugonCredit(commands.Cog):
         currency_name = await self.config.currency_name()
         max_bal = await self.config.max_bal()
         min_bal = await self.config_min_bal()
-        if cur.execute(f'''SELECT user_id FROM {ctx.guild.id}
-        WHERE EXISTS (SELECT user_id FROM {ctx.guild.id} WHERE {target.id});''')=="FALSE":
-            await self.new_user_generation({ctx.guild.id}, target)
-        stored_username = cur.execute(f'''SELECT username FROM {ctx.guild.id}
-        WHERE user_id = {target.id};''')
-        if str(target) != stored_username:
-            await self.username_updater({ctx.guild.id}, target)
         current_bal = cur.execute(f'''SELECT balance FROM {ctx.guild.id}
         WHERE user_id = {target.id};''')
         new_bal = current_bal - amount

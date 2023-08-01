@@ -3,3 +3,5 @@ galaxy_server.yaml
 global.yaml
 galaxy_staff_server.yaml
 combat_welder.yaml
+.venv
+/OOUCogs
