@@ -27,7 +27,6 @@ class MusicDownloader(commands.Cog):
             await ctx.send("The path you've provided doesn't exist!")
 
     @commands.command(aliases=["dl"])
-    @checks.is_owner()
     async def download(self, ctx: commands.Context, url: str, delete: bool = True, subfolder: str = None):
         """This command downloads a YouTube Video as an MP3 to the local music directory."""
         def youtube_download(self, url: str, path: str, message: discord.Message):
@@ -53,11 +52,18 @@ class MusicDownloader(commands.Cog):
             'verbose': True
             }
             with YoutubeDL(ydl_opts) as ydl:
-                info = ydl.extract_info(url=url, download=True)
+                info = ydl.extract_info(url=url, false=True)
                 title = info['title']
                 id = info['id']
             filename = title + f' [{id}].m4a'
-            return filename
+            full_filename = os.path.join(data_path, filename)
+            if os.path.isfile(full_filename):
+                previously_existed = True
+            else:
+                with YoutubeDL(ydl_opts) as ydl:
+                    error_code = ydl.download(url)
+                    previously_existed = False
+            return filename, previously_existed
         data_path = await self.config.save_directory()
         if subfolder and await self.bot.is_owner(ctx.user):
             data_path = os.path.join(data_path, subfolder)
@@ -88,14 +94,15 @@ class MusicDownloader(commands.Cog):
         else:
             msg = ctx.send
         message = await msg("YouTube Downloader started!")
-        filename = youtube_download(self, url, data_path, message)
-        full_filename = os.path.join(data_path, filename)
+        ytdlp_output = youtube_download(self, url, data_path, message)
+        full_filename = os.path.join(data_path, ytdlp_output[1])
         while not os.path.isfile(full_filename):
             await asyncio.sleep(0.5)
         if os.path.isfile(full_filename):
             with open(full_filename, 'rb') as file:
-                complete_message = await ctx.send(content="YouTube Downloader completed!\nDownloaded file:", file=discord.File(file, filename))
+                complete_message = await ctx.send(content="YouTube Downloader completed!\nDownloaded file:", file=discord.File(file, ytdlp_output[1]))
             file.close()
             if delete is True or await self.bot.is_owner(ctx.user) is False:
-                os.remove(full_filename)
-                complete_message.edit(content="YouTube Downloader completed!\nFile has been deleted from Galaxy.\nDownloaded file:")
+                if ytdlp_output[2] is False:
+                    os.remove(full_filename)
+                    complete_message.edit(content="YouTube Downloader completed!\nFile has been deleted from Galaxy.\nDownloaded file:")
