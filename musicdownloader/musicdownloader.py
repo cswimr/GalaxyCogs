@@ -95,14 +95,14 @@ class MusicDownloader(commands.Cog):
             msg = ctx.send
         message = await msg("YouTube Downloader started!")
         ytdlp_output = youtube_download(self, url, data_path, message)
-        full_filename = os.path.join(data_path, ytdlp_output[1])
+        full_filename = os.path.join(data_path, ytdlp_output[0])
         while not os.path.isfile(full_filename):
             await asyncio.sleep(0.5)
         if os.path.isfile(full_filename):
             with open(full_filename, 'rb') as file:
-                complete_message = await ctx.send(content="YouTube Downloader completed!\nDownloaded file:", file=discord.File(file, ytdlp_output[1]))
+                complete_message = await ctx.send(content="YouTube Downloader completed!\nDownloaded file:", file=discord.File(file, ytdlp_output[0]))
             file.close()
             if delete is True or await self.bot.is_owner(ctx.user) is False:
-                if ytdlp_output[2] is False:
+                if ytdlp_output[1] is False:
                     os.remove(full_filename)
                     await complete_message.edit(content="YouTube Downloader completed!\nFile has been deleted from Galaxy.\nDownloaded file:")
