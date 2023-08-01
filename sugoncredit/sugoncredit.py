@@ -1,7 +1,6 @@
 import sqlite3
 from sqlite3 import Error
 import discord
-import inflect
 from redbot.core import Config, checks, commands, data_manager
 from tabulate import tabulate
 
@@ -24,8 +23,15 @@ class SugonCredit(commands.Cog):
         con.close()
 
     def pluralize(word, count):
-        p = inflect.engine()
-        return p.plural(word, count)
+        if count == 1:
+            return word
+        elif word.endswith('s') or word.endswith('x') or word.endswith('z') or word.endswith('ch') or word.endswith('sh'):
+            return word + 'es'
+        elif word.endswith('y'):
+            # Change 'y' to 'ies' for words ending with a consonant + 'y'
+            return word[:-1] + 'ies'
+        else:
+            return word + 's'
 
     def new_guild_generation(self, guild_id):
         """Adds a new table for a guild to the SQLite databse."""
