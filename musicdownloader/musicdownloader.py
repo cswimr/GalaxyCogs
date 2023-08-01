@@ -85,5 +85,5 @@ class MusicDownloader(commands.Cog):
                     msg = message.edit
             else:
                 msg = message.send
-            message = await msg("YouTube Downloader started!")
-            youtube_download(url, data_path, message)
+        message = await msg("YouTube Downloader started!")
+        youtube_download(url, data_path, message)
