@@ -36,7 +36,7 @@ class MusicDownloader(commands.Cog):
 
         If you're considered a bot owner, you will be able to save downloaded files to the data path set in the `[p]change_data_path` command.
 
-        ## Arguments
+        **Arguments**
 
         - The `url` argument is just the url of the YouTube Video you're downloading.
 
