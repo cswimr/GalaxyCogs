@@ -46,7 +46,7 @@ class MusicDownloader(commands.Cog):
                     message.edit(msg)
             def hook(d):
                 if d['status'] == 'finished':
-                    message.edit(content='Done!')
+                    message.edit(content='YouTube Downloader completed!')
             ydl_opts = {
             'logger': Logger(),
             'progress_hooks': [hook],
