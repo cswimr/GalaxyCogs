@@ -1,7 +1,7 @@
 import asyncio
 import re
 import discord
-from os import path, makedirs, sep
+import os
 from yt_dlp import YoutubeDL
 from redbot.core import commands, checks, Config, data_manager
 
@@ -10,20 +10,20 @@ class MusicDownloader(commands.Cog):
         self.bot = bot
         self.config = Config.get_conf(self, identifier=475728338)
         self.config.register_global(
-            save_directory = str(data_manager.cog_data_path()) + f"{sep}MusicDownloader"
+            save_directory = str(data_manager.cog_data_path()) + f"{os.sep}MusicDownloader"
         )
 
     @commands.command()
     async def change_data_path(self, ctx: commands.Context, data_path: str = None):
         """This command changes the data path this cog outputs to."""
         old_path = await self.config.save_directory()
-        if path.isdir(data_path):
+        if os.path.isdir(data_path):
             await self.config.save_directory.set(data_path)
             embed=discord.Embed(color=await self.bot.get_embed_color(None), description=f"The save directory has been set to `{data_path}`.\n It was previously set to `{old_path}`.")
             await ctx.send(embed=embed)
-        elif path.isfile(data_path):
+        elif os.path.isfile(data_path):
             await ctx.send("The path you've provided leads to a file, not a directory!")
-        elif path.exists(data_path) is False:
+        elif os.path.exists(data_path) is False:
             await ctx.send("The path you've provided doesn't exist!")
 
     @commands.command(aliases=["dl"])
@@ -58,17 +58,17 @@ class MusicDownloader(commands.Cog):
                 error_code = ydl.download(url)
         data_path = await self.config.save_directory()
         if subfolder:
-            data_path = path.join(data_path, subfolder)
+            data_path = os.path.join(data_path, subfolder)
             illegal_chars = r'<>:"/\|?*'
             if any(char in illegal_chars for char in subfolder):
                 pattern = "[" + re.escape(illegal_chars) + "]"
                 modified_subfolder = re.sub(pattern, r'__**\g<0>**__', subfolder)
                 await ctx.send(f"Your subfolder contains illegal characters: `{modified_subfolder}`")
                 return
-            elif path.isfile(data_path):
+            elif os.path.isfile(data_path):
                 await ctx.send("Your 'subfolder' is a file, not a directory!")
                 return
-            elif path.exists(data_path) is False:
+            elif os.path.exists(data_path) is False:
                 message = await ctx.send("Your subfolder does not exist yet, would you like to continue? It will be automatically created.")
                 def check(message):
                     return message.author == ctx.author and message.content.lower() in ['yes', 'ye', 'y']
@@ -79,7 +79,7 @@ class MusicDownloader(commands.Cog):
                 else:
                     await message.edit("Confirmed!")
                     try:
-                        makedirs(data_path)
+                        os.makedirs(data_path)
                     except OSError as e:
                         await message.edit(f"Encountered an error attempting to create the subfolder!\n`{e}`")
                     msg = message.edit
