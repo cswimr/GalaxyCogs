@@ -81,12 +81,12 @@ class SugonCredit(commands.Cog):
         target = user if user else ctx.author
         con = sqlite3.connect(self.data_path)
         cur = con.cursor()
-        await self.new_guild_generation(self, ctx.guild.id)
+        await self.new_guild_generation(ctx.guild.id)
         bank_name = await self.config.guild(ctx.guild).get_raw('bank_name', default="Bank")
         currency_name = await self.config.guild(ctx.guild).get_raw('currency_name', default="Credit")
         cur.execute(f"SELECT user_id FROM {ctx.guild.id} WHERE user_id = ?;", (target.id,))
         if not cur.fetchone():
-            await self.new_user_generation({ctx.guild.id}, target)
+            await self.new_user_generation(ctx.guild.id, target)
         cur.execute(f"SELECT balance FROM {ctx.guild.id} WHERE user_id = ?;", (target.id,))
         bal = cur.fetchone()[0]
         output_bal = f'{bal:,}'
