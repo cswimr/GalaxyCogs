@@ -52,7 +52,7 @@ class MusicDownloader(commands.Cog):
             'verbose': True
             }
             with YoutubeDL(ydl_opts) as ydl:
-                info = ydl.extract_info(url=url, false=True)
+                info = ydl.extract_info(url=url, download=False)
                 title = info['title']
                 id = info['id']
             filename = title + f' [{id}].m4a'
