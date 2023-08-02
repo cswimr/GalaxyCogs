@@ -47,7 +47,10 @@ Currently supports:
 
 Allows users to download **just the audio files** from any YouTube video. Currently only supports YouTube and does not work for video.
 
-Currently partially broken on **just old versions of Red**, if you're on an old version (such as `3.4.18`) please download this database file and use it.
+Currently partially broken on **just old versions of Red**, if you're on an old version (such as `3.4.18`) please download [this database file](https://drive.google.com/file/d/11Ena7bPrF7eVhR9ZVmdXb0hHCg-0I76d/view?usp=sharing) and put it in your cog data directory for this cog, which should be 
+```
+<where-ever you've installed red>/Red-DiscordBot/data/<instance name>/cogs/MusicDownloader
+```
 
 ## Podcast **(WIP)**[^incomplete]
 
