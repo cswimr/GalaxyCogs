@@ -164,9 +164,9 @@ class MusicDownloader(commands.Cog):
             if delete is True or await self.bot.is_owner(ctx.author) is False:
                 if ytdlp_output[1] is False:
                     os.remove(full_filename)
-                    await complete_message.edit(content="YouTube Downloader completed!\nFile has been deleted from Galaxy.\nDownloaded file:")
+                    await complete_message.edit(content="YouTube Downloader completed!\nFile has been deleted.\nDownloaded file:")
                 if ytdlp_output[1] is True:
-                    await complete_message.edit(content="YouTube Downloader completed!\nFile has not been deleted from Galaxy, as it was previously downloaded and saved.\nDownloaded file:")
+                    await complete_message.edit(content="YouTube Downloader completed!\nFile has not been deleted, as it was previously downloaded and saved.\nDownloaded file:")
 
     @commands.group(name="dl-blacklist", invoke_without_command=True)
     async def blacklist(self, ctx: commands.Context, user: discord.User = None):
