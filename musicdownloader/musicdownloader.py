@@ -150,7 +150,7 @@ class MusicDownloader(commands.Cog):
         message = await msg("YouTube Downloader started!")
         try:
             ytdlp_output = youtube_download(self, url, data_path, message)
-        except utils.ExtractorError:
+        except utils.DownloadError or utils.ExtractorError:
             await ctx.send("Please provide a link to YouTube and not another site.")
             return
         full_filename = os.path.join(data_path, ytdlp_output[0])
