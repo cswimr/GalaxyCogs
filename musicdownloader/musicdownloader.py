@@ -182,7 +182,7 @@ class MusicDownloader(commands.Cog):
         result = cur.fetchone()
         if result:
             user_id, reason = result
-            await ctx.send(f"{user.mention} is in the blacklist for the following reason: `{reason}`")
+            await ctx.send(f"{user.mention} is in the blacklist for the following reason: `{reason}`", allowed_mentions = discord.AllowedMentions(users=False))
         else:
             await ctx.send(f"{user.mention} is not in the blacklist.", allowed_mentions = discord.AllowedMentions(users=False))
         con.close()
