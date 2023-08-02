@@ -200,7 +200,7 @@ class MusicDownloader(commands.Cog):
         con.close()
         await ctx.send(f"{user.mention} has been added to the blacklist with the reason: {reason or 'No reason provided.'}")
 
-    @blacklist_add.command(name='remove')
+    @blacklist.command(name='remove')
     async def blacklist_remove(self, ctx, user: discord.User):
         data_path = str(data_manager.cog_data_path()) + f"{os.sep}MusicDownloader{os.sep}Data"
         db_path = os.path.join(data_path, "database.db")
