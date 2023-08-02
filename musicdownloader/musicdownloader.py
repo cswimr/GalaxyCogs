@@ -182,7 +182,7 @@ class MusicDownloader(commands.Cog):
             user_id, reason = result
             await ctx.send(f"{user.mention} is in the blacklist for the following reason: `{reason}`")
         else:
-            await ctx.send(f"{user.mention} is not in the blacklist.")
+            await ctx.send(f"{user.mention} is not in the blacklist.", allowed_mentions = discord.AllowedMentions(users=False))
         con.close()
 
     @blacklist.command(name='add')
