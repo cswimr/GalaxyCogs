@@ -98,7 +98,6 @@ class MusicDownloader(commands.Cog):
                     pass
                 def error(self, msg):
                     print(msg)
-                    message.edit(msg)
             ydl_opts = {
             'logger': Logger(),
             'format': 'm4a/bestaudio/best',
