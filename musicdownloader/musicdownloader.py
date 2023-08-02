@@ -201,7 +201,7 @@ class MusicDownloader(commands.Cog):
         cur.execute("INSERT INTO blacklist_log (user_id, reason) VALUES (?, ?);", (user.id, reason))
         con.commit()
         con.close()
-        await ctx.send(f"{user.mention} has been added to the blacklist with the reason: {reason or 'No reason provided.'}")
+        await ctx.send(f"{user.mention} has been added to the blacklist with the reason: `{reason or 'No reason provided.'}`")
 
     @blacklist.command(name='remove')
     @checks.is_owner()
