@@ -47,6 +47,8 @@ Currently supports:
 
 Allows users to download **just the audio files** from any YouTube video. Currently only supports YouTube and does not work for video.
 
+Currently partially broken on **just old versions of Red**, if you're on an old version (such as `3.4.18`) please download this database file and use it.
+
 ## Podcast **(WIP)**[^incomplete]
 
 Allows users to submit questions to a specified channel, intended for use with podcasts.
