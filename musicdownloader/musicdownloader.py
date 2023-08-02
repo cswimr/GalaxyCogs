@@ -25,10 +25,11 @@ class MusicDownloader(commands.Cog):
             con = sqlite3.connect(db_path)
             cur = con.cursor()
             cur.execute('''
-                CREATE TABLE IF NOT EXISTS blacklist_log (
-                    user_id INTEGER PRIMARY KEY,
-                    reason STRING DEFAULT NULL
-                );
+            CREATE TABLE [IF NOT EXISTS] "blacklist_log" (
+                "user_id"	INTEGER NOT NULL UNIQUE,
+                "reason"	TEXT DEFAULT NULL,
+                PRIMARY KEY("user_id")
+            );
             ''')
             con.commit()
             con.close()
