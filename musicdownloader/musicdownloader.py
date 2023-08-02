@@ -3,7 +3,7 @@ import re
 import discord
 import os
 import sqlite3
-from yt_dlp import YoutubeDL
+from yt_dlp import YoutubeDL, utils
 from redbot.core import commands, checks, Config, data_manager
 
 class MusicDownloader(commands.Cog):
@@ -149,7 +149,11 @@ class MusicDownloader(commands.Cog):
         else:
             msg = ctx.send
         message = await msg("YouTube Downloader started!")
-        ytdlp_output = youtube_download(self, url, data_path, message)
+        try:
+            ytdlp_output = youtube_download(self, url, data_path, message)
+        except utils.ExtractorError:
+            await ctx.send("Please provide a link to YouTube and not another site.")
+            return
         full_filename = os.path.join(data_path, ytdlp_output[0])
         while not os.path.isfile(full_filename):
             await asyncio.sleep(0.2)
@@ -159,7 +163,6 @@ class MusicDownloader(commands.Cog):
                     complete_message = await ctx.send(content="YouTube Downloader completed!\nDownloaded file:", file=discord.File(file, ytdlp_output[0]))
                 except ValueError:
                     complete_message = await ctx.send(content="YouTube Downloader completed, but the audio file was too large to upload.")
-                    return
             file.close()
             if delete is True or await self.bot.is_owner(ctx.author) is False:
                 if ytdlp_output[1] is False:
