@@ -19,7 +19,7 @@ class MusicDownloader(commands.Cog):
             super().__init__(message)
 
     def create_table(self):
-        data_path = str(data_manager.cog_data_path()) + f"{os.sep}MusicDownloader{os.sep}Data"
+        data_path = str(data_manager.cog_data_path()) + f"{os.sep}MusicDownloader"
         if not os.path.isdir(data_path):
             os.makedirs(data_path)
         db_path = os.path.join(data_path, "database.db")
@@ -36,7 +36,7 @@ class MusicDownloader(commands.Cog):
             con.close()
 
     def blacklist_checker(self, user_id):
-        data_path = str(data_manager.cog_data_path()) + f"{os.sep}MusicDownloader{os.sep}Data"
+        data_path = str(data_manager.cog_data_path()) + f"{os.sep}MusicDownloader"
         db_path = os.path.join(data_path, "database.db")
         con = sqlite3.connect(db_path)
         cur = con.cursor()
@@ -170,7 +170,7 @@ class MusicDownloader(commands.Cog):
     @commands.group(name="dl-blacklist", invoke_without_command=True)
     async def blacklist(self, ctx, user: discord.User = None):
         """Group command for managing the blacklist."""
-        data_path = str(data_manager.cog_data_path()) + f"{os.sep}MusicDownloader{os.sep}Data"
+        data_path = str(data_manager.cog_data_path()) + f"{os.sep}MusicDownloader"
         db_path = os.path.join(data_path, "database.db")
         if user is None:
             await ctx.send("Please provide a user to check in the blacklist.")
@@ -188,7 +188,7 @@ class MusicDownloader(commands.Cog):
 
     @blacklist.command(name='add')
     async def blacklist_add(self, ctx, user: discord.User, *, reason: str = None):
-        data_path = str(data_manager.cog_data_path()) + f"{os.sep}MusicDownloader{os.sep}Data"
+        data_path = str(data_manager.cog_data_path()) + f"{os.sep}MusicDownloader"
         db_path = os.path.join(data_path, "database.db")
         con = sqlite3.connect(db_path)
         cur = con.cursor()
