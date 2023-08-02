@@ -152,7 +152,7 @@ class MusicDownloader(commands.Cog):
         ytdlp_output = youtube_download(self, url, data_path, message)
         full_filename = os.path.join(data_path, ytdlp_output[0])
         while not os.path.isfile(full_filename):
-            await asyncio.sleep(0.5)
+            await asyncio.sleep(1)
         if os.path.isfile(full_filename):
             with open(full_filename, 'rb') as file:
                 try:
