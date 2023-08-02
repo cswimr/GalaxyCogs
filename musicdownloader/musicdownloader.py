@@ -167,7 +167,7 @@ class MusicDownloader(commands.Cog):
                     await complete_message.edit(content="YouTube Downloader completed!\nFile has been deleted from Galaxy.\nDownloaded file:")
 
     @commands.group(name="dl-blacklist", invoke_without_command=True)
-    async def blacklist(self, ctx, user: discord.User = None):
+    async def blacklist(self, ctx: commands.Context, user: discord.User = None):
         """Group command for managing the blacklist."""
         data_path = str(data_manager.cog_data_path()) + f"{os.sep}MusicDownloader"
         db_path = os.path.join(data_path, "database.db")
@@ -187,7 +187,7 @@ class MusicDownloader(commands.Cog):
 
     @blacklist.command(name='add')
     @checks.is_owner()
-    async def blacklist_add(self, ctx, user: discord.User, *, reason: str = None):
+    async def blacklist_add(self, ctx: commands.Context, user: discord.User, *, reason: str = None):
         data_path = str(data_manager.cog_data_path()) + f"{os.sep}MusicDownloader"
         db_path = os.path.join(data_path, "database.db")
         con = sqlite3.connect(db_path)
@@ -205,7 +205,7 @@ class MusicDownloader(commands.Cog):
 
     @blacklist.command(name='remove')
     @checks.is_owner()
-    async def blacklist_remove(self, ctx, user: discord.User):
+    async def blacklist_remove(self, ctx: commands.Context, user: discord.User):
         data_path = str(data_manager.cog_data_path()) + f"{os.sep}MusicDownloader{os.sep}Data"
         db_path = os.path.join(data_path, "database.db")
         con = sqlite3.connect(db_path)
