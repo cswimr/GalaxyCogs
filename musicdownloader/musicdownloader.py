@@ -2,6 +2,7 @@ import asyncio
 import re
 import discord
 import os
+import sqlite3
 from yt_dlp import YoutubeDL
 from redbot.core import commands, checks, Config, data_manager
 
@@ -12,6 +13,39 @@ class MusicDownloader(commands.Cog):
         self.config.register_global(
             save_directory = str(data_manager.cog_data_path()) + f"{os.sep}MusicDownloader"
         )
+
+    class UserBlacklisted(Exception):
+        def __init__(self, message="The user is blacklisted from using this command."):
+            super().__init__(message)
+
+    def create_table(self):
+        data_path = str(data_manager.cog_data_path()) + f"{os.sep}MusicDownloader{os.sep}Data"
+        if not os.path.isdir(data_path):
+            os.makedirs(data_path)
+        db_path = os.path.join(data_path, "database.db")
+        if not os.path.isfile(db_path):
+            con = sqlite3.connect(data_path)
+            cur = con.cursor()
+            cur.execute('''
+                CREATE TABLE IF NOT EXISTS blacklist_log (
+                    user_id INTEGER PRIMARY KEY,
+                    reason STRING DEFAULT NULL
+                );
+            ''')
+            con.commit()
+            con.close()
+
+    def blacklist_checker(self, user_id):
+        data_path = str(data_manager.cog_data_path()) + f"{os.sep}MusicDownloader{os.sep}Data"
+        db_path = os.path.join(data_path, "database.db")
+        con = sqlite3.connect(db_path)
+        cur = con.cursor()
+        cur.execute(f"SELECT user_id, reason FROM blacklist_log WHERE user_id = ?;", (user_id,))
+        result = cur.fetchone()
+        con.close()
+        if result:
+            user_id, reason = result
+            raise self.UserBlacklisted(reason)
 
     @commands.command()
     @checks.is_owner()
@@ -43,6 +77,11 @@ class MusicDownloader(commands.Cog):
         - The `delete` argument will automatically delete the audio file after uploading it to Discord. If set to False, it will only save the file if you are a bot owner.
 
         - The `subfolder` argument only does anything if `delete` is set to False, but it allows you to save to a subfolder in the data path you've set previously without having to change said data path manually."""
+        try:
+            self.blacklist_checker(ctx.author.id)
+        except self.UserBlacklisted as e:
+            await ctx.send(f"You are blacklisted from running this command!\nReason: `{e}`")
+            return
         def youtube_download(self, url: str, path: str, message: discord.Message):
             """This function does the actual downloading of the YouTube Video."""
             class Logger:
@@ -124,3 +163,56 @@ class MusicDownloader(commands.Cog):
                 if ytdlp_output[1] is False:
                     os.remove(full_filename)
                     await complete_message.edit(content="YouTube Downloader completed!\nFile has been deleted from Galaxy.\nDownloaded file:")
+
+    @commands.group(name="dl-blacklist", invoke_without_command=True)
+    async def blacklist(self, ctx, user: discord.User = None):
+        """Group command for managing the blacklist."""
+        data_path = str(data_manager.cog_data_path()) + f"{os.sep}MusicDownloader{os.sep}Data"
+        db_path = os.path.join(data_path, "database.db")
+        if user is None:
+            await ctx.send("Please provide a user to check in the blacklist.")
+            return
+        con = sqlite3.connect(db_path)
+        cur = con.cursor()
+        cur.execute("SELECT user_id, reason FROM blacklist_log WHERE user_id = ?;", (user.id,))
+        result = cur.fetchone()
+        if result:
+            user_id, reason = result
+            await ctx.send(f"{user.mention} is in the blacklist for the following reason: {reason}")
+        else:
+            await ctx.send(f"{user.mention} is not in the blacklist.")
+        con.close()
+
+    @blacklist.command(name='add')
+    async def blacklist_add(self, ctx, user: discord.User, *, reason: str = None):
+        data_path = str(data_manager.cog_data_path()) + f"{os.sep}MusicDownloader{os.sep}Data"
+        db_path = os.path.join(data_path, "database.db")
+        con = sqlite3.connect(db_path)
+        cur = con.cursor()
+        cur.execute("SELECT user_id FROM blacklist_log WHERE user_id = ?;", (user.id,))
+        result = cur.fetchone()
+        if result:
+            await ctx.send("User is already in the blacklist.")
+            con.close()
+            return
+        cur.execute("INSERT INTO blacklist_log (user_id, reason) VALUES (?, ?);", (user.id, reason))
+        con.commit()
+        con.close()
+        await ctx.send(f"{user.mention} has been added to the blacklist with the reason: {reason or 'No reason provided.'}")
+
+    @blacklist_add.command(name='remove')
+    async def blacklist_remove(self, ctx, user: discord.User):
+        data_path = str(data_manager.cog_data_path()) + f"{os.sep}MusicDownloader{os.sep}Data"
+        db_path = os.path.join(data_path, "database.db")
+        con = sqlite3.connect(db_path)
+        cur = con.cursor()
+        cur.execute("SELECT user_id FROM blacklist_log WHERE user_id = ?;", (user.id,))
+        result = cur.fetchone()
+        if not result:
+            await ctx.send("User is not in the blacklist.")
+            con.close()
+            return
+        cur.execute("DELETE FROM blacklist_log WHERE user_id = ?;", (user.id,))
+        con.commit()
+        con.close()
+        await ctx.send(f"{user.mention} has been removed from the blacklist.")
