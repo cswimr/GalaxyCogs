@@ -208,7 +208,7 @@ class MusicDownloader(commands.Cog):
     @blacklist.command(name='remove')
     @checks.is_owner()
     async def blacklist_remove(self, ctx: commands.Context, user: discord.User):
-        data_path = str(data_manager.cog_data_path()) + f"{os.sep}MusicDownloader{os.sep}Data"
+        data_path = str(data_manager.cog_data_path()) + f"{os.sep}MusicDownloader"
         db_path = os.path.join(data_path, "database.db")
         con = sqlite3.connect(db_path)
         cur = con.cursor()
