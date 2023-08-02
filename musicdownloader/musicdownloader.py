@@ -169,6 +169,8 @@ class MusicDownloader(commands.Cog):
     @commands.group(name="dl-blacklist", invoke_without_command=True)
     async def blacklist(self, ctx: commands.Context, user: discord.User = None):
         """Group command for managing the blacklist."""
+        if not user:
+            user = ctx.author
         data_path = str(data_manager.cog_data_path()) + f"{os.sep}MusicDownloader"
         db_path = os.path.join(data_path, "database.db")
         if user is None:
