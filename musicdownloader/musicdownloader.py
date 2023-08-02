@@ -47,6 +47,9 @@ class MusicDownloader(commands.Cog):
             user_id, reason = result
             raise self.UserBlacklisted(reason)
 
+    async def cog_load(self):
+        self.create_table()
+
     @commands.command()
     @checks.is_owner()
     async def change_data_path(self, ctx: commands.Context, *, data_path: str = None):
