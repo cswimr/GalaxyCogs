@@ -190,6 +190,8 @@ class MusicDownloader(commands.Cog):
     @blacklist.command(name='add')
     @checks.is_owner()
     async def blacklist_add(self, ctx: commands.Context, user: discord.User, *, reason: str = None):
+        if not reason:
+            reason = 'No reason provided.'
         data_path = str(data_manager.cog_data_path()) + f"{os.sep}MusicDownloader"
         db_path = os.path.join(data_path, "database.db")
         con = sqlite3.connect(db_path)
@@ -203,7 +205,7 @@ class MusicDownloader(commands.Cog):
         cur.execute("INSERT INTO blacklist_log (user_id, reason) VALUES (?, ?);", (user.id, reason))
         con.commit()
         con.close()
-        await ctx.send(f"{user.mention} has been added to the blacklist with the reason: `{reason or 'No reason provided.'}`")
+        await ctx.send(f"{user.mention} has been added to the blacklist with the reason: `{reason}`")
 
     @blacklist.command(name='remove')
     @checks.is_owner()
