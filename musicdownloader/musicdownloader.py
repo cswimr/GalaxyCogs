@@ -24,7 +24,7 @@ class MusicDownloader(commands.Cog):
             os.makedirs(data_path)
         db_path = os.path.join(data_path, "database.db")
         if not os.path.isfile(db_path):
-            con = sqlite3.connect(data_path)
+            con = sqlite3.connect(db_path)
             cur = con.cursor()
             cur.execute('''
                 CREATE TABLE IF NOT EXISTS blacklist_log (
