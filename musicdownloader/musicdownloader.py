@@ -20,8 +20,6 @@ class MusicDownloader(commands.Cog):
 
     def create_table(self):
         data_path = str(data_manager.cog_data_path()) + f"{os.sep}MusicDownloader"
-        if not os.path.isdir(data_path):
-            os.makedirs(data_path)
         db_path = os.path.join(data_path, "database.db")
         if not os.path.isfile(db_path):
             con = sqlite3.connect(db_path)
