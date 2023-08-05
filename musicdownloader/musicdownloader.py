@@ -3,6 +3,7 @@ import re
 import discord
 import os
 import sqlite3
+import concurrent.futures
 from yt_dlp import YoutubeDL, utils
 from redbot.core import commands, checks, Config, data_manager
 
@@ -84,7 +85,11 @@ class MusicDownloader(commands.Cog):
         except self.UserBlacklisted as e:
             await ctx.send(f"You are blacklisted from running this command!\nReason: `{e}`")
             return
-        def youtube_download(self, url: str, path: str, message: discord.Message):
+        async def download_file(self, url: str, path: str):
+            with concurrent.futures.ThreadPoolExecutor() as executor:
+                result = await self.bot.loop.run_in_executor(executor, youtube_download, url, path)
+            return result
+        def youtube_download(self, url: str, path: str):
             """This function does the actual downloading of the YouTube Video."""
             class Logger:
                 def debug(self, msg):
@@ -149,7 +154,7 @@ class MusicDownloader(commands.Cog):
             msg = ctx.send
         message = await msg("YouTube Downloader started!")
         try:
-            ytdlp_output = youtube_download(self, url, data_path, message)
+            ytdlp_output = download_file(self, url, data_path)
         except utils.DownloadError or utils.ExtractorError:
             await message.edit(content="Please provide a link to YouTube and not another site.\nThe site you've linked to is known for using DRM protection, so MusicDownloader cannot download from it.")
             return
