@@ -67,6 +67,41 @@ class MusicDownloader(commands.Cog):
         elif os.path.exists(data_path) is False:
             await ctx.send("The path you've provided doesn't exist!")
 
+    def youtube_download(self, url: str, path: str):
+        """This method does the actual downloading of the YouTube Video."""
+        class Logger:
+            def debug(self, msg):
+                if msg.startswith('[debug] '):
+                    pass
+                else:
+                    self.info(msg)
+            def info(self, msg):
+                pass
+            def warning(self, msg):
+                pass
+            def error(self, msg):
+                print(msg)
+        ydl_opts = {
+        'logger': Logger(),
+        'format': 'm4a/bestaudio/best',
+        'postprocessors': [{'key': 'FFmpegExtractAudio', 'preferredcodec': 'm4a',}],
+        'paths': {'home': path},
+        'verbose': True
+        }
+        with YoutubeDL(ydl_opts) as ydl:
+            info = ydl.extract_info(url=url, download=False)
+            title = info['title']
+            id = info['id']
+        filename = title + f' [{id}].m4a'
+        full_filename = os.path.join(path, filename)
+        if os.path.isfile(full_filename):
+            previously_existed = True
+        else:
+            with YoutubeDL(ydl_opts) as ydl:
+                error_code = ydl.download(url)
+                previously_existed = False
+        return filename, previously_existed
+
     @commands.command(aliases=["dl"])
     async def download(self, ctx: commands.Context, url: str, delete: bool = False, subfolder: str = None):
         """This command downloads a YouTube Video as an `m4a` and uploads the file to discord.
@@ -89,40 +124,6 @@ class MusicDownloader(commands.Cog):
             with concurrent.futures.ThreadPoolExecutor() as executor:
                 result = await self.bot.loop.run_in_executor(executor, self.youtube_download, url, path)
             return result
-        def youtube_download(self, url: str, path: str):
-            """This function does the actual downloading of the YouTube Video."""
-            class Logger:
-                def debug(self, msg):
-                    if msg.startswith('[debug] '):
-                        pass
-                    else:
-                        self.info(msg)
-                def info(self, msg):
-                    pass
-                def warning(self, msg):
-                    pass
-                def error(self, msg):
-                    print(msg)
-            ydl_opts = {
-            'logger': Logger(),
-            'format': 'm4a/bestaudio/best',
-            'postprocessors': [{'key': 'FFmpegExtractAudio', 'preferredcodec': 'm4a',}],
-            'paths': {'home': path},
-            'verbose': True
-            }
-            with YoutubeDL(ydl_opts) as ydl:
-                info = ydl.extract_info(url=url, download=False)
-                title = info['title']
-                id = info['id']
-            filename = title + f' [{id}].m4a'
-            full_filename = os.path.join(data_path, filename)
-            if os.path.isfile(full_filename):
-                previously_existed = True
-            else:
-                with YoutubeDL(ydl_opts) as ydl:
-                    error_code = ydl.download(url)
-                    previously_existed = False
-            return filename, previously_existed
         data_path = await self.config.save_directory()
         if subfolder and await self.bot.is_owner(ctx.author):
             data_path = os.path.join(data_path, subfolder)
