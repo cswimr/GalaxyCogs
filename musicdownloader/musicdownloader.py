@@ -102,6 +102,11 @@ class MusicDownloader(commands.Cog):
                 previously_existed = False
         return filename, previously_existed
 
+    async def download_file(self, url: str, path: str):
+        with concurrent.futures.ThreadPoolExecutor() as executor:
+            result = await self.bot.loop.run_in_executor(executor, self.youtube_download, url, path)
+        return result
+
     @commands.command(aliases=["dl"])
     async def download(self, ctx: commands.Context, url: str, delete: bool = False, subfolder: str = None):
         """This command downloads a YouTube Video as an `m4a` and uploads the file to discord.
@@ -120,10 +125,6 @@ class MusicDownloader(commands.Cog):
         except self.UserBlacklisted as e:
             await ctx.send(f"You are blacklisted from running this command!\nReason: `{e}`")
             return
-        async def download_file(self, url: str, path: str):
-            with concurrent.futures.ThreadPoolExecutor() as executor:
-                result = await self.bot.loop.run_in_executor(executor, self.youtube_download, url, path)
-            return result
         data_path = await self.config.save_directory()
         if subfolder and await self.bot.is_owner(ctx.author):
             data_path = os.path.join(data_path, subfolder)
@@ -155,7 +156,7 @@ class MusicDownloader(commands.Cog):
             msg = ctx.send
         message = await msg("YouTube Downloader started!")
         try:
-            ytdlp_output = await download_file(self, url, data_path)
+            ytdlp_output = await self.download_file(url, data_path)
         except utils.DownloadError or utils.ExtractorError:
             await message.edit(content="Please provide a link to YouTube and not another site.\nThe site you've linked to is known for using DRM protection, so MusicDownloader cannot download from it.")
             return
