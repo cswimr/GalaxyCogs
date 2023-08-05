@@ -87,7 +87,7 @@ class MusicDownloader(commands.Cog):
             return
         async def download_file(self, url: str, path: str):
             with concurrent.futures.ThreadPoolExecutor() as executor:
-                result = await self.bot.loop.run_in_executor(executor, youtube_download, url, path)
+                result = await self.bot.loop.run_in_executor(executor, self.youtube_download, url, path)
             return result
         def youtube_download(self, url: str, path: str):
             """This function does the actual downloading of the YouTube Video."""
