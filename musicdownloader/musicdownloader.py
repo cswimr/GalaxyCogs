@@ -154,7 +154,7 @@ class MusicDownloader(commands.Cog):
             msg = ctx.send
         message = await msg("YouTube Downloader started!")
         try:
-            ytdlp_output = download_file(self, url, data_path)
+            ytdlp_output = await download_file(self, url, data_path)
         except utils.DownloadError or utils.ExtractorError:
             await message.edit(content="Please provide a link to YouTube and not another site.\nThe site you've linked to is known for using DRM protection, so MusicDownloader cannot download from it.")
             return
