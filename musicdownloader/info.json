@@ -5,5 +5,5 @@
     "short" : "Custom cog intended for use on the Galaxy discord server.",
     "description" : "Custom cog intended for use on the Galaxy discord server.",
     "end_user_data_statement" : "This cog does not store any End User Data.",
-    "requirements": "yt_dlp"
+    "requirements": ["yt_dlp"]
   }
