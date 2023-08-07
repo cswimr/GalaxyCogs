@@ -43,7 +43,7 @@ class Galaxy(commands.Cog):
         except subprocess.CalledProcessError as e:
             await ctx.send(f"Error executing `nslookup`: `{e}`")
         except FileNotFoundError:
-            await ctx.send("`nslookup` command not found. Make sure you have nslookup installed and it's in your system PATH.")
+            await ctx.send("`nslookup` command not found. Make sure you have `nslookup` installed and it's in your system PATH.")
 
 
     @commands.command()
