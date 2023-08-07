@@ -36,13 +36,14 @@ class Galaxy(commands.Cog):
     @commands.command()
     @checks.is_owner()
     async def nslookup(self, ctx: commands.Context, *, website: str):
+        """This command uses `nslookup` to check the IP Address of any given website."""
         try:
             result = subprocess.run(['nslookup', website], capture_output=True, text=True, check=True)
             await ctx.send(f"```\n{result.stdout}\n```")
         except subprocess.CalledProcessError as e:
-            await ctx.send(f"Error executing nslookup: {e}")
+            await ctx.send(f"Error executing `nslookup`: `{e}`")
         except FileNotFoundError:
-            await ctx.send("nslookup command not found. Make sure you have nslookup installed and it's in your system PATH.")
+            await ctx.send("`nslookup` command not found. Make sure you have nslookup installed and it's in your system PATH.")
 
 
     @commands.command()
