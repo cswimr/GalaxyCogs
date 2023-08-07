@@ -38,7 +38,7 @@ class Galaxy(commands.Cog):
     async def nslookup(self, ctx: commands.Context, *, website: str):
         try:
             result = subprocess.run(['nslookup', website], capture_output=True, text=True, check=True)
-            await ctx.send(result.stdout)
+            await ctx.send(f"```\n{result.stdout}\n```")
         except subprocess.CalledProcessError as e:
             await ctx.send(f"Error executing nslookup: {e}")
         except FileNotFoundError:
