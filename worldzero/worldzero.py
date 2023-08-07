@@ -11,7 +11,7 @@ class WorldZero(commands.Cog):
     @commands.group(name="worldzero", invoke_without_command=True, aliases=['wz'])
     async def worldzero(self, ctx: commands.Context):
         """Tells the user that this command doesn't do anything currently."""
-        await ctx.send("This command doesn't do anything currently, have you tried a subcommand?\nCurrent subcommands:\n`-worldzero upgrade` - Checks what the Attack Power/Health of an item will be after upgrading it.\n- See `-help worldzero upgrade` for more information.")
+        await ctx.send("This command doesn't do anything currently, have you tried a subcommand?\nCurrent subcommands:\n- `-worldzero upgrade` - Checks what the Attack Power/Health of an item will be after upgrading it.\n  - See `-help worldzero upgrade` for more information.")
 
     @worldzero.command(name="upgrade")
     async def worldzero_upgrade(self, ctx: commands.Context, power_amount: str, upgrade_amount: str):
