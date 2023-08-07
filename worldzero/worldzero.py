@@ -16,10 +16,10 @@ class WorldZero(commands.Cog):
     @worldzero.command(name="upgrade")
     async def worldzero_upgrade(self, ctx: commands.Context, power_amount: str, upgrade_amount: str):
         """Checks what the Attack Power/Health of an item will be after upgrading it.
+
+
         **Arguments**
-
         - The `power_amount` argument is the Attack Power/Health of the item you're looking to upgrade.
-
         - The `upgrade_amount` argument is the number of times your item can be upgraded."""
         try:
             stat_int = int(f"{power_amount}".replace(",", ""))
