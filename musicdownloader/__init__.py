@@ -1,5 +1,5 @@
 from .musicdownloader import MusicDownloader
 
 
-def setup(bot):
-    bot.add_cog(MusicDownloader(bot))
+async def setup(bot):
+    await bot.add_cog(MusicDownloader(bot))

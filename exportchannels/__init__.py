@@ -1,4 +1,4 @@
 from .exportchannels import ExportChannels
 
-def setup(bot):
-    bot.add_cog(ExportChannels(bot))
+async def setup(bot):
+    await bot.add_cog(ExportChannels(bot))
