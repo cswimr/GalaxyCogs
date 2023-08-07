@@ -6,5 +6,5 @@
     "description" : "Implements a way for moderators to give out social-credit like points, dubbed 'sugoncredits' by the community.",
     "tags" : ["bank"],
     "end_user_data_statement": "This cog stores no end user data.",
-    "requirements": "inflect, tabulate"
+    "requirements": ["inflect", "tabulate"]
 }
