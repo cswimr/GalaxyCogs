@@ -2,6 +2,7 @@ from redbot.core import commands, checks, Config
 import discord
 from datetime import datetime
 import re
+import subprocess
 
 class Galaxy(commands.Cog):
     """Custom cog intended for use on the Galaxy discord server.
@@ -31,6 +32,18 @@ class Galaxy(commands.Cog):
         embed.add_field(name="Tatsu Studs", value=f"{output_from}", inline=False)
         embed.add_field(name="Polaris XP", value=f"{output_to}", inline=False)
         await ctx.send(embed=embed)
+
+    @commands.command()
+    @checks.is_owner()
+    async def nslookup(self, ctx: commands.Context, *, website: str):
+        try:
+            result = subprocess.run(['nslookup', website], capture_output=True, text=True, check=True)
+            await ctx.send(result.stdout)
+        except subprocess.CalledProcessError as e:
+            await ctx.send(f"Error executing nslookup: {e}")
+        except FileNotFoundError:
+            await ctx.send("nslookup command not found. Make sure you have nslookup installed and it's in your system PATH.")
+
 
     @commands.command()
     async def galaxyissues(self, ctx, target: discord.Member = None):
