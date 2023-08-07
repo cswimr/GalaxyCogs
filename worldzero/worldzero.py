@@ -11,11 +11,16 @@ class WorldZero(commands.Cog):
     @commands.group(name="worldzero", invoke_without_command=True, aliases=['wz'])
     async def worldzero(self, ctx: commands.Context):
         """Tells the user that this command doesn't do anything currently."""
-        await ctx.send("This command doesn't do anything currently, have you tried a subcommand?\nCurrent subcommands:\n`-worldzero upgrade` - Checks what the attack power/defense power of an item will be after upgrading it.")
+        await ctx.send("This command doesn't do anything currently, have you tried a subcommand?\nCurrent subcommands:\n`-worldzero upgrade` - Checks what the Attack Power/Health of an item will be after upgrading it.\n- See `-help worldzero upgrade` for more information.")
 
     @worldzero.command(name="upgrade")
     async def worldzero_upgrade(self, ctx: commands.Context, power_amount: str, upgrade_amount: str):
-        """Checks what the attack power/defense power of an item will be after upgrading it."""
+        """Checks what the Attack Power/Health of an item will be after upgrading it.
+        **Arguments**
+
+        - The `power_amount` argument is the Attack Power/Health of the item you're looking to upgrade.
+
+        - The `upgrade_amount` argument is the number of times your item can be upgraded."""
         try:
             stat_int = int(f"{power_amount}".replace(",", ""))
             upgrade_int = int(f"{upgrade_amount}".replace(",", ""))
