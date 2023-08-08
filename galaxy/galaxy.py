@@ -67,13 +67,14 @@ class Galaxy(commands.Cog):
 
     @commands.Cog.listener('on_message')
     async def cocoreact(self, message):
-        emoji = self.bot.get_emoji(await self.config.guild(message.guild).cocoemoji())
-        cocotarget = await self.config.guild(message.guild).cocotarget()
-        if cocotarget == 0:
-            return
-        if not message.author.id == cocotarget:
-            return
-        await message.add_reaction(emoji)
+        if message.guild is not None:
+            emoji = self.bot.get_emoji(await self.config.guild(message.guild).cocoemoji())
+            cocotarget = await self.config.guild(message.guild).cocotarget()
+            if cocotarget == 0:
+                return
+            if not message.author.id == cocotarget:
+                return
+            await message.add_reaction(emoji)
 
     @commands.group(autohelp=False, invoke_without_command=True)
     @commands.guild_only()
