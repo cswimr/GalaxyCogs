@@ -21,10 +21,11 @@ class Say(commands.Cog):
             else:
                 await interaction.response.send_message(content=f"Message sent to {target.mention}!\nMessage contents:\n```{message}```", ephemeral=True)
         except (discord.HTTPException, discord.Forbidden) as error:
-            if target_type == "member":
-                await interaction.response.send_message(content="That user has their direct messages closed!", ephemeral=True)
-            elif target_type == "textchannel":
-                await interaction.response.send_message(content="I cannot access that channel!", ephemeral=True)
+            # if target_type == "member":
+            #     await interaction.response.send_message(content="That user has their direct messages closed!", ephemeral=True)
+            # elif target_type == "textchannel":
+            #     await interaction.response.send_message(content="I cannot access that channel!", ephemeral=True)
+            await interaction.response.send_message(content=error)
 
     class MessageModal(discord.ui.Modal, title="Sending message..."):
         def __init__(self, target):
