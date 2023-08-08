@@ -246,18 +246,6 @@ class Galaxy(commands.Cog):
     async def faq(self, ctx):
         """Posts answers to frequently asked questions."""
 
-    @faq.command(name="test")
-    @checks.admin()
-    async def faq_test(self, ctx, member: discord.Member = None):
-        """Testing FAQ"""
-        embed=discord.Embed(title="Test Embed", color=await self.bot.get_embed_color(None), description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer in faucibus odio, at mollis metus.")
-        embed.set_footer(text=ctx.author, icon_url=ctx.author.avatar_url_as(format="png", size=512))
-        if member:
-            await ctx.channel.send(embed=embed, content=member.mention)
-        else:
-            await ctx.channel.send(embed=embed)
-        await ctx.message.delete()
-
     @faq.command(name="dps")
     async def faq_dps(self, ctx, member: discord.Member = None):
         """DPS Calculations/Inaccuracy"""
