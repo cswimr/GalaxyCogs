@@ -45,7 +45,7 @@ class Say(commands.Cog):
         )
 
         async def on_submit(self, interaction: discord.Interaction):
-            Say.send_to_target(self, self.target, interaction, self.message, self.secondary_message)
+            await Say.send_to_target(self, self.target, interaction, self.message, self.secondary_message)
 
     send = app_commands.Group(name="send", description="Send a message as the bot user!")
 
