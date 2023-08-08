@@ -19,8 +19,7 @@ class Say(commands.Cog):
                 await target.send(secondary_message)
                 await interaction.response.send_message(content=f"Message sent to {target.mention}!\nMessage contents:\n```{message}```\n```{secondary_message}```", ephemeral=True)
             else:
-                await interaction.response.send_message(
-                content=f"Message sent to {target.mention}!\nMessage contents:\n```{message}```", ephemeral=True)
+                await interaction.response.send_message(content=f"Message sent to {target.mention}!\nMessage contents:\n```{message}```", ephemeral=True)
         except (discord.HTTPException, discord.Forbidden) as error:
             if target_type == "member":
                 await interaction.response.send_message(content="That user has their direct messages closed!", ephemeral=True)
