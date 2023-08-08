@@ -13,6 +13,8 @@
 </p>
 Repository for Redbot cogs developed by the Galaxy Discord Management team.
 
+# THIS REPOSITORY IS NO LONGER BEING UPDATED! PLEASE USE THIS [SEAGIT REPOSITORY](https://git.seaswimmer.cc/SeaswimmerTheFsh/GalaxyCogs) INSTEAD!
+
 ## ExportChannels **(WIP)**[^incomplete]
 
 This cog allows you to easily export channels using Discord Chat Exporter.
