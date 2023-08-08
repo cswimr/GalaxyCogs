@@ -2,7 +2,7 @@ from typing import Union
 import discord
 from redbot.core import commands, checks, app_commands
 
-class Say(commands.Cog):
+class Send(commands.Cog):
     """Allows you to send messages as the bot account."""
 
     def __init__(self, bot):
@@ -45,7 +45,7 @@ class Say(commands.Cog):
         )
 
         async def on_submit(self, interaction: discord.Interaction):
-            await Say.send_to_target(self, self.target, interaction, self.message, self.secondary_message)
+            await Send.send_to_target(self, self.target, interaction, self.message, self.secondary_message)
 
     send = app_commands.Group(name="send", description="Send a message as the bot user!")
 
@@ -53,14 +53,14 @@ class Say(commands.Cog):
     async def user(self, interaction: discord.Interaction, member: discord.Member, message: str = None):
         """Sends a direct message to a user."""
         if message:
-            await Say.send_to_target(self, member, interaction, message)
+            await Send.send_to_target(self, member, interaction, message)
         else:
-            await interaction.response.send_modal(Say.MessageModal(member))
+            await interaction.response.send_modal(Send.MessageModal(member))
 
     @send.command(name="channel", description="Sends a message to a channel.")
     async def channel(self, interaction: discord.Interaction, channel: discord.TextChannel, message: str = None):
         """Sends a message to a channel."""
         if message:
-            await Say.send_to_target(self, channel, interaction, message)
+            await Send.send_to_target(self, channel, interaction, message)
         else:
-            await interaction.response.send_modal(Say.MessageModal(channel))
+            await interaction.response.send_modal(Send.MessageModal(channel))

@@ -1,0 +1,8 @@
+{
+    "author" : ["SeaswimmerTheFsh"],
+    "install_msg" : "Thank you for installing Send!\nYou can find the source code of this cog here: https://github.com/SeaswimmerTheFsh/GalaxyCogs",
+    "name" : "Send",
+    "short" : "Allows you to send messages as the bot user!",
+    "description" : "Allows you to send messages as the bot user!.",
+    "end_user_data_statement" : "This cog does not store any End User Data."
+  }
