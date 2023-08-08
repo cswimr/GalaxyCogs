@@ -173,7 +173,7 @@ class Info(commands.Cog):
                     name=guild.name
                 )
             if guild.icon:
-                data.set_thumbnail(url=str(guild.icon_url))
+                data.set_thumbnail(url=str(guild.icon.url))
             data.add_field(name=_("Members:"), value=member_msg)
             data.add_field(
                 name=_("Channels:"),
