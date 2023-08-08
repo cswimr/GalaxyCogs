@@ -15,7 +15,7 @@ class Say(commands.Cog):
             target_type = "textchannel"
         try:
             await target.send(message)
-            if secondary_message != "":
+            if secondary_message is not None:
                 await target.send(secondary_message)
                 await interaction.response.send_message(content=f"Message sent to {target.mention}!\nMessage contents:\n```{message}```\n```{secondary_message}```", ephemeral=True)
             else:
