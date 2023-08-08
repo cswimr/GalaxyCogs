@@ -79,8 +79,8 @@ class Info(commands.Cog):
                 )
             )
             if guild.icon:
-                data.set_author(name=guild.name, icon_url=str(guild.icon_url_as(format='png')))
-                data.set_thumbnail(url=str(guild.icon_url_as(format='png')))
+                data.set_author(name=guild.name, icon_url=str(guild.icon.replace(format='png')))
+                data.set_thumbnail(url=str(guild.icon.replace(format='png')))
             else:
                 data.set_author(name=guild.name)
         else:
@@ -260,7 +260,7 @@ class Info(commands.Cog):
                 )
                 data.add_field(name=_("Nitro Boost:"), value=nitro_boost)
             if guild.splash:
-                data.set_image(url=str(guild.splash_url_as(format='png')))
+                data.set_image(url=str(guild.splash.replace(format='png')))
             data.set_footer(text=joined_on)
 
         await ctx.send(embed=data)

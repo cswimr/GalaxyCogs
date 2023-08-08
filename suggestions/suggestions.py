@@ -190,7 +190,7 @@ class Suggestions(commands.Cog):
         approved = "Approved" if approve else "Denied"
         embed.title = f"Suggestion {approved} (#{suggestion_id})"
         footer = [f"{approved} by {self.check_discrim(author)} ({author.id}",
-                  author.avatar.url_as(format="png", size=512)]
+                  author.avatar.replace(format="png", size=512)]
         embed.set_footer(
             text=footer[0],
             icon_url=footer[1]
@@ -464,7 +464,7 @@ class Suggestions(commands.Cog):
 
         embed.title = f"Suggestion {approved} (#{suggestion_id})"
         footer = [f"{approved} by {self.check_discrim(author)} ({author.id}",
-                  author.avatar.url_as(format="png", size=512)]
+                  author.avatar.replace(format="png", size=512)]
         embed.set_footer(
             text=footer[0],
             icon_url=footer[1]
