@@ -344,7 +344,6 @@ class Galaxy(commands.Cog):
 
     @warehouse.error
     @unix.error
-    @faq_test.error
     @faq_linked_role.error
     @faq_npc_intervals.error
     @faq_links.error
