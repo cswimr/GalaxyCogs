@@ -13,7 +13,7 @@
 </p>
 Repository for Redbot cogs developed by the Galaxy Discord Management team.
 
-# THIS REPOSITORY IS NO LONGER BEING UPDATED! PLEASE USE THIS [SEAGIT REPOSITORY](https://git.seaswimmer.cc/SeaswimmerTheFsh/GalaxyCogs) INSTEAD!
+# THIS REPOSITORY IS NO LONGER BEING UPDATED! PLEASE USE THIS [COASTALCOMMITS REPOSITORY](https://www.coastalcommits.com/Sea/GalaxyCogs) INSTEAD!
 
 ## ExportChannels **(WIP)**[^incomplete]
 
